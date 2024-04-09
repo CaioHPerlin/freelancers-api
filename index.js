@@ -6,10 +6,10 @@ dotenv.config();
 const PORT = process.env.DEV_PORT;
 
 app.get('/', (req, res) => {
-    res.status(200).send("the API is running nicely")
-})
+    res.status(200).send("the API is running nicely")   
+});
 
 app.listen(
     PORT,
-    () => console.log(`Listening on ${PORT}`)
+    () => console.log(`Running on http://localhost:${PORT}`)
 );
