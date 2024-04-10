@@ -3,11 +3,17 @@ const app = express();
 const dotenv = require('dotenv');
 dotenv.config();
 
+const freelancerController = require('./controllers/freelancerController')
 const PORT = process.env.DEV_PORT;
 
-app.get('/', (req, res) => {
-    res.status(200).send("the API is running nicely")   
-});
+//Middleware
+app.use(express.json());
+
+//Routes
+app.get('/freelancers', freelancerController.getAll);
+app.post('/freelancers', freelancerController.create);
+//DEVROUTES
+app.delete('/freelancers', freelancerController.wipe);
 
 app.listen(
     PORT,
