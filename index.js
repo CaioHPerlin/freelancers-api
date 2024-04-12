@@ -9,10 +9,14 @@ const PORT = process.env.DEV_PORT;
 //Middleware
 app.use(express.json());
 
-//Routes
-app.get('/freelancers/:city', freelancerController.getByCity);
+//CRUD Routes
 app.get('/freelancers', freelancerController.getAll);
 app.post('/freelancers', freelancerController.create);
+app.delete('/freelancers/:id', freelancerController.remove)
+
+//Filter Routes
+app.get('/freelancers/:city', freelancerController.getByCity);
+
 //DEVROUTES
 app.delete('/freelancers', freelancerController.wipe);
 

@@ -1,20 +1,4 @@
-const { connectToDatabase } = require('../db');
-
-const getByCity = async(req, res) => {
-    const db = await connectToDatabase();
-    const client = db.client;
-    try{
-        const freelancersCollection = db.collection('freelancers');
-        const query = { city: req.params.city };
-        const freelancersFromCity = await freelancersCollection.find(query).toArray();
-        res.status(200).json(freelancersFromCity);
-    } catch (err) {
-        console.error('Error when querying by cities:', err);
-        res.status(500).json({ message: 'internal server error' });
-    } finally {
-        client.close();
-    }
-}
+const { connectToDatabase, toObjectId } = require('../db');
 
 const getAll = async (req, res) => {
     const db = await connectToDatabase();
@@ -44,6 +28,54 @@ const create = async (req, res) => {
     } finally {
         await client.close();
     }
+};
+
+const remove = async (req, res) => {
+    const { id } = req.params; 
+    const db = await connectToDatabase();
+    const client = db.client;
+    try{
+        const freelancersCollection = db.collection('freelancers');
+        await freelancersCollection.deleteOne({ _id: toObjectId(id) });
+        res.status(200).json({ message: 'user successfully deleted from database' })
+    } catch (err) {
+        console.error('Error when deleting user from database:', err);
+        res.status(500).json({ message: 'internal server error'});
+    } finally {
+        await client.close();
+    }
+};
+
+/*const update = async (req, res) => {
+    const { id } = req.params; 
+    const db = await connectToDatabase();
+    const client = db.client;
+    try{
+        const freelancersCollection = db.collection('freelancers');
+        await freelancersCollection.updateOne({ _id: id }, req.body);
+        res.status(200).json({'message': 'succesfully deleted user from database'})
+    } catch (err) {
+        console.error('Error when deleting user from database:', err);
+        res.status(500).json({ message: 'internal server error'});
+    } finally {
+        await client.close();
+    }
+}*/
+
+const getByCity = async(req, res) => {
+    const db = await connectToDatabase();
+    const client = db.client;
+    const { city } = req.params;
+    try{
+        const freelancersCollection = db.collection('freelancers');
+        const freelancersFromCity = await freelancersCollection.find({ city: city }).toArray();
+        res.status(200).json(freelancersFromCity);
+    } catch (err) {
+        console.error('Error when querying by cities:', err);
+        res.status(500).json({ message: 'internal server error' });
+    } finally {
+        client.close();
+    }
 }
 
 //ONLY FOR DEVELOPMENT
@@ -53,10 +85,10 @@ const wipe = async (req, res) => {
     try{
         const freelancersCollection = db.collection('freelancers');
         await freelancersCollection.deleteMany();
-        res.status(200).json({"message": "database successfully wiped"})
+        res.status(200).json({ message: 'database successfully wiped' })
     } catch (err) {
-        console.error('Error when wiping databse:', err);
-        res.status(500).json({ message: 'internal server error'});
+        console.error('Error when wiping database:', err);
+        res.status(500).json({ message: 'internal server error' });
     } finally {
         await client.close();
     }
@@ -66,5 +98,6 @@ module.exports = {
     getAll,
     getByCity,
     create,
-    wipe
+    wipe,
+    remove
 };
