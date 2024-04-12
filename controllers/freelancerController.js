@@ -1,5 +1,21 @@
 const { connectToDatabase } = require('../db');
 
+const getByCity = async(req, res) => {
+    const db = await connectToDatabase();
+    const client = db.client;
+    try{
+        const freelancersCollection = db.collection('freelancers');
+        const query = { city: req.params.city };
+        const freelancersFromCity = await freelancersCollection.find(query).toArray();
+        res.status(200).json(freelancersFromCity);
+    } catch (err) {
+        console.error('Error when querying by cities:', err);
+        res.status(500).json({ message: 'internal server error' });
+    } finally {
+        client.close();
+    }
+}
+
 const getAll = async (req, res) => {
     const db = await connectToDatabase();
     const client = db.client;
@@ -48,6 +64,7 @@ const wipe = async (req, res) => {
 
 module.exports = {
     getAll,
+    getByCity,
     create,
     wipe
 };
