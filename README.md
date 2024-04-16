@@ -6,4 +6,17 @@
 - [ ] Useful filter routes
 - [ ] JWT authentication
 
+
+```
+Freelancer{
+    name: String,
+    picture: String,
+    shirtSize: String,
+    state: String,
+    city: String,
+    birthDate: Date,
+    keyType: String,
+    key: String
+}
+```
 # FrontEnd
