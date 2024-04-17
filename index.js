@@ -10,9 +10,9 @@ const PORT = process.env.DEV_PORT;
 app.use(express.json());
 
 //CRUD Routes
-app.get('/freelancers', freelancerController.getAll);
-app.post('/freelancers', freelancerController.create);
-app.delete('/freelancers/:id', freelancerController.remove)
+app.get('https://sebrae-api.onrender.com/freelancers', freelancerController.getAll);
+app.post('https://sebrae-api.onrender.com/freelancers', freelancerController.create);
+app.delete('https://sebrae-api.onrender.com/freelancers', freelancerController.remove)
 
 //Filter Routes
 app.get('/freelancers/:city', freelancerController.getByCity);
