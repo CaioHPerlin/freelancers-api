@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #fffece;
+  }
+
+  main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90VH;
+  }
+
+
+  h1{
+    display: block;
+    text-transform: uppercase;
+  }
+
+  nav div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  svg{
+    color: #4ECB71;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 10;
+    width: 100%;
+    border: 0;
+    background-color: #fffc97;
+  }
+  
+
+  footer p {
+    margin: 0;
+    padding: 14px;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  footer p a {
+    color: #000;
+   
+  }
