@@ -1,23 +1,31 @@
 const express = require('express');
 const app = express();
-const dotenv = require('dotenv');
-dotenv.config();
 
-const freelancerController = require('./controllers/freelancerController')
+const freelancerController = require('./controllers/freelancerController');
+
+require('dotenv').config();
 const PORT = process.env.DEV_PORT;
+
+const cors = require('cors');
+
+const corsOptions = {
+    origin: ["http://localhost:5500", `http://localhost:${PORT}`],
+    methods: "GET,PUT,POST,DELETE",
+    allowedHeaders:"Content-Type, Authorization",
+    credentials: true
+};
 
 //Middleware
 app.use(express.json());
+app.use(cors(corsOptions));
 
-//CRUD Routes
+//Freelancers
 app.get('/freelancers', freelancerController.getAll);
 app.post('/freelancers', freelancerController.create);
 app.delete('/freelancers/:id', freelancerController.remove)
-
-//Filter Routes
 app.get('/freelancers/:city', freelancerController.getByCity);
 
-//DEVROUTES
+//DEVROUTES - DELETE WHEN IN PRODUCTION
 app.delete('/freelancers', freelancerController.wipe);
 
 app.listen(
