@@ -35,6 +35,11 @@ body {
     display: flex;
     flex-direction: column;
   }
+
+  label{
+    display: block;
+    margin-bottom: 8px;text-transform: uppercase;
+  }
   
   .input {
     margin-bottom: 14px;
@@ -42,8 +47,10 @@ body {
     border-radius: 4px;
     border: 0;
     padding: 0 8px;
+    display: block;
+    width: 100%;
+    
   }
-  
 
   
   .button {
@@ -66,7 +73,7 @@ body {
   
   footer {
     position: absolute;
-    bottom: 0;
+    bottom: 10;
     width: 100%;
     border: 0;
     background-color: #fffca7;

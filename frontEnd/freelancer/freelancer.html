@@ -11,10 +11,10 @@
       media="screen"
       href="freelancer.css"
     />
+
     <script src="main.js"></script>
   </head>
   <body>
-
     <header>
       <nav class="titleCadastro">
         <h1>Cadastro de freelancers</h1>
@@ -23,14 +23,295 @@
 
     <main class="container">
       <form class="form" method="post">
-        <input class="input" type="text" placeholder="Digite seu nome"  id="nomeFree"/>
 
-       
+
+        <div class="inputContainer">
+          <label for="name">Nome Completo</label>
+          <input
+            name="name"
+            class="input"
+            type="text"
+            placeholder="Digite seu nome completo"
+            id="name"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="cpf">CPF</label>
+          <input
+            name="cpf"
+            class="input"
+            type="text"
+            placeholder="Digite seu CPF"
+            id="cpf"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="phone">Telefone Celular</label>
+          <input
+            name="phone"
+            class="input"
+            type="tel"
+            placeholder="Digite seu telefone celular"
+            id="phone"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="email">E-mail</label>
+          <input
+            name="email"
+            class="input"
+            type="email"
+            placeholder="Digite seu e-mail"
+            id="email"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="cep">CEP</label>
+          <input
+            name="cep"
+            class="input"
+            type="text"
+            placeholder="Digite seu CEP"
+            id="cep"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="street">Rua</label>
+          <input
+            name="street"
+            class="input"
+            type="text"
+            placeholder="Digite sua rua"
+            id="street"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="residentialNumber">Número Residencial</label>
+          <input
+            name="residentialNumber"
+            class="input"
+            type="number"
+            placeholder="Digite seu número residencial"
+            id="residentialNumber"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="neighborhood">Bairro</label>
+          <input
+            name="neighborhood"
+            class="input"
+            type="text"
+            placeholder="Digite seu bairro"
+            id="neighborhood"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="height">Altura (cm)</label>
+          <input
+            name="height"
+            class="input"
+            type="number"
+            placeholder="Digite sua altura em cm"
+            id="height"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="weight">Peso (kg)</label>
+          <input
+            name="weight"
+            class="input"
+            type="number"
+            placeholder="Digite seu peso em kg"
+            id="weight"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="hairColor">Cor do Cabelo</label>
+          <input
+            name="hairColor"
+            class="input"
+            type="text"
+            placeholder="Digite a cor do seu cabelo"
+            id="hairColor"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="eyeColor">Cor dos Olhos</label>
+          <input
+            name="eyeColor"
+            class="input"
+            type="text"
+            placeholder="Digite a cor dos seus olhos"
+            id="eyeColor"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="skinColor">Cor da Pele</label>
+          <select
+            name="skinColor"
+            class="input"
+            placeholder="Digite a cor da sua pele"
+            id="skinColor">
+            <option value="branca">Branca</option>
+            <option value="parda">Parda</option>
+            <option value="negra">Negra</option>
+            <option value="indigena">Indígena</option>
+            <option value="amarela">Amarela</option>
+        </select>
+     
+        </div>
+
+        <div class="inputContainer">
+          <label for="instagram">Instagram</label>
+          <input
+            name="instagram"
+            class="input"
+            type="text"
+            placeholder="Digite seu usuário do Instagram"
+            id="instagram"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="facebook">Facebook</label>
+          <input
+            name="facebook"
+            class="input"
+            type="text"
+            placeholder="Digite seu usuário do Facebook"
+            id="facebook"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="city">Cidade</label>
+          <input
+            name="city"
+            class="input"
+            type="text"
+            placeholder="Digite sua cidade"
+            id="city"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="state">Estado</label>
+          <input
+            name="state"
+            class="input"
+            type="text"
+            placeholder="Digite seu estado"
+            id="state"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="emergencyName">Contato Emergência - Nome</label>
+          <input
+            name="emergencyName"
+            class="input"
+            type="text"
+            placeholder="Digite o nome do seu contato de emergência"
+            id="emergencyName"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="emergencyPhone">Contato Emergência - Telefone</label>
+          <input
+            name="emergencyPhone"
+            class="input"
+            type="tel"
+            placeholder="Digite o telefone do seu contato de emergência"
+            id="emergencyPhone"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="shirtSize">Tamanho Camiseta</label>
+          <input
+            name="shirtSize"
+            class="input"
+            type="text"
+            placeholder="Digite o tamanho da sua camiseta (P, M, G, etc.)"
+            id="shirtSize"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="profilePicture">Foto de Perfil</label>
+          <input
+            name="profilePicture"
+            class="input"
+            type="file"
+            id="profilePicture"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="facePicture">Foto do Rosto</label>
+          <input
+            name="facePicture"
+            class="input"
+            type="file"
+            id="facePicture"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="pixKey">Chave Pix e Nome do Banco</label>
+          <input
+            name="pixKey"
+            class="input"
+            type="text"
+            placeholder="Digite sua chave Pix e nome do banco"
+            id="pixKey"
+          />
+        </div>
+
+        <div class="inputContainer">
+          <label for="complement">Complemento (até 300 caracteres)</label>
+          <textarea
+            name="complement"
+            class="input"
+            type="text"
+            maxlength="300"
+            placeholder="Digite informações complementares (máximo 300 caracteres)"
+            id="complement">
+          </textarea>
+        </div>
+
+        <div class="inputContainer">
+          <label for="dream">Qual o sonho de vida? (Até 300 caracteres)</label>
+          <textarea
+            name="dream"
+            class="input"
+            maxlength="300"
+            placeholder="Conte-nos sobre o seu sonho de vida (máximo 300 caracteres)"
+            id="dream">
+          </textarea>
+        </div>
+
         <input class="button" type="submit" value="ENVIAR" />
       </form>
     </main>
     <footer>
-      <p> Created by <a href="https://github.com/CaioHPerlin">Caio Lima</a> and <a href="https://github.com/willianifms">Willian Cardoso</a></p>
+      <p>
+        Created by <a href="https://github.com/CaioHPerlin">Caio Lima</a> and
+        <a href="https://github.com/willianifms">Willian Cardoso</a>
+      </p>
     </footer>
   </body>
 </html>
