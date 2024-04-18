@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
+const dotenv = require('dotenv');
+const cors = require('cors');
+const upload = require('./upload');
+
+dotenv.config();
+
+const PORT = process.env.DEV_PORT || 8080;
 
 const freelancerController = require('./controllers/freelancerController');
-
-require('dotenv').config();
-const PORT = process.env.DEV_PORT;
-
-const cors = require('cors');
 
 // const corsOptions = {
 //     origin: ["http://localhost:5500", `http://localhost:${PORT}`],
@@ -16,19 +18,19 @@ const cors = require('cors');
 // };
 
 //Middleware
-app.use(express.json());
 app.use(cors());
 
 //Freelancers
 app.get('/freelancers', freelancerController.getAll);
-app.post('/freelancers', freelancerController.create);
-app.delete('/freelancers/:id', freelancerController.remove)
+app.post(
+	'/freelancers',
+    upload.fields([{ name: 'profilePicture', maxCount: 1 }, { name: 'facePicture', maxCount: 1 }]), //Handle file upload through multer middleware
+	freelancerController.create
+);
+app.delete('/freelancers/:id', freelancerController.remove);
 app.get('/freelancers/:city', freelancerController.getByCity);
 
 //DEVROUTES - DELETE WHEN IN PRODUCTION
 app.delete('/freelancers', freelancerController.wipe);
 
-app.listen(
-    PORT,
-    () => console.log(`Running on http://localhost:${PORT}`)
-);
+app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`));

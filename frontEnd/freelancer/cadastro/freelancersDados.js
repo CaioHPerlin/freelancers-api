@@ -1,90 +1,79 @@
-const dadosfreelancers = document.getElementById("dadosFreelancers");
+const dadosfreelancers = document.getElementById('dadosFreelancers');
 
-dadosfreelancers.addEventListener("submit", (evento) => {
-  evento.preventDefault();
-  const freelancersData = new FormData(dadosfreelancers);
-  const data = Object.fromEntries(freelancersData);
-
-  fetch("https://sebrae-api.onrender.com/freelancers", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      window.location.href = '../sucessoCadastro/sucesso.html';
-    })
-    .catch((err) => {
-      console.error(err);
-      alert("Erro ao cadastrar!");
-    });
+dadosfreelancers.addEventListener('submit', (evento) => {
+	evento.preventDefault();
+	const freelancersData = new FormData(dadosfreelancers);
+	fetch('https://sebrae-api.onrender.com/freelancers', {
+		method: 'POST',
+		body: freelancersData,
+	})
+		.then((res) => res.json())
+		.then((data) => {
+			console.log(data);
+			window.location.href = '../sucessoCadastro/sucesso.html';
+		})
+		.catch((err) => {
+			console.error(err);
+			alert('Erro ao cadastrar!');
+		});
 });
 
-//(data) => {
-//console.log('Successo:', data);
-//alert('Cadastro realizado com sucesso!');
-// window.location.href = 'freelancers.html';
-
 //select api de estados e cidades
-const uf = document.querySelector('#state')
-const local = document.querySelector('#city')
-
+const uf = document.querySelector('#state');
+const local = document.querySelector('#city');
 
 function selectUF() {
-    fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
-        .then((response) => {
-            return response.json();
-        })
-        .then((json) => {
-            json.sort(function organizar(x, y) {
-                let a = x.sigla.toUpperCase(),
-                    b = y.sigla.toUpperCase();
-                return a == b ? 0 : a > b ? 1 : -1;
-            });
-            for (let i = 0; i < json.length; i++) {
-                let newopt = document.createElement('option');
-                newopt.setAttribute('value', json[i].id);
-                newopt.setAttribute('id', json[i].sigla);
-                newopt.innerText = json[i].sigla;
-                uf.appendChild(newopt);
-            }
-        })
+	fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+		.then((response) => {
+			return response.json();
+		})
+		.then((json) => {
+			json.sort(function organizar(x, y) {
+				let a = x.sigla.toUpperCase(),
+					b = y.sigla.toUpperCase();
+				return a == b ? 0 : a > b ? 1 : -1;
+			});
+			for (let i = 0; i < json.length; i++) {
+				let newopt = document.createElement('option');
+				newopt.setAttribute('value', json[i].id);
+				newopt.setAttribute('id', json[i].sigla);
+				newopt.innerText = json[i].sigla;
+				uf.appendChild(newopt);
+			}
+		});
 }
 
 uf.addEventListener('change', (element) => {
-    local.innerHTML = '';
-    local.removeAttribute('disabled');
-    selectLocal(element.target.value);
+	local.innerHTML = '';
+	local.removeAttribute('disabled');
+	selectLocal(element.target.value);
 });
 
 function selectLocal(selectedUf) {
-    local.innerHTML = '<option value="" disabled selected>Selecione</option>';
-    fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`)
-        .then((response) => {
-            return response.json();
-        })
-        .then((json) => {
-            json.sort(function organizar(x, y) {
-                let a = x.nome.toUpperCase(),
-                    b = y.nome.toUpperCase();
-                return a == b ? 0 : a > b ? 1 : -1;
-            });
-            for (let i = 0; i < json.length; i++) {
-                let newopt = document.createElement('option');
-                newopt.setAttribute('value', json[i].nome);
-                newopt.innerText = json[i].nome;
-                local.appendChild(newopt);
-            }
-        })
+	local.innerHTML = '<option value="" disabled selected>Selecione</option>';
+	fetch(
+		`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`
+	)
+		.then((response) => {
+			return response.json();
+		})
+		.then((json) => {
+			json.sort(function organizar(x, y) {
+				let a = x.nome.toUpperCase(),
+					b = y.nome.toUpperCase();
+				return a == b ? 0 : a > b ? 1 : -1;
+			});
+			for (let i = 0; i < json.length; i++) {
+				let newopt = document.createElement('option');
+				newopt.setAttribute('value', json[i].nome);
+				newopt.innerText = json[i].nome;
+				local.appendChild(newopt);
+			}
+		});
 }
 
-
-window.addEventListener("DOMContentLoaded", () => {
-    uf.innerHTML = '<option id="optVoid" value="" disabled selected>Selecione</option>';
-    selectUF();
+window.addEventListener('DOMContentLoaded', () => {
+	uf.innerHTML =
+		'<option id="optVoid" value="" disabled selected>Selecione</option>';
+	selectUF();
 });
-
-
