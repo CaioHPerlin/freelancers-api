@@ -11,8 +11,6 @@
       media="screen"
       href="freelancer.css"
     />
-
- 
   </head>
   <body>
     <header>
@@ -23,8 +21,6 @@
 
     <main class="container">
       <form class="form" method="post" id="dadosFreelancers">
-
-
         <div class="inputContainer">
           <label for="name">Nome Completo</label>
           <input
@@ -176,14 +172,14 @@
             class="input"
             placeholder="Digite a cor da sua pele"
             id="skinColor"
-            required>
+            required
+          >
             <option value="branca" selected>Branca</option>
             <option value="parda">Parda</option>
             <option value="negra">Negra</option>
             <option value="indigena">Indígena</option>
             <option value="amarela">Amarela</option>
-        </select>
-     
+          </select>
         </div>
 
         <div class="inputContainer">
@@ -209,27 +205,30 @@
         </div>
 
         <div class="inputContainer">
-          <label for="city">Cidade</label>
-          <input
-            name="city"
-            class="input"
-            type="text"
-            placeholder="Digite sua cidade"
-            id="city"
-            required
-          />
-        </div>
-
-        <div class="inputContainer">
           <label for="state">Estado</label>
-          <input
+          <select
             name="state"
             class="input"
-            type="text"
+            
             placeholder="Digite seu estado"
             id="state"
             required
-          />
+          >
+
+          </select>
+        </div>
+
+        <div class="inputContainer">
+          <label for="city">Cidade</label>
+          <select
+            name="city"
+            class="input"
+            
+            placeholder="Digite sua cidade"
+            id="city"
+            required>
+
+          </select>
         </div>
 
         <div class="inputContainer">
@@ -310,7 +309,8 @@
             type="text"
             maxlength="300"
             placeholder="Digite informações complementares (máximo 300 caracteres)"
-            id="complement">
+            id="complement"
+          >
           </textarea>
         </div>
 
@@ -322,8 +322,8 @@
             maxlength="300"
             placeholder="Conte-nos sobre o seu sonho de vida (máximo 300 caracteres)"
             id="dream"
-            required>
-            
+            required
+          >
           </textarea>
         </div>
 
