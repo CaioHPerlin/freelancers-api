@@ -9,7 +9,7 @@ function parseQueryString() {
     const detailsContainer = document.getElementById('details');
     if (freelancer.facePicture) {
         const profilePicture = document.createElement('img');
-        profilePicture.src = freelancer.profilePicture;
+        profilePicture.src = `https://sebrae-api.onrender.com/freelancers/${freelancer.facePicture}`;
         profilePicture.alt = "face Picture";
         profilePicture.style.width = "300px";
         profilePicture.style.height = "auto";
@@ -18,7 +18,7 @@ function parseQueryString() {
   
       if (freelancer.profilePicture) {
           const profilePicture = document.createElement('img');
-          profilePicture.src = freelancer.profilePicture;
+          profilePicture.src = `https://sebrae-api.onrender.com/freelancers/${freelancer.profilePicture}`;
           profilePicture.alt = "Profile Picture";
           profilePicture.style.width = "300px";
           profilePicture.style.height = "auto";
@@ -111,8 +111,32 @@ whatsappLink.href = `https://wa.me/${freelancer.phone.replace(/\D/g, '')}`; // R
 whatsappLink.textContent = 'Contatar via WhatsApp';
 detailsContainer.appendChild(whatsappLink);
 
+const deleteButton = document.getElementById('deleteButton');
+deleteButton.addEventListener('click', () => deleteFreelancer(freelancer._id));
     
   }
+
+
+   
+
+    async function deleteFreelancer(freelancerId) {
+      try {
+        const response = await fetch(`https://sebrae-api.onrender.com/freelancers/${freelancerId}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          alert('Freelancer deletado com sucesso!');
+          window.location.href = 'admin.html'; // Redireciona de volta para a página inicial após a exclusão
+        } else {
+          const errorMessage = await response.text();
+          alert(`Erro ao deletar o freelancer: ${errorMessage}`);
+        }
+      } catch (error) {
+        console.error('Erro ao deletar o freelancer:', error);
+        alert('Erro ao deletar o freelancer. Verifique o console para mais informações.');
+      }
+    }
 
   window.onload = function() {
     const freelancer = parseQueryString();

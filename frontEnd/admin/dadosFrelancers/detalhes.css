@@ -54,6 +54,21 @@ main a{
     border-radius: 10px;
   }
 
+  #deleteButton{
+    border: none;
+    background-color:#ff856a ;
+    width: 100%;
+    margin: 20px;
+    height: 30px;
+    padding: 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    color:white ;
+    text-decoration: none;
+    border-radius: 10px;
+  }
+
 .btnVoltar{
     display: inline-block;
     background-color: #ff856a;
@@ -69,6 +84,29 @@ main a{
     left: 80%;
 
 }
+
+
+footer {
+    position: absolute;
+    bottom: 10;
+    width: 100%;
+    border: 0;
+    background-color: #fffc97;
+  }
+  
+
+  footer p {
+    margin: 0;
+    padding: 14px;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  footer p a {
+    color: #000;
+   
+  }
+
 
 @media screen and (max-width: 768px) {
     p {
