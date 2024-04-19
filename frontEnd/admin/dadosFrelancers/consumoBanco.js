@@ -23,7 +23,7 @@ async function fetchFreelancers() {
       <div class="card">
         <h2>${freelancer.name}</h2>
         <img src="${freelancer.profilePicture}" alt="Profile Picture" style="width: 100%; height: auto;">
-        <p>Location: ${freelancer.city}, ${freelancer.estado}</p>
+        <p>Location: ${freelancer.city}, ${freelancer.state}</p>
         <button onclick="showDetails('${encodeURIComponent(JSON.stringify(freelancer))}')">Ver Mais</button>
       </div>
     `;
