@@ -30,8 +30,8 @@
             });
 
     </script>
-</body>
--->
+</body> -->
+
 
 <!DOCTYPE html>
 <html>
@@ -54,17 +54,21 @@
       </nav>
     </header>
 <main>
+
+    <nav>
+        <h2>Filtros</h2>
+        <form id="filterForm">
+            <label for="city">Cidade</label>
+            <input type="text" id="city" name="city" />
+            <button type="submit">Filtrar</button>
+        </form>
+    </nav>
+
     <h1>Dados da API</h1>
-    <div id="freelancers"></div>
+    <section id="freelancers"></section>
 </main>
 
 
-    <footer>
-      <p>
-        Created by <a href="https://github.com/CaioHPerlin">Caio Lima</a> and
-        <a href="https://github.com/willianifms">Willian Cardoso</a>
-      </p>
-    </footer>
     <script src="consumoBanco.js"></script>
   </body>
 </html>
