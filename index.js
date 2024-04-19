@@ -19,8 +19,8 @@ const freelancerController = require('./controllers/freelancerController');
 // };
 
 //Middleware
+app.use('/freelancers/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use(cors());
-app.use('/freelancers/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //Freelancers
 app.get('/freelancers', freelancerController.getAll);
