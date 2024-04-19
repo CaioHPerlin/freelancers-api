@@ -8,29 +8,61 @@ async function fetchFreelancers() {
     }
   }
 
-  async function renderFreelancers() {
+  async function renderFreelancers(city = '') {
     const freelancersContainer = document.getElementById('freelancers');
+    freelancersContainer.innerHTML = ''; // Limpa o conteúdo anterior
+
     const freelancers = await fetchFreelancers();
 
     if (!freelancers) return;
 
-    const cards = freelancers.map(freelancer => createCard(freelancer));
-    freelancersContainer.innerHTML = cards.join('');
+    freelancers.forEach(freelancer => {
+      if (city && freelancer.city.toLowerCase().includes(city.toLowerCase())) {
+        const card = createCard(freelancer);
+        freelancersContainer.appendChild(card);
+      } else if (!city) {
+        const card = createCard(freelancer);
+        freelancersContainer.appendChild(card);
+      }
+    });
   }
 
   function createCard(freelancer) {
-    return `
-      <div class="card">
-        <h2>${freelancer.name}</h2>
-        <img src="${freelancer.profilePicture}" alt="Profile Picture" style="width: 100%; height: auto;">
-        <p>Location: ${freelancer.city}, ${freelancer.state}</p>
-        <button onclick="showDetails('${encodeURIComponent(JSON.stringify(freelancer))}')">Ver Mais</button>
-      </div>
-    `;
+    const card = document.createElement('div');
+    card.classList.add('card');
+    
+    const name = document.createElement('h2');
+    name.textContent = freelancer.name;
+    card.appendChild(name);
+
+
+    const profilePicture = document.createElement('img');
+    profilePicture.src = `https://sebrae-api.onrender.com/freelancers/${freelancer.profilePicture}`;
+    profilePicture.alt = "Profile Picture";
+    profilePicture.style.width = "100%";
+    profilePicture.style.height = "auto";
+    card.appendChild(profilePicture);
+
+    const location = document.createElement('p');
+    location.textContent = `Cidade: ${freelancer.city}`;
+    card.appendChild(location);
+
+    const verMaisButton = document.createElement('button');
+    verMaisButton.textContent = 'Ver Mais';
+    verMaisButton.addEventListener('click', () => showDetails(freelancer));
+    card.appendChild(verMaisButton);
+
+    return card;
   }
 
-  function showDetails(serializedFreelancer) {
-    window.location.href = `detalhes.html?freelancer=${serializedFreelancer}`;
+  function showDetails(freelancer) {
+    window.location.href = `saibaMais.html?freelancer=${encodeURIComponent(JSON.stringify(freelancer))}`;
   }
+
+  document.getElementById('filterForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const city = document.getElementById('city').value;
+    await renderFreelancers(city);
+  });
 
   window.onload = renderFreelancers;
