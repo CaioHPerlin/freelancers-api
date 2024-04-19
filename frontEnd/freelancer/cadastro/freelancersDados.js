@@ -7,14 +7,22 @@ dadosfreelancers.addEventListener('submit', (evento) => {
 		method: 'POST',
 		body: freelancersData,
 	})
-		.then((res) => res.json())
+		.then((res) => {
+			if (!res.ok) {
+				return res.json().then((body) => {
+					throw new Error(body.message);
+				});
+			}
+
+			return res.json();
+		})
 		.then((data) => {
 			console.log(data);
 			window.location.href = '../sucessoCadastro/sucesso.html';
 		})
 		.catch((err) => {
 			console.error(err);
-			alert('Erro ao cadastrar!');
+			alert(err.message);
 		});
 });
 

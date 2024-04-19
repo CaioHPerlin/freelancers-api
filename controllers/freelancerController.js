@@ -1,4 +1,5 @@
 const { connectToDatabase, toObjectId } = require('../db');
+const { deleteFiles } = require('../fs');
 
 const getAll = async (req, res) => {
 	const db = await connectToDatabase();
@@ -24,7 +25,19 @@ const create = async (req, res) => {
 		// await freelancersCollection.insertOne(req.body);
 		freelancer.profilePicture = req.files['profilePicture'][0].path;
         freelancer.facePicture = req.files['facePicture'][0].path;
+		freelancer.cpf = freelancer.cpf.replace(/\D/g, '');
+
 		const freelancersCollection = db.collection('freelancers');
+		
+		const existingFreelancer = await freelancersCollection.findOne({ cpf: freelancer.cpf });
+		if(existingFreelancer){
+			deleteFiles([freelancer.profilePicture, freelancer.facePicture], err => {
+				if (err) throw err;
+				console.log('Conflicting images deleted');
+			});
+			return res.status(409).json({ message: 'CPF already registered! '});
+		}
+
 		await freelancersCollection.insertOne(req.body);
 		res.status(201).json(req.body);
 	} catch (err) {
