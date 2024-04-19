@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require('dotenv');
 const cors = require('cors');
 const upload = require('./upload');
+const path = require('path');
 
 dotenv.config();
 
@@ -19,7 +20,7 @@ const freelancerController = require('./controllers/freelancerController');
 
 //Middleware
 app.use(cors());
-app.use('/uploads', express.static('uploads'));
+app.use('/freelancers/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //Freelancers
 app.get('/freelancers', freelancerController.getAll);
