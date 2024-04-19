@@ -29,9 +29,8 @@
                 console.error('Ocorreu um erro:', err);
             });
 
-    </script>
-</body> -->
-
+    </script> 
+</body -->
 
 <!DOCTYPE html>
 <html>
@@ -40,34 +39,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Cadastro de freelancers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      media="screen"
-      href="admin.css"
-    />
+    <link rel="stylesheet" type="text/css" media="screen" href="admin.css" />
   </head>
   <body>
     <header>
       <nav class="titleCadastro">
-        <h1>Cadastro de freelancers</h1>
+        <h1>FREELANCERS CADASTRADOS</h1>
       </nav>
     </header>
-<main>
-
-    <nav>
+    <main>
+      <nav class="barraFilter">
         <h2>Filtros</h2>
         <form id="filterForm">
-            <label for="city">Cidade</label>
-            <input type="text" id="city" name="city" />
-            <button type="submit">Filtrar</button>
+          <label for="city">Cidade</label>
+          <input type="text" id="city" name="city" />
+          <button class="button" type="submit">Filtrar</button>
         </form>
-    </nav>
+      </nav>
 
-    <h1>Dados da API</h1>
-    <section id="freelancers"></section>
-</main>
-
+      <section id="freelancers"></section>
+    </main>
 
     <script src="consumoBanco.js"></script>
   </body>

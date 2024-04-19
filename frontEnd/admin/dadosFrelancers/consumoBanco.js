@@ -56,7 +56,7 @@ async function fetchFreelancers() {
   }
 
   function showDetails(freelancer) {
-    window.location.href = `saibaMais.html?freelancer=${encodeURIComponent(JSON.stringify(freelancer))}`;
+    window.location.href = `detalhes.html?freelancer=${encodeURIComponent(JSON.stringify(freelancer))}`;
   }
 
   document.getElementById('filterForm').addEventListener('submit', async function(event) {
@@ -66,3 +66,5 @@ async function fetchFreelancers() {
   });
 
   window.onload = renderFreelancers;
+
+  
