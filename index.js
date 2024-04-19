@@ -19,6 +19,7 @@ const freelancerController = require('./controllers/freelancerController');
 
 //Middleware
 app.use(cors());
+app.use('/uploads', express.static('uploads'));
 
 //Freelancers
 app.get('/freelancers', freelancerController.getAll);
