@@ -3,7 +3,7 @@ const dadosfreelancers = document.getElementById('dadosFreelancers');
 dadosfreelancers.addEventListener('submit', (evento) => {
 	evento.preventDefault();
 	const freelancersData = new FormData(dadosfreelancers);
-	fetch('https://sebrae-api.onrender.com/freelancers', {
+	fetch('https://sebrae-api.vercel.app/freelancers', {
 		method: 'POST',
 		body: freelancersData,
 	})

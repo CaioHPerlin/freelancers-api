@@ -11,7 +11,7 @@
 <body>
     <ul></ul>
     <script>
-        fetch('https://sebrae-api.onrender.com/freelancers')
+        fetch('https://sebrae-api.vercel.app/freelancers')
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -20,7 +20,7 @@
                     const newCard = document.createElement('li');
                     newCard.innerHTML = `
                         <h1>${freelancer.name}</h1>
-                        <img src="https://sebrae-api.onrender.com/freelancers/${freelancer.profilePicture}.png" alt="Profile Picture">
+                        <img src="https://sebrae-api.vercel.app/freelancers/${freelancer.profilePicture}.png" alt="Profile Picture">
                     `;
                     parent.appendChild(newCard);
                 });

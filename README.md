@@ -1,5 +1,5 @@
 # BackEnd (Express API)
-🔗 [Render URL](https://sebrae-api.onrender.com/freelancers)
+🔗 [Render URL](https://sebrae-api.vercel.app/freelancers)
 
 *Todo List*
 - [ ] Basic CRUD routes

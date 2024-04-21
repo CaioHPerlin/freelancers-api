@@ -1,6 +1,6 @@
 async function fetchFreelancers() {
     try {
-      const response = await fetch('https://sebrae-api.onrender.com/freelancers');
+      const response = await fetch('https://sebrae-api.vercel.app/freelancers');
       const data = await response.json();
       return data;
     } catch (error) {
@@ -37,7 +37,7 @@ async function fetchFreelancers() {
 
 
     const profilePicture = document.createElement('img');
-    profilePicture.src = `https://sebrae-api.onrender.com/freelancers/${freelancer.profilePicture}`;
+    profilePicture.src = `https://ub7txpxyf1bghrmk.public.blob.vercel-storage.com/${freelancer.profilePicture}`;
     profilePicture.alt = "Profile Picture";
     profilePicture.style.width = "100%";
     profilePicture.style.height = "auto";

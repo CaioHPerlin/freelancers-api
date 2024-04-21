@@ -1,6 +1,6 @@
 const sharp = require('sharp');
 const { connectToDatabase, toObjectId } = require('../db');
-const path = require('path')
+const { put, del } = require('@vercel/blob');
 
 const getAll = async (req, res) => {
 	const db = await connectToDatabase();
@@ -22,27 +22,45 @@ const create = async (req, res) => {
 	const client = db.client;
 	const freelancer = req.body;
 	try {
-		// freelancer.profilePicture = req.files['profilePicture'][0].path;
-        // freelancer.facePicture = req.files['facePicture'][0].path;
 		freelancer.cpf = freelancer.cpf.replace(/\D/g, '');
 		freelancer.phone = freelancer.phone.replace(/\D/g, '');
-		freelancer.emergencyPhone = freelancer.emergencyPhone.replace(/\D/g, '');
+		freelancer.emergencyPhone = freelancer.emergencyPhone.replace(/\D/g,'');
 
 		const freelancersCollection = db.collection('freelancers');
-		
-		const existingFreelancer = await freelancersCollection.findOne({ cpf: freelancer.cpf });
-		if(existingFreelancer){
-			return res.status(409).json({ message: 'CPF already registered! '});
+
+		const existingFreelancer = await freelancersCollection.findOne({
+			cpf: freelancer.cpf,
+		});
+		if (existingFreelancer) {
+			return res
+				.status(409)
+				.json({ message: 'CPF already registered! ' });
 		}
 
 		const profilePicture = req.files['profilePicture'][0];
 		const facePicture = req.files['facePicture'][0];
 
-		freelancer.profilePicture = `uploads/pfp_${freelancer.cpf}.jpeg`
-		freelancer.facePicture = `uploads/fcp_${freelancer.cpf}.jpeg`
-	
-		await sharp(profilePicture.buffer).resize(300, 300).jpeg({quality: 80}).toFile(path.join(__dirname, '../', freelancer.profilePicture));
-		await sharp(facePicture.buffer).resize(300, 300).jpeg({quality: 80}).toFile(path.join(__dirname, '../', freelancer.facePicture));
+		const pfpFileName = `pfp_${freelancer.cpf}.jpeg`;
+		const fcpFileName = `fcp_${freelancer.cpf}.jpeg`;
+
+		const pfpFile = await sharp(profilePicture.buffer)
+			.resize(300, 300)
+			.jpeg({ quality: 80 });
+		const fcpFile = await sharp(facePicture.buffer)
+			.resize(300, 300)
+			.jpeg({ quality: 80 });
+
+		await put(pfpFileName, pfpFile, {
+			access: 'public',
+			addRandomSuffix: false,
+		});
+		await put(fcpFileName, fcpFile, {
+			access: 'public',
+			addRandomSuffix: false,
+		});
+
+		freelancer.profilePicture = pfpFileName;
+		freelancer.facePicture = fcpFileName;
 
 		await freelancersCollection.insertOne(req.body);
 		res.status(201).json(req.body);
@@ -60,6 +78,15 @@ const remove = async (req, res) => {
 	const client = db.client;
 	try {
 		const freelancersCollection = db.collection('freelancers');
+		const freelancer = await freelancersCollection.findOne({
+			_id: toObjectId(id),
+		});
+
+		const pfpURL = `https://ub7txpxyf1bghrmk.public.blob.vercel-storage.com/${freelancer.profilePicture}`
+		const fcpURL = `https://ub7txpxyf1bghrmk.public.blob.vercel-storage.com/${freelancer.facePicture}`;
+
+		await del([pfpURL, fcpURL]);
+
 		await freelancersCollection.deleteOne({ _id: toObjectId(id) });
 		res.status(200).json({
 			message: 'user successfully deleted from database',

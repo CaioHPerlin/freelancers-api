@@ -9,7 +9,7 @@ function parseQueryString() {
     const detailsContainer = document.getElementById('details');
     if (freelancer.facePicture) {
         const profilePicture = document.createElement('img');
-        profilePicture.src = `https://sebrae-api.onrender.com/freelancers/${freelancer.facePicture}`;
+        profilePicture.src = `https://ub7txpxyf1bghrmk.public.blob.vercel-storage.com/${freelancer.facePicture}`;
         profilePicture.alt = "face Picture";
         profilePicture.style.width = "300px";
         profilePicture.style.height = "auto";
@@ -18,7 +18,7 @@ function parseQueryString() {
   
       if (freelancer.profilePicture) {
           const profilePicture = document.createElement('img');
-          profilePicture.src = `https://sebrae-api.onrender.com/freelancers/${freelancer.profilePicture}`;
+          profilePicture.src = `https://ub7txpxyf1bghrmk.public.blob.vercel-storage.com/${freelancer.profilePicture}`;
           profilePicture.alt = "Profile Picture";
           profilePicture.style.width = "300px";
           profilePicture.style.height = "auto";
@@ -121,7 +121,7 @@ deleteButton.addEventListener('click', () => deleteFreelancer(freelancer._id));
 
     async function deleteFreelancer(freelancerId) {
       try {
-        const response = await fetch(`https://sebrae-api.onrender.com/freelancers/${freelancerId}`, {
+        const response = await fetch(`https://sebrae-api.vercel.app/freelancers/${freelancerId}`, {
           method: 'DELETE',
         });
 

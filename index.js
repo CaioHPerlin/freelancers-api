@@ -35,4 +35,4 @@ app.get('/freelancers/:city', freelancerController.getByCity);
 //DEVROUTES - DELETE WHEN IN PRODUCTION
 app.delete('/freelancers', freelancerController.wipe);
 
-app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`));
+export default app;
