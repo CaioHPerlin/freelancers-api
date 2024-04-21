@@ -1,5 +1,6 @@
+const sharp = require('sharp');
 const { connectToDatabase, toObjectId } = require('../db');
-const { deleteFiles } = require('../fs');
+const path = require('path')
 
 const getAll = async (req, res) => {
 	const db = await connectToDatabase();
@@ -21,22 +22,27 @@ const create = async (req, res) => {
 	const client = db.client;
 	const freelancer = req.body;
 	try {
-		// const freelancersCollection = db.collection('freelancers');
-		// await freelancersCollection.insertOne(req.body);
-		freelancer.profilePicture = req.files['profilePicture'][0].path;
-        freelancer.facePicture = req.files['facePicture'][0].path;
+		// freelancer.profilePicture = req.files['profilePicture'][0].path;
+        // freelancer.facePicture = req.files['facePicture'][0].path;
 		freelancer.cpf = freelancer.cpf.replace(/\D/g, '');
+		freelancer.phone = freelancer.phone.replace(/\D/g, '');
+		freelancer.emergencyPhone = freelancer.emergencyPhone.replace(/\D/g, '');
 
 		const freelancersCollection = db.collection('freelancers');
 		
 		const existingFreelancer = await freelancersCollection.findOne({ cpf: freelancer.cpf });
 		if(existingFreelancer){
-			deleteFiles([freelancer.profilePicture, freelancer.facePicture], err => {
-				if (err) throw err;
-				console.log('Conflicting images deleted');
-			});
 			return res.status(409).json({ message: 'CPF already registered! '});
 		}
+
+		const profilePicture = req.files['profilePicture'][0];
+		const facePicture = req.files['facePicture'][0];
+
+		freelancer.profilePicture = `uploads/pfp_${freelancer.cpf}.jpeg`
+		freelancer.facePicture = `uploads/fcp_${freelancer.cpf}.jpeg`
+	
+		await sharp(profilePicture.buffer).resize(300, 300).jpeg({quality: 80}).toFile(path.join(__dirname, '../', freelancer.profilePicture));
+		await sharp(facePicture.buffer).resize(300, 300).jpeg({quality: 80}).toFile(path.join(__dirname, '../', freelancer.facePicture));
 
 		await freelancersCollection.insertOne(req.body);
 		res.status(201).json(req.body);
