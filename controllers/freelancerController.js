@@ -24,7 +24,10 @@ const create = async (req, res) => {
 	try {
 		freelancer.cpf = freelancer.cpf.replace(/\D/g, '');
 		freelancer.phone = freelancer.phone.replace(/\D/g, '');
-		freelancer.emergencyPhone = freelancer.emergencyPhone.replace(/\D/g,'');
+		freelancer.emergencyPhone = freelancer.emergencyPhone.replace(
+			/\D/g,
+			''
+		);
 
 		const freelancersCollection = db.collection('freelancers');
 
@@ -82,7 +85,7 @@ const remove = async (req, res) => {
 			_id: toObjectId(id),
 		});
 
-		const pfpURL = `https://ub7txpxyf1bghrmk.public.blob.vercel-storage.com/${freelancer.profilePicture}`
+		const pfpURL = `https://ub7txpxyf1bghrmk.public.blob.vercel-storage.com/${freelancer.profilePicture}`;
 		const fcpURL = `https://ub7txpxyf1bghrmk.public.blob.vercel-storage.com/${freelancer.facePicture}`;
 
 		await del([pfpURL, fcpURL]);
