@@ -1,90 +1,86 @@
+/* Estilos globais */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #fffece;
-  }
-  
-  .titleCadastro {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    text-transform: uppercase;
-    font-size: 1.3em;
-    font-weight: 700;
-    color: #000;
-    text-align: center;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
 
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-  .container {
-    min-height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 14px;
-  }
+/* Estilos do cabeçalho */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
 
-  
-  .form {
-    max-width: 600px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
+.titleCadastro h1 {
+  font-size: 24px;
+}
 
-  label{
-    display: block;
-    margin-bottom: 8px;text-transform: uppercase;
-  }
-  
-  .input {
-    margin-bottom: 14px;
-    height: 34px;
-    border-radius: 4px;
-    border: 0;
-    padding: 0 8px;
-    display: block;
-    width: 100%;
-    
-  }
+/* Estilos do formulário */
+.form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  .button {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-weight: 700;
-    height: 34px;
-    border-radius: 4px;
-    border: 0;
-    cursor: pointer;
-    color: #000000;
-    background-color: #FFFCA7;
-    font-size: 18px;
-    transition: background-color, transform 0.2s;
-  }
-  
-  .button:hover {
-    background-color: #f7f4b1;
-    transform: scale(1.01);
-  }
+.inputContainer {
+  margin-bottom: 20px;
+}
 
+.inputContainer label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
 
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
-  footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    border: 0;
-    background-color: #fffc97;
-  }
-  
+.button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-  footer p {
-    margin: 0;
-    padding: 14px;
-    text-align: center;
-    font-size: 18px;
-  }
+.button:hover {
+  background-color: #555;
+}
 
-  footer p a {
-    color: #000;
-   
-  }
+/* Estilos do rodapé */
+footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+footer p {
+  font-size: 14px;
+}
+
+footer a {
+  color: #333;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}

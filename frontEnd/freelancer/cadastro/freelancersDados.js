@@ -3,6 +3,8 @@ const dadosfreelancers = document.getElementById('dadosFreelancers');
 dadosfreelancers.addEventListener('submit', (evento) => {
 	evento.preventDefault();
 	const freelancersData = new FormData(dadosfreelancers);
+	const loaderContainer = document.getElementById('loadercont')
+	loaderContainer.innerHTML = '<h1 class="loader"></h1>';
 	fetch('https://sebrae-api.vercel.app/freelancers', {
 		method: 'POST',
 		body: freelancersData,
@@ -17,10 +19,12 @@ dadosfreelancers.addEventListener('submit', (evento) => {
 			return res.json();
 		})
 		.then((data) => {
+			loaderContainer.innerHTML = '';
 			console.log(data);
 			window.location.href = '../sucessoCadastro/sucesso.html';
 		})
 		.catch((err) => {
+			loaderContainer.innerHTML = '';
 			console.error(err);
 			alert(err.message);
 		});

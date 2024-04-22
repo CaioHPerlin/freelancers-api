@@ -37,7 +37,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Cadastro de freelancers</title>
+    <title>Freelancers Cadastrados</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="admin.css" />
   </head>
@@ -49,17 +49,15 @@
     </header>
     <main>
       <nav class="barraFilter">
-        <h2>Filtros</h2>
+        <h2>Filtrar por Cidade</h2>
         <form id="filterForm">
-          <label for="city">Cidade</label>
           <input type="text" id="city" name="city" />
           <button class="button" type="submit">Filtrar</button>
+          <button class="button" id="logoff">Sair</button>
         </form>
       </nav>
-
       <section id="freelancers"></section>
     </main>
-
     <script src="consumoBanco.js"></script>
   </body>
 </html>

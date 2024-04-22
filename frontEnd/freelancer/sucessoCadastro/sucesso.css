@@ -1,51 +1,72 @@
+/* Estilos globais */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #fffece;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
 
-  main{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 90VH;
-  }
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Estilos do cabeçalho */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+.titleCadastro h1 {
+  font-size: 24px;
+}
 
 
-  h1{
-    display: block;
-    text-transform: uppercase;
-  }
+/* Estilos do bloco de sucesso */
+.success-section {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+}
 
-  nav div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
+.icon-container {
+  margin-bottom: 20px;
+}
 
-  svg{
-    color: #4ECB71;
-  }
+svg {
+  width: 100px;
+  height: 100px;
+  fill: #333;
+}
 
-  footer {
-    position: absolute;
-    bottom: 10;
-    width: 100%;
-    border: 0;
-    background-color: #fffc97;
-  }
-  
+h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
 
-  footer p {
-    margin: 0;
-    padding: 14px;
-    text-align: center;
-    font-size: 18px;
-  }
+/* Estilos do rodapé */
+footer {
+  margin-top: 20px;
+  text-align: center;
+}
 
-  footer p a {
-    color: #000;
-   
-  }
+footer p {
+  font-size: 14px;
+}
+
+footer a {
+  color: #333;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}

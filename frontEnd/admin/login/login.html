@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Cadastro de freelancers</title>
+    <title>Login de Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
@@ -11,30 +11,28 @@
       media="screen"
       href="login.css"
     />
-
-    <script src="main.js"></script>
   </head>
   <body>
     <header>
       <nav class="titleCadastro">
-        <h1>login</h1>
+        <h1>LOGIN</h1>
       </nav>
     </header>
 
     <main class="container">
-        <form class="form" action="" method="post">
+        <form class="form" id="auth" method="post">
             <div class="inputContainer">
-                <label for="email">E-mail</label>
+                <label for="email">Usuário</label>
                 <input
-                  name="email"
+                  name="username"
                   class="input"
-                  type="email"
-                  placeholder="Digite seu e-mail"
-                  id="email"
+                  type="text"
+                  placeholder="Digite o usuário de administrador"
+                  id="username"
                 />
               </div>
               <div class="inputContainer">
-                <label for="password">senha</label>
+                <label for="password">Senha</label>
                 <input
                   name="password"
                   class="input"
@@ -53,5 +51,6 @@
           <a href="https://github.com/willianifms">Willian Cardoso</a>
         </p>
       </footer>
+      <script src="login.js"></script>
     </body>
   </html>

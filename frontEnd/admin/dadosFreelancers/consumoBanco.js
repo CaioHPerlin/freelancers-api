@@ -1,3 +1,10 @@
+const checkSession = () => {
+	const token = window.localStorage.getItem('token');
+	if(!token) window.location.href = '../login/login.html';
+}
+
+checkSession();
+
 async function fetchFreelancers(city) {
 	const url = city
 		? `https://sebrae-api.vercel.app/freelancers/${city}`
@@ -9,6 +16,7 @@ async function fetchFreelancers(city) {
 		return data;
 	} catch (error) {
 		console.error('Error fetching data:', error);
+		renderFreelancers(city);
 	}
 }
 
@@ -19,7 +27,7 @@ async function renderFreelancers(city = '') {
 	const freelancers = await fetchFreelancers(city);
 
 	if (!freelancers.length)
-		return (freelancersContainer.innerHTML = `<p><center>0 registros encontrados. Certifique-se de que o nome da cidade foi digitado corretamente.</center></p>`);
+		return (freelancersContainer.innerHTML = `<p class="full-size">0 registros encontrados. Certifique-se de que o nome da cidade foi digitado corretamente.</p>`);
 
 	freelancersContainer.innerHTML = '';
 
@@ -40,8 +48,6 @@ function createCard(freelancer) {
 	const profilePicture = document.createElement('img');
 	profilePicture.src = `https://ub7txpxyf1bghrmk.public.blob.vercel-storage.com/${freelancer.profilePicture}`;
 	profilePicture.alt = 'Profile Picture';
-	profilePicture.style.width = '100%';
-	profilePicture.style.height = 'auto';
 	card.appendChild(profilePicture);
 
 	const location = document.createElement('p');
@@ -70,5 +76,11 @@ document
 		const city = document.getElementById('city').value.toLowerCase();
 		await renderFreelancers(city);
 	});
+
+document.getElementById('logoff').addEventListener('click', () => {
+	window.localStorage.removeItem('token');
+
+	checkSession();
+});
 
 window.onload = renderFreelancers('');
