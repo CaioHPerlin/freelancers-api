@@ -28,6 +28,7 @@ const create = async (req, res) => {
 			/\D/g,
 			''
 		);
+		freelancer.city = freelancer.city.toLowerCase();
 
 		const freelancersCollection = db.collection('freelancers');
 

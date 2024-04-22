@@ -1,8 +1,10 @@
-async function fetchFreelancers() {
+async function fetchFreelancers(city) {
+	const url = city
+		? `https://sebrae-api.vercel.app/freelancers/${city}`
+		: `https://sebrae-api.vercel.app/freelancers`;
+
 	try {
-		const response = await fetch(
-			'https://sebrae-api.vercel.app/freelancers'
-		);
+		const response = await fetch(url);
 		const data = await response.json();
 		return data;
 	} catch (error) {
@@ -12,23 +14,18 @@ async function fetchFreelancers() {
 
 async function renderFreelancers(city = '') {
 	const freelancersContainer = document.getElementById('freelancers');
-	freelancersContainer.innerHTML = ''; // Limpa o conteúdo anterior
+	freelancersContainer.innerHTML = '<h1 class="loader"></h1>'; // Limpa o conteúdo anterior
 
-	const freelancers = await fetchFreelancers();
+	const freelancers = await fetchFreelancers(city);
 
-	if (!freelancers) return;
+	if (!freelancers.length)
+		return (freelancersContainer.innerHTML = `<p><center>0 registros encontrados. Certifique-se de que o nome da cidade foi digitado corretamente.</center></p>`);
+
+	freelancersContainer.innerHTML = '';
 
 	freelancers.forEach((freelancer) => {
-		if (
-			city &&
-			freelancer.city.toLowerCase().includes(city.toLowerCase())
-		) {
-			const card = createCard(freelancer);
-			freelancersContainer.appendChild(card);
-		} else if (!city) {
-			const card = createCard(freelancer);
-			freelancersContainer.appendChild(card);
-		}
+		const card = createCard(freelancer);
+		freelancersContainer.appendChild(card);
 	});
 }
 
@@ -49,6 +46,7 @@ function createCard(freelancer) {
 
 	const location = document.createElement('p');
 	location.textContent = `Cidade: ${freelancer.city}`;
+	location.style = 'text-transform: capitalize;';
 	card.appendChild(location);
 
 	const verMaisButton = document.createElement('button');
@@ -69,8 +67,8 @@ document
 	.getElementById('filterForm')
 	.addEventListener('submit', async function (event) {
 		event.preventDefault();
-		const city = document.getElementById('city').value;
+		const city = document.getElementById('city').value.toLowerCase();
 		await renderFreelancers(city);
 	});
 
-window.onload = renderFreelancers;
+window.onload = renderFreelancers('');
