@@ -109,6 +109,14 @@ function renderDetails(freelancer) {
 	pixKey.textContent = `Chave Pix: ${freelancer.pixKey}`;
 	detailsContainer.appendChild(pixKey);
 
+	const complemento = document.createElement('p');
+	complemento.textContent = `Complemento: ${freelancer.complemento}`;
+	detailsContainer.appendChild(complemento);
+
+	const dream = document.createElement('p');
+	dream.textContent = `Sonho de vida: ${freelancer.dream}`;
+	detailsContainer.appendChild(dream);
+
 	const whatsappLink = document.createElement('a');
 	whatsappLink.href = `https://wa.me/${freelancer.phone.replace(/\D/g, '')}`; // Remove todos os caracteres não numéricos do número de telefone
 	whatsappLink.textContent = 'Contatar via WhatsApp';

@@ -126,6 +126,7 @@ header {
 	overflow: hidden;
 	height: 24px;
 	font-size: 14pt;
+	text-transform: capitalize;
 }
 
 .card button {
