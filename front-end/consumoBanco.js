@@ -83,17 +83,23 @@ document.getElementById('logoff').addEventListener('click', () => {
 	checkSession();
 });
 
-const downloadCSV = async () => {
-	try {
-		await fetch('sebrae-api.onrender.com/freelancers/export');
-	} catch (error) {
-		console.error('Error downloading table:', error);
-		alert('Erro ao baixar arquivo CSV');
-	}
-}
-
 document.getElementById('download').addEventListener('click', () => {
+	fetch('https://sebrae-api.vercel.app/freelancers/export')
+    .then(response => response.blob()) // Recebe a resposta como um blob
+    .then(blob => {
 
+      const url = window.URL.createObjectURL(new Blob([blob]));
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'dadosFreelancers.csv');
+
+      document.body.appendChild(link);
+      link.click();
+	  
+      document.body.removeChild(link);
+    })
+    .catch(error => console.error('Error downloading CSV:', error));
 })
 
 window.onload = renderFreelancers('');
