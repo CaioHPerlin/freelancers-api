@@ -47,7 +47,7 @@ function selectUF() {
 			});
 			for (let i = 0; i < json.length; i++) {
 				let newopt = document.createElement('option');
-				newopt.setAttribute('value', json[i].id);
+				newopt.setAttribute('value', json[i].sigla);
 				newopt.setAttribute('id', json[i].sigla);
 				newopt.innerText = json[i].sigla;
 				uf.appendChild(newopt);
