@@ -110,7 +110,7 @@ function renderDetails(freelancer) {
 	detailsContainer.appendChild(pixKey);
 
 	const complemento = document.createElement('p');
-	complemento.textContent = `Complemento: ${freelancer.complemento}`;
+	complemento.textContent = `Complemento: ${freelancer.complement}`;
 	detailsContainer.appendChild(complemento);
 
 	const dream = document.createElement('p');
