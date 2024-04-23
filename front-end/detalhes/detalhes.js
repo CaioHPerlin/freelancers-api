@@ -127,7 +127,7 @@ async function deleteFreelancer(freelancerId) {
 
 		if (response.ok) {
 			alert('Freelancer deletado com sucesso!');
-			window.location.href = 'admin.html'; // Redireciona de volta para a página inicial após a exclusão
+			window.location.href = '../'; // Redireciona de volta para a página inicial após a exclusão
 		} else {
 			const errorMessage = await response.text();
 			alert(`Erro ao deletar o freelancer: ${errorMessage}`);

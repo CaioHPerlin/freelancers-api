@@ -1,6 +1,6 @@
 const checkSession = () => {
 	const token = window.localStorage.getItem('token');
-	if(!token) window.location.href = '../login/login.html';
+	if(!token) window.location.href = '/freelancers/login';
 }
 
 checkSession();
@@ -64,7 +64,7 @@ function createCard(freelancer) {
 }
 
 function showDetails(freelancer) {
-	window.location.href = `detalhes.html?freelancer=${encodeURIComponent(
+	window.location.href = `./detalhes/?freelancer=${encodeURIComponent(
 		JSON.stringify(freelancer)
 	)}`;
 }
@@ -82,5 +82,18 @@ document.getElementById('logoff').addEventListener('click', () => {
 
 	checkSession();
 });
+
+const downloadCSV = async () => {
+	try {
+		await fetch('sebrae-api.onrender.com/freelancers/export');
+	} catch (error) {
+		console.error('Error downloading table:', error);
+		alert('Erro ao baixar arquivo CSV');
+	}
+}
+
+document.getElementById('download').addEventListener('click', () => {
+
+})
 
 window.onload = renderFreelancers('');

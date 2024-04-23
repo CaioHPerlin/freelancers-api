@@ -1,6 +1,7 @@
 const sharp = require('sharp');
 const { connectToDatabase, toObjectId } = require('../db');
 const { put, del } = require('@vercel/blob');
+const Parser = require('json2csv').Parser;
 
 const getAll = async (req, res) => {
 	const db = await connectToDatabase();
@@ -121,16 +122,119 @@ const getByCity = async (req, res) => {
 	}
 };
 
-//ONLY FOR DEVELOPMENT
-const wipe = async (req, res) => {
+const getCSV = async (req, res) => {
 	const db = await connectToDatabase();
 	const client = db.client;
 	try {
 		const freelancersCollection = db.collection('freelancers');
-		await freelancersCollection.deleteMany();
-		res.status(200).json({ message: 'database successfully wiped' });
+		const freelancers = await freelancersCollection
+			.find({}, { _id: 0 })
+			.toArray();
+
+		const fields = [
+			{
+				label: 'Nome Completo',
+				value: 'name',
+			},
+			{
+				label: 'CPF',
+				value: 'cpf',
+			},
+			{
+				label: 'Telefone',
+				value: 'phone',
+			},
+			{
+				label: 'E-mail',
+				value: 'email',
+			},
+			{
+				label: 'CEP',
+				value: 'cep',
+			},
+			{
+				label: 'Rua',
+				value: 'street',
+			},
+			{
+				label: 'Número Residencial',
+				value: 'residentialNumber',
+			},
+			{
+				label: 'Bairro',
+				value: 'neighborhood',
+			},
+			{
+				label: 'Altura (cm)',
+				value: 'height',
+			},
+			{
+				label: 'Peso (kg)',
+				value: 'weight',
+			},
+			{
+				label: 'Cor do Cabelo',
+				value: 'hairColor',
+			},
+			{
+				label: 'Cor dos Olhos',
+				value: 'eyeColor',
+			},
+			{
+				label: 'Cor de Pele',
+				value: 'skinColor',
+			},
+			{
+				label: 'Instagram',
+				value: 'instagram',
+			},
+			{
+				label: 'Facebook',
+				value: 'facebook',
+			},
+			{
+				label: 'Estado',
+				value: 'state',
+			},
+			{
+				label: 'Cidade',
+				value: 'city',
+			},
+			{
+				label: 'Contato Emergencial',
+				value: 'emergencyName',
+			},
+			{
+				label: 'Telefone Emergencial',
+				value: 'emergencyPhone',
+			},
+			{
+				label: 'Tamanho de Camiseta',
+				value: 'shirtSize',
+			},
+			{
+				label: 'Chave PIX',
+				value: 'pixKey',
+			},
+			{
+				label: 'Complemento',
+				value: 'complement',
+			},
+			{
+				label: 'Sonho',
+				value: 'dream',
+			},
+		];
+
+		const csvParser = new Parser({ fields });
+		const csvData = csvParser.parse(freelancers);
+
+		res.type('text/csv');
+		res.attachment('dadosFreelancers.csv');
+
+		res.status(200).send(csvData);
 	} catch (err) {
-		console.error('Error when wiping database:', err);
+		console.error('Error exporting to csv:', err);
 		res.status(500).json({ message: 'internal server error' });
 	} finally {
 		await client.close();
@@ -140,7 +244,7 @@ const wipe = async (req, res) => {
 module.exports = {
 	getAll,
 	getByCity,
+	getCSV,
 	create,
-	wipe,
 	remove,
 };

@@ -165,6 +165,8 @@ footer p a {
 
 	div {
 		grid-template-columns: 100%;
+		justify-items: left;
+		row-gap: 10px;
 	}
 
 	#details a {

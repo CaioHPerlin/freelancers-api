@@ -16,6 +16,7 @@ app.use(express.json());
 
 //Freelancers
 app.get('/freelancers', freelancerController.getAll);
+app.get('/freelancers/export', freelancerController.getCSV);
 app.get('/freelancers/:city', freelancerController.getByCity);
 app.post(
 	'/freelancers',
@@ -61,8 +62,5 @@ app.post('/auth', async (req, res) => {
 		res.status(500).json({ message: 'Internal server error.'});
 	}
 });
-
-//DEVROUTES - DELETE WHEN IN PRODUCTION
-app.delete('/freelancers', freelancerController.wipe);
 
 export default app;
