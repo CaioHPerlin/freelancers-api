@@ -226,7 +226,7 @@ const getCSV = async (req, res) => {
 			},
 		];
 
-		const csvParser = new Parser({ fields });
+		const csvParser = new Parser({ fields: fields, delimiter: ';', defaultValue: '-', excelStrings: true });
 		const csvData = csvParser.parse(freelancers);
 
 		res.type('text/csv');
