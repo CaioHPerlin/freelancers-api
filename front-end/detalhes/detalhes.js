@@ -105,6 +105,10 @@ function renderDetails(freelancer) {
 	shirtSize.textContent = `Tamanho da camiseta: ${freelancer.shirtSize}`;
 	detailsContainer.appendChild(shirtSize);
 
+	const pixKey = document.createElement('p');
+	pixKey.textContent = `Chave Pix: ${freelancer.pixKey}`;
+	detailsContainer.appendChild(pixKey);
+
 	const whatsappLink = document.createElement('a');
 	whatsappLink.href = `https://wa.me/${freelancer.phone.replace(/\D/g, '')}`; // Remove todos os caracteres não numéricos do número de telefone
 	whatsappLink.textContent = 'Contatar via WhatsApp';
