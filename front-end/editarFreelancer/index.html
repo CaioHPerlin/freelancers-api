@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Cadastro de freelancers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="edit.css"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="titleCadastro">
+        <h1>CADASTRO</h1>
+      </nav>
+    </header>
+
+    <main class="container">
+      <form class="form" method="post" id="dadosFreelancers">
+        <div class="inputContainer">
+          <label for="notaServico">Nota do Serviço Prestado</label>
+          <input
+            name="notaServico"
+            class="input"
+            type="number"
+            placeholder="Digite a Nota do Serviço Prestado"
+            id="notaServico"
+            required
+          />
+        </div>
+
+
+
+        <div class="inputContainer">
+          <label for="cargo">Cargo</label>
+          <select name="cargo" id="cargo" class="input">
+            <option value="cargo">
+              Selecione o cargo Desejável
+            </option>
+          </select>
+
+        </div>
+
+
+
+
+
+
+        <input class="button" type="submit" value="EDITAR" />
+      </form>
+      <div id="loadercont"></div>
+    </main>
+    <script src="freelancersDados.js"></script>
+  </body>
+</html>
