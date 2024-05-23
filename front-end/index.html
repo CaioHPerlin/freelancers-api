@@ -49,9 +49,15 @@
     </header>
     <main>
       <nav class="barraFilter">
-        <h2>Filtrar por Cidade</h2>
+        <h2>Filtros</h2>
         <form id="filterForm">
-          <input type="text" id="city" name="city" />
+          <div class="containerSearch">
+            <input type="text" id="city" name="city" placeholder="Digite a cidade"/>
+            <select name="cargo" id="cargo">
+              <option value="all">Selecione o cargo</option>
+            </select>
+          </div>
+
           <button class="button" type="submit">Filtrar</button>
           <button class="button" type="button" id="download">Baixar CSV</button>
           <button class="button" id="logoff">Sair</button>

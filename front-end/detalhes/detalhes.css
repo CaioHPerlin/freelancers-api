@@ -107,6 +107,20 @@ footer a:hover {
 	background-color: #ff0000;
 }
 
+#editButton {
+	background-color: #a3ae12;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+#editButton:hover {
+	background-color: #aeb738;
+}
+
 /* Estilos para o botão de voltar */
 .btnVoltar {
 	display: inline-block;

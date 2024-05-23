@@ -33,6 +33,10 @@ function renderDetails(freelancer) {
 	cpf.textContent = `CPF: ${freelancer.cpf}`;
 	detailsContainer.appendChild(cpf);
 
+	const birthData = document.createElement('p');
+	birthData.textContent = `Data de Nascimento: ${freelancer.birthData}`;
+	detailsContainer.appendChild(birthData);
+
 	const telefone = document.createElement('p');
 	telefone.textContent = `Telefone: ${freelancer.phone}`;
 	detailsContainer.appendChild(telefone);
