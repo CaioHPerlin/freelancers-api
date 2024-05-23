@@ -45,6 +45,10 @@ function renderDetails(freelancer) {
 	email.textContent = `E-mail: ${freelancer.email}`;
 	detailsContainer.appendChild(email);
 
+	const cargo = document.createElement('p');
+	cargo.textContent = `Cargo: ${freelancer.cargo}`;
+	detailsContainer.appendChild(cargo);
+
 	const cep = document.createElement('p');
 	cep.textContent = `CEP: ${freelancer.cep}`;
 	detailsContainer.appendChild(cep);
@@ -160,29 +164,6 @@ async function deleteFreelancer(freelancerId) {
 	}
 }
 
-async function deleteFreelancer(freelancerId) {
-	try {
-		const response = await fetch(
-			`https://sebrae-api.vercel.app/freelancers/${freelancerId}`,
-			{
-				method: 'DELETE',
-			}
-		);
-
-		if (response.ok) {
-			alert('Freelancer deletado com sucesso!');
-			window.location.href = '../'; // Redireciona de volta para a página inicial após a exclusão
-		} else {
-			const errorMessage = await response.text();
-			alert(`Erro ao deletar o freelancer: ${errorMessage}`);
-		}
-	} catch (error) {
-		console.error('Erro ao deletar o freelancer:', error);
-		alert(
-			'Erro ao deletar o freelancer. Verifique o console para mais informações.'
-		);
-	}
-}
 window.onload = function () {
 	const freelancer = parseQueryString();
 	renderDetails(freelancer);
