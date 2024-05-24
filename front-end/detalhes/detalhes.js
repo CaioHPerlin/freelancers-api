@@ -5,6 +5,8 @@ function parseQueryString() {
 	return JSON.parse(decodeURIComponent(serializedFreelancer));
 }
 
+
+
 function renderDetails(freelancer) {
 	const detailsContainer = document.getElementById('details');
 	if (freelancer.facePicture) {
@@ -28,6 +30,10 @@ function renderDetails(freelancer) {
 	const name = document.createElement('p');
 	name.textContent = `Nome: ${freelancer.name}`;
 	detailsContainer.appendChild(name);
+
+	const notaFreelancer = document.createElement('p');
+	notaFreelancer.textContent = `Nota de atuação: ${freelancer.notaFreelancer}`;
+	detailsContainer.appendChild(notaFreelancer);
 
 	const cpf = document.createElement('p');
 	cpf.textContent = `CPF: ${freelancer.cpf}`;
@@ -138,7 +144,10 @@ function renderDetails(freelancer) {
 	deleteButton.addEventListener('click', () =>
 		deleteFreelancer(freelancer._id)
 	);
+	const editButton = document.getElementById('editButton');
+    editButton.addEventListener('click', () => editFreelancer(freelancer))
 }
+
 
 async function deleteFreelancer(freelancerId) {
 	try {
@@ -167,4 +176,14 @@ async function deleteFreelancer(freelancerId) {
 window.onload = function () {
 	const freelancer = parseQueryString();
 	renderDetails(freelancer);
+};
+
+function editFreelancer(freelancer) {
+    const serializedFreelancer = encodeURIComponent(JSON.stringify(freelancer));
+    window.location.href = `../editarFreelancer/index.html?freelancer=${serializedFreelancer}`;
+}
+
+window.onload = function () {
+    const freelancer = parseQueryString();
+    renderDetails(freelancer);
 };
