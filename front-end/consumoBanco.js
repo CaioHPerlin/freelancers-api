@@ -27,8 +27,15 @@ async function renderFreelancers(city = '') {
 
 	const freelancers = await fetchFreelancers(city);
 
-	if (!freelancers.length)
-		return (freelancersContainer.innerHTML = `<p class="full-size">0 registros encontrados. Certifique-se de que o nome da cidade foi digitado corretamente.</p>`);
+	if (!freelancers.length) {
+		freelancersContainer.innerHTML = `<p class="full-size">0 registros encontrados. Certifique-se de que o nome da cidade foi digitado corretamente.</p>`;
+		return;
+	}
+
+	freelancers.sort((a, b) => {
+		// Ordena os freelancers pelo nome em ordem alfabética
+		return a.name.localeCompare(b.name);
+	});
 
 	freelancersContainer.innerHTML = '';
 

@@ -53,18 +53,26 @@
       <nav class="barraFilter">
         <h2>Filtros</h2>
         <form id="filterForm">
-          <div class="containerSearch">
-            <input type="text" id="city" name="city" placeholder="Digite a cidade"/>
-            <select name="cargo" id="cargo">
-              <option value="all">Selecione o cargo</option>
-            </select>
-          </div>
-
-          <button class="button" type="submit">Filtrar</button>
-          <button class="button" type="button" id="download">Baixar CSV</button>
-          <button class="button" id="logoff">Sair</button>
+            <div class="containerSearch">
+                <input type="text" id="city" name="city" placeholder="Digite a cidade" />
+                <input type="text" id="name" name="name" placeholder="Digite o nome do freelancer" />
+                <select id="servicosEvento" name="servicosEvento" class="input">
+                    <option value="">Selecione o Cargo</option>
+                    <option value="manobrista">Manobrista</option>
+                    <option value="bombeiro_civil">Bombeiro Civil</option>
+                    <option value="seguranca">Segurança</option>
+                    <option value="limpeza">Limpeza</option>
+                    <option value="brigadista">Brigadista</option>
+                    <option value="promotor">Promotor</option>
+                    <option value="recepcionista">Recepcionista</option>
+                </select>
+            </div>
+    
+            <button class="button" type="submit">Filtrar</button>
+            <button class="button" type="button" id="download">Baixar CSV</button>
+            <button class="button" id="logoff">Sair</button>
         </form>
-      </nav>
+    </nav>
       <section id="freelancers"></section>
     </main>
     <script src="consumoBanco.js"></script>
