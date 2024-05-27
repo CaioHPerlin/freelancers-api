@@ -7,7 +7,8 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-image: url(../../assets/img/fundoTRW.jpeg);
+	background-size: cover;
 }
 
 .container {
@@ -18,23 +19,31 @@ body {
 
 /* Estilos do cabeçalho */
 header {
-  background-color: #333;
+  
   color: #fff;
   padding: 20px;
+  display: flex;
+  align-items: center;
 }
 
-.titleCadastro h1 {
-  font-size: 24px;
+header img{
+  max-width: 10%;
+  max-height: 10%;
+}
+
+.titleCadastro{
+  margin-top: 0.5%;
+  margin-left: 10px;
 }
 
 
 /* Estilos do bloco de sucesso */
 .success-section {
-  background-color: #fff;
-  border: 1px solid #ccc;
+
   border-radius: 5px;
   padding: 20px;
   text-align: center;
+  color: #E2E242;
 }
 
 .icon-container {
@@ -44,7 +53,7 @@ header {
 svg {
   width: 100px;
   height: 100px;
-  fill: #333;
+  fill: #103218;
 }
 
 h2 {
