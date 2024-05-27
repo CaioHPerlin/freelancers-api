@@ -19,15 +19,24 @@ body {
 }
 
 /* Estilos do cabeçalho */
+/* Estilos do cabeçalho */
 header {
-	background-color: #333;
+  
 	color: #fff;
 	padding: 20px;
-}
-
-h1 {
-	font-size: 24px;
-}
+	display: flex;
+	align-items: center;
+  }
+  
+  header img{
+	max-width: 10%;
+	max-height: 10%;
+  }
+  
+  .titleCadastro{
+	margin-top: 0.5%;
+	margin-left: 10px;
+  }
 
 /* Estilos do botão de voltar */
 .btnVoltar {
@@ -47,8 +56,8 @@ h1 {
 
 /* Estilos do conteúdo principal */
 main {
-	background-color: #fff;
-	border: 1px solid #ccc;
+	background-color: transparent;
+	border: 3px solid #E2E242;
 	border-radius: 5px;
 	padding: 20px;
 }
@@ -144,7 +153,7 @@ div {
 
 div p {
 	font-size: 18px;
-	color: #333;
+	color: #FFFFFF;
 	font-weight: 600;
 	margin-bottom: 10px;
 	
