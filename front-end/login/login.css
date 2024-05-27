@@ -8,6 +8,8 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
+  background-image: url(../assets/img/fundoTRW.jpeg);
+	background-size: cover;
 }
 
 .container {
@@ -37,24 +39,33 @@ body {
 		transform: rotate(360deg);
 	}
 }
-
-/* Estilos do cabeçalho */
 header {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-}
+  
+	color: #fff;
+	padding: 20px;
+	display: flex;
+	align-items: center;
+  }
+  
+  header img{
+	max-width: 10%;
+	max-height: 10%;
+  }
+  
+  .titleCadastro{
+	margin-top: 0.5%;
+	margin-left: 10px;
+  }
 
-.titleCadastro h1 {
-  font-size: 24px;
-}
 
 /* Estilos do formulário */
 .form {
-  background-color: #fff;
+  background-color: transparent;
   padding: 20px;
+  color: white;
+
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 10px  #606B3E;
 }
 
 .inputContainer {
@@ -75,7 +86,7 @@ header {
 }
 
 .button {
-  background-color: #333;
+  background-color: #606B3E;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -85,7 +96,8 @@ header {
 }
 
 .button:hover {
-  background-color: #555;
+  background-color: #E2E242;
+  color: #103218;
 }
 
 /* Estilos do rodapé */
