@@ -14,6 +14,7 @@
   </head>
   <body>
     <header>
+      <img src="../assets/img/logoTRW.png" alt="" />
       <nav class="titleCadastro">
         <h1>EDITAR FREELANCER</h1>
       </nav>
@@ -37,20 +38,27 @@
 
         <div class="inputContainer">
           <label for="cargo">Cargo</label>
-          <select name="cargo" id="cargo" class="input">
-            <option value="cargo">
-              Selecione o cargo Desejável
-            </option>
+          <select id="servicosEvento" name="servicosEvento" class="input">
+            <option value="">Selecione...</option>
+            <option value="manobrista">Manobrista</option>
+            <option value="bombeiro_civil">Bombeiro Civil</option>
+            <option value="seguranca">Segurança</option>
+            <option value="limpeza">Limpeza</option>
+            <option value="brigadista">Brigadista</option>
+            <option value="promotor">Promotor</option>
+            <option value="recepcionista">Recepcionista</option>
           </select>
 
         </div>
 
 
 
+        
 
-
-
-        <input class="button" type="submit" value="EDITAR" />
+        <div class="buttons">
+          <button class="buttonVoltar" type="submit" name="action" value="voltar">VOLTAR</button>
+          <button class="button" type="submit" name="action" value="editar">EDITAR</button>
+      </div>
       </form>
       <div id="loadercont"></div>
     </main>

@@ -85,6 +85,8 @@
           <label for="cargo">Cargo</label>
           <select id="servicosEvento" name="servicosEvento" class="input">
             <option value="">Selecione...</option>
+            <option value="manobrista">Manobrista</option>
+            <option value="bombeiro_civil">Bombeiro Civil</option>
             <option value="seguranca">Segurança</option>
             <option value="limpeza">Limpeza</option>
             <option value="brigadista">Brigadista</option>
@@ -101,24 +103,26 @@
             class="input"
             required
           >
-            <option value="">Selecione...</option>
-
-            <option value="fundamental_incompleto">
-              Ensino Fundamental Incompleto
-            </option>
-            <option value="fundamental_completo">
-              Ensino Fundamental Completo
-            </option>
-            <option value="medio_incompleto">Ensino Médio Incompleto</option>
-            <option value="medio_completo">Ensino Médio Completo</option>
-            <option value="superior_incompleto">
-              Ensino Superior Incompleto
-            </option>
-            <option value="superior_completo">Ensino Superior Completo</option>
-            <option value="pos_graduacao">Pós-graduação</option>
-            <option value="mestrado">Mestrado</option>
-            <option value="doutorado">Doutorado</option>
+          <option value="Ensino Fundamental">Ensino Fundamental</option>
+          <option value="Ensino Médio">Ensino Médio</option>
+          <option value="Ensino Superior">Ensino Superior</option>
+          <option value="Pós-graduação">Pós-graduação</option>
+          <option value="Mestrado">Mestrado</option>
+          <option value="Doutorado">Doutorado</option>
           </select>
+        </div>
+
+        <div class="inputContainer" >
+          <label for="curso">Curso:</label>
+          <input type="text" id="curso" name="curso" placeholder="Nome do curso" class="input">
+        </div>
+
+        <div class="inputContainer" >
+          <label for="completo">Completo:</label>
+          <input type="checkbox" id="completo" name="completo" s >
+       
+          <label for="incompleto">Incompleto:</label>
+          <input type="checkbox" id="incompleto" name="incompleto">
         </div>
 
         <div class="inputContainer">

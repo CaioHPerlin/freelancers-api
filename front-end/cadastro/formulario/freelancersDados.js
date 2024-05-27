@@ -30,6 +30,31 @@ dadosfreelancers.addEventListener('submit', (evento) => {
 		});
 });
 
+
+
+const form = document.getElementById('dadosFreelancers');
+const completoCheckbox = document.getElementById('completo');
+const incompletoCheckbox = document.getElementById('incompleto');
+
+completoCheckbox.addEventListener('change', function() {
+	if (this.checked) {
+		incompletoCheckbox.checked = false;
+	}
+});
+
+incompletoCheckbox.addEventListener('change', function() {
+	if (this.checked) {
+		completoCheckbox.checked = false;
+	}
+});
+
+form.addEventListener('submit', function(event) {
+	if (!completoCheckbox.checked && !incompletoCheckbox.checked) {
+		alert('Por favor, selecione se o curso está completo ou incompleto.');
+		event.preventDefault();
+	}
+});
+
 //select api de estados e cidades
 const uf = document.querySelector('#state');
 const local = document.querySelector('#city');
