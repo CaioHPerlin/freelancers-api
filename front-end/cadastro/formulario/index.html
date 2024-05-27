@@ -14,7 +14,7 @@
   </head>
   <body>
     <header>
-      <img src="../../assets/img/logoTRW.png" alt="">
+      <img src="../../assets/img/logoTRW.png" alt="" />
       <nav class="titleCadastro">
         <h1>CADASTRO</h1>
       </nav>
@@ -83,12 +83,42 @@
 
         <div class="inputContainer">
           <label for="cargo">Cargo</label>
-          <select name="cargo" id="cargo" class="input">
-            <option value="cargo">
-              Selecione o cargo Desejável
-            </option>
+          <select id="servicosEvento" name="servicosEvento" class="input">
+            <option value="">Selecione...</option>
+            <option value="seguranca">Segurança</option>
+            <option value="limpeza">Limpeza</option>
+            <option value="brigadista">Brigadista</option>
+            <option value="promotor">Promotor</option>
+            <option value="recepcionista">Recepcionista</option>
           </select>
+        </div>
 
+        <div class="inputContainer">
+          <label for="grauEscolaridade">Grau de Escolaridade</label>
+          <select
+            id="grauEscolaridade"
+            name="grauEscolaridade"
+            class="input"
+            required
+          >
+            <option value="">Selecione...</option>
+
+            <option value="fundamental_incompleto">
+              Ensino Fundamental Incompleto
+            </option>
+            <option value="fundamental_completo">
+              Ensino Fundamental Completo
+            </option>
+            <option value="medio_incompleto">Ensino Médio Incompleto</option>
+            <option value="medio_completo">Ensino Médio Completo</option>
+            <option value="superior_incompleto">
+              Ensino Superior Incompleto
+            </option>
+            <option value="superior_completo">Ensino Superior Completo</option>
+            <option value="pos_graduacao">Pós-graduação</option>
+            <option value="mestrado">Mestrado</option>
+            <option value="doutorado">Doutorado</option>
+          </select>
         </div>
 
         <div class="inputContainer">
@@ -231,13 +261,10 @@
           <select
             name="state"
             class="input"
-            
             placeholder="Digite seu estado"
             id="state"
             required
-          >
-
-          </select>
+          ></select>
         </div>
 
         <div class="inputContainer">
@@ -245,12 +272,10 @@
           <select
             name="city"
             class="input"
-            
             placeholder="Digite sua cidade"
             id="city"
-            required>
-
-          </select>
+            required
+          ></select>
         </div>
 
         <div class="inputContainer">

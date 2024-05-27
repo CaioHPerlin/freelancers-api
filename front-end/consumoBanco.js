@@ -1,10 +1,10 @@
-const checkSession = () => {
-	const token = window.localStorage.getItem('token');
+//const checkSession = () => {
+//	const token = window.localStorage.getItem('token');
 
-	if(!token) window.location.href = '/freelancers/login';
-}
+//	if(!token) window.location.href = '/freelancers/login';
+//}
 
-checkSession();
+//checkSession();
 
 async function fetchFreelancers(city) {
 	const url = city
