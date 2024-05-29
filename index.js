@@ -15,6 +15,10 @@ const freelancerController = require("./controllers/freelancerController");
 app.use(cors());
 app.use(express.json());
 
+app.get("/helloworld", (req, res) => {
+  res.status(200).json({ message: "hello world" });
+});
+
 // Static file serving
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
