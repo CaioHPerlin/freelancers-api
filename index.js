@@ -9,8 +9,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const upload = require("./upload");
 
-const PORT = process.env.PORT;
-
 const freelancerController = require("./controllers/freelancerController");
 
 // Middleware
@@ -67,4 +65,6 @@ app.post("/auth", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`http://localhost:${PORT}/`));
+const listener = app.listen(() => {
+  console.log(`http://localhost:${listener.address().port}`);
+});
