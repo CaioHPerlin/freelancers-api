@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/caiohygi/projects/freelancer-api #Add /<sub_folder> if required
+    - export DEPLOYPATH=/home/caiohygi/api/freelancers
     - /bin/cp -r * $DEPLOYPATH
