@@ -1,21 +1,24 @@
-const { MongoClient, ObjectId } = require('mongodb');
+const { Pool } = require('pg');
 
-const URI = process.env.API_URI;
+const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
 
-const connectToDatabase = async () => {
+pool = new Pool({
+	user: 'caiohygi_admin',
+	host: '186.250.240.96',
+	database: 'caiohygi_freelancer_db',
+	password: DATABASE_PASSWORD,
+	port: 5432,
+});
+
+const checkConnection = async () => {
 	try {
-		const client = new MongoClient(URI);
-		await client.connect();
-		return client.db('sebrae-1');
+		const res = await pool.query('SELECT NOW()');
+		console.log('Succesfully connected to database. Rows:', res.rows);
 	} catch (err) {
-		console.error('Failed to connect to MongoDB:', err);
-		throw err;
+		console.error('Error when connecting to the database:', err.stack);
 	}
 };
 
-const toObjectId = (idString) => new ObjectId(idString);
+checkConnection();
 
-module.exports = {
-	connectToDatabase,
-	toObjectId,
-};
+module.exports = pool;
