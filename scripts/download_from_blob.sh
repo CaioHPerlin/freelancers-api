@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read -p "Output path: " OUTPUT
+OUTPUT="./uploads/"
 
 if [ ! -d "$OUTPUT" ]; then
   mkdir -p "$OUTPUT"
