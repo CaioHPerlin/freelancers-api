@@ -11,72 +11,78 @@ const getAll = async (req, res) => {
 		res.status(500).json({ message: 'internal server error' });
 	}
 };
-/*
+
 const create = async (req, res) => {
-	const db = await connectToDatabase();
-	const client = db.client;
-	const freelancer = req.body;
 	try {
+		const freelancer = req.body;
+
 		freelancer.cpf = freelancer.cpf.replace(/\D/g, '');
 		freelancer.phone = freelancer.phone.replace(/\D/g, '');
 		freelancer.emergencyPhone = freelancer.emergencyPhone.replace(
 			/\D/g,
 			''
 		);
+		freelancer.dream = freelancer.dream.replace(/[^\x00-\xFF]/g, '');
 		freelancer.city = freelancer.city.toLowerCase();
 
-		const freelancersCollection = db.collection('freelancers');
+		const existingFreelancer = await pool.query(
+			'SELECT * FROM freelancer WHERE cpf=$1',
+			[freelancer.cpf]
+		);
 
-		const existingFreelancer = await freelancersCollection.findOne({
-			cpf: freelancer.cpf,
-		});
-		if (existingFreelancer) {
-			return res
-				.status(409)
-				.json({ message: 'CPF already registered! ' });
+		if (existingFreelancer.rowCount > 0) {
+			return res.status(409).json({ message: 'CPF already registered' });
 		}
 
+		const pfpFileName = `pfp_${freelancer.cpf}.jpg`;
+		const fcpFileName = `fcp_${freelancer.cpf}.jpg`;
+
 		const profilePicture = req.files['profilePicture'][0];
-		const facePicture = req.files['facePicture'][0];
+		const facialPicture = req.files['facialPicture'][0];
 
-		const pfpFileName = `pfp_${freelancer.cpf}.jpeg`;
-		const fcpFileName = `fcp_${freelancer.cpf}.jpeg`;
-
-		const pfpFile = await sharp(profilePicture.buffer)
+		await sharp(profilePicture.buffer)
 			.resize(300, 300)
 			.jpeg({ quality: 80 })
-			.toFile('uploads/' + fcpFileName, (err) =>
-				err ? console.error(err) : ''
-			);
-		const fcpFile = await sharp(facePicture.buffer)
+			.toFile('uploads/' + pfpFileName, (err) => {
+				err ? console.error(err) : '';
+			});
+
+		await sharp(facialPicture.buffer)
 			.resize(300, 300)
 			.jpeg({ quality: 80 })
-			.toFile('uploads/' + fcpFileName, (err) =>
-				err ? console.error(err) : ''
-			);
-
-		// await put(pfpFileName, pfpFile, {
-		//   access: "public",
-		//   addRandomSuffix: false,
-		// });
-		// await put(fcpFileName, fcpFile, {
-		//   access: "public",
-		//   addRandomSuffix: false,
-		// });
+			.toFile('uploads/' + fcpFileName, (err) => {
+				err ? console.error(err) : '';
+			});
 
 		freelancer.profilePicture = pfpFileName;
-		freelancer.facePicture = fcpFileName;
+		freelancer.facialPicture = fcpFileName;
 
-		await freelancersCollection.insertOne(req.body);
-		res.status(201).json(req.body);
+		await pool.query(
+			`
+			INSERT INTO freelancer (
+				"name", "cpf", "phone", "email", "cep", "street", "residential_number",
+				"neighborhood", "height", "weight", "hair_color", "eye_color", "birthdate",
+				"skin_color", "instagram", "facebook", "state", "city", "emergency_name",
+				"emergency_phone", "shirt_size", "pix_key", "complement", "dream",
+				"profile_picture", "facial_picture", "education", "course"
+			) VALUES (
+				$1, $2, $3, $4, $5, $6, $7,
+				$8, $9, $10, $11, $12, $13,
+				$14, $15, $16, $17, $18, $19,
+				$20, $21, $22, $23, $24,
+				$25, $26, $27, $28
+			);
+		`,
+			Object.values(freelancer)
+		);
+
+		res.status(201).json(freelancer);
 	} catch (err) {
 		console.error('Error when creating a freelancer:', err);
 		res.status(500).json({ message: 'internal server error' });
-	} finally {
-		await client.close();
 	}
 };
-
+/*
 const remove = async (req, res) => {
 	const { id } = req.params;
 	const db = await connectToDatabase();
@@ -248,4 +254,5 @@ const getCSV = async (req, res) => {
 */
 module.exports = {
 	getAll,
+	create,
 };
