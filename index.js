@@ -34,7 +34,7 @@ app.post(
 	]), // Handle file upload through multer middleware
 	freelancerController.create
 );
-// app.delete("/freelancers/:id", freelancerController.remove);
+app.delete('/freelancers/:id', freelancerController.remove);
 
 // Auth
 const adminUser = {

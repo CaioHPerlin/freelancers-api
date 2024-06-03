@@ -1,10 +1,13 @@
+const fs = require('fs/promises');
+const path = require('path');
 const sharp = require('sharp');
 const pool = require('../db');
 const Parser = require('json2csv').Parser;
 
 const getAll = async (req, res) => {
 	try {
-		const data = (await pool.query('SELECT * FROM freelancer')) || [];
+		const data =
+			(await pool.query('SELECT * FROM freelancer ORDER BY name')) || [];
 		res.status(200).json(data.rows);
 	} catch (err) {
 		console.error('Error when listing freelancers:', err);
@@ -25,12 +28,11 @@ const create = async (req, res) => {
 		freelancer.dream = freelancer.dream.replace(/[^\x00-\xFF]/g, '');
 		freelancer.city = freelancer.city.toLowerCase();
 
-		const existingFreelancer = await pool.query(
-			'SELECT * FROM freelancer WHERE cpf=$1',
-			[freelancer.cpf]
-		);
+		const data = await pool.query('SELECT * FROM freelancer WHERE cpf=$1', [
+			freelancer.cpf,
+		]);
 
-		if (existingFreelancer.rowCount > 0) {
+		if (data.rowCount > 0) {
 			return res.status(409).json({ message: 'CPF already registered' });
 		}
 
@@ -57,6 +59,37 @@ const create = async (req, res) => {
 		freelancer.profilePicture = pfpFileName;
 		freelancer.facialPicture = fcpFileName;
 
+		const orderedFreelancer = {
+			name: freelancer.name,
+			cpf: freelancer.cpf,
+			phone: freelancer.phone,
+			email: freelancer.email,
+			cep: freelancer.cep,
+			street: freelancer.street,
+			residential_number: freelancer.residentialNumber,
+			neighborhood: freelancer.neighborhood,
+			height: freelancer.height,
+			weight: freelancer.weight,
+			hair_color: freelancer.hairColor,
+			eye_color: freelancer.eyeColor,
+			birthdate: freelancer.birthdate,
+			skin_color: freelancer.skin_color,
+			instagram: freelancer.instagram,
+			facebook: freelancer.facebook,
+			state: freelancer.state,
+			city: freelancer.city,
+			emergency_name: freelancer.emergencyName,
+			emergency_phone: freelancer.emergencyPhone,
+			shirt_size: freelancer.shirtSize,
+			pix_key: freelancer.pixKey,
+			complement: freelancer.complement,
+			dream: freelancer.dream,
+			profile_picture: freelancer.profilePicture,
+			facial_picture: freelancer.facialPicture,
+			education: freelancer.education,
+			course: freelancer.course,
+		};
+
 		await pool.query(
 			`
 			INSERT INTO freelancer (
@@ -73,43 +106,64 @@ const create = async (req, res) => {
 				$25, $26, $27, $28
 			);
 		`,
-			Object.values(freelancer)
+			Object.values(orderedFreelancer)
 		);
 
-		res.status(201).json(freelancer);
+		res.status(201).json(orderedFreelancer);
 	} catch (err) {
 		console.error('Error when creating a freelancer:', err);
 		res.status(500).json({ message: 'internal server error' });
 	}
 };
-/*
+
 const remove = async (req, res) => {
-	const { id } = req.params;
-	const db = await connectToDatabase();
-	const client = db.client;
 	try {
-		const freelancersCollection = db.collection('freelancers');
-		const freelancer = await freelancersCollection.findOne({
-			_id: toObjectId(id),
-		});
+		const { id } = req.params;
 
-		const pfpURL = `uploads/${freelancer.profilePicture}`;
-		const fcpURL = `uploads/${freelancer.facePicture}`;
+		const data = await pool.query('SELECT * FROM freelancer WHERE _id=$1', [
+			id,
+		]);
 
-		await del([pfpURL, fcpURL]);
+		if (data.rowCount < 1) {
+			return res
+				.status(404)
+				.json({ message: `freelancer of id ${id} not found` });
+		}
 
-		await freelancersCollection.deleteOne({ _id: toObjectId(id) });
+		const freelancer = data.rows[0];
+
+		// Delete freelancer from database first
+		await pool.query('DELETE FROM freelancer WHERE _id = $1', [id]);
 		res.status(200).json({
 			message: 'user successfully deleted from database',
 		});
+		console.info(`Freelancer ${freelancer.name} deleted from database`);
+
+		// Then delete their files
+		try {
+			await fs.unlink(
+				path.join(
+					__dirname,
+					'..',
+					'uploads',
+					freelancer.profile_picture
+				)
+			);
+			await fs.unlink(
+				path.join(__dirname, '..', 'uploads', freelancer.facial_picture)
+			);
+		} catch (err) {
+			console.warn(
+				'Unable to delete image files from the above freelancer:',
+				err
+			);
+		}
 	} catch (err) {
 		console.error('Error when deleting user from database:', err);
 		res.status(500).json({ message: 'internal server error' });
-	} finally {
-		await client.close();
 	}
 };
-
+/*
 const getByCity = async (req, res) => {
 	const db = await connectToDatabase();
 	const client = db.client;
@@ -255,4 +309,5 @@ const getCSV = async (req, res) => {
 module.exports = {
 	getAll,
 	create,
+	remove,
 };
