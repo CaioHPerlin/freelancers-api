@@ -11,7 +11,7 @@ const getAll = async (req, res) => {
 		res.status(200).json(data.rows);
 	} catch (err) {
 		console.error('Error when listing freelancers:', err);
-		res.status(500).json({ message: 'internal server error' });
+		res.status(500).json({ message: 'internal server error', error: err });
 	}
 };
 
@@ -112,7 +112,7 @@ const create = async (req, res) => {
 		res.status(201).json(orderedFreelancer);
 	} catch (err) {
 		console.error('Error when creating a freelancer:', err);
-		res.status(500).json({ message: 'internal server error' });
+		res.status(500).json({ message: 'internal server error', error: err });
 	}
 };
 
@@ -160,7 +160,7 @@ const remove = async (req, res) => {
 		}
 	} catch (err) {
 		console.error('Error when deleting user from database:', err);
-		res.status(500).json({ message: 'internal server error' });
+		res.status(500).json({ message: 'internal server error', error: err });
 	}
 };
 /*
@@ -176,7 +176,7 @@ const getByCity = async (req, res) => {
 		res.status(200).json(freelancersFromCity);
 	} catch (err) {
 		console.error('Error when querying by cities:', err);
-		res.status(500).json({ message: 'internal server error' });
+		res.status(500).json({ message: 'internal server error', error: err });
 	} finally {
 		client.close();
 	}
@@ -300,7 +300,7 @@ const getCSV = async (req, res) => {
 		res.status(200).send(csvData);
 	} catch (err) {
 		console.error('Error exporting to csv:', err);
-		res.status(500).json({ message: 'internal server error' });
+		res.status(500).json({ message: 'internal server error', error: err });
 	} finally {
 		await client.close();
 	}
