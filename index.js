@@ -24,6 +24,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //Freelancers
 app.get('/freelancers', freelancerController.getAll);
+app.get('/freelancers/:id', freelancerController.getOne);
 // app.get("/freelancers/export", freelancerController.getCSV);
 // app.get("/freelancers/:city", freelancerController.getByCity);
 app.post(

@@ -6,11 +6,33 @@ const Parser = require('json2csv').Parser;
 
 const getAll = async (req, res) => {
 	try {
-		const data =
-			(await pool.query('SELECT * FROM freelancer ORDER BY name')) || [];
+		let query = `SELECT * FROM freelancer WHERE LOWER(name) LIKE $1`;
+		let params = [`%${req.query.name || ''}%`];
+
+		if (req.query.city) {
+			query += ` AND LOWER(city) LIKE $2`;
+			params = [...params, `%${req.query.city}%`];
+		}
+
+		const data = (await pool.query(query + ` ORDER BY name`, params)) || [];
 		res.status(200).json(data.rows);
 	} catch (err) {
 		console.error('Error when listing freelancers:', err);
+		res.status(500).json({ message: 'internal server error', error: err });
+	}
+};
+
+const getOne = async (req, res) => {
+	try {
+		const { id } = req.params;
+
+		const data = await pool.query('SELECT * FROM freelancer WHERE _id=$1', [
+			id,
+		]);
+
+		res.status(200).json(data.rows[0]);
+	} catch (err) {
+		console.error('Error when getting one freelancer:', err);
 		res.status(500).json({ message: 'internal server error', error: err });
 	}
 };
@@ -92,20 +114,20 @@ const create = async (req, res) => {
 
 		await pool.query(
 			`
-			INSERT INTO freelancer (
-				"name", "cpf", "phone", "email", "cep", "street", "residential_number",
-				"neighborhood", "height", "weight", "hair_color", "eye_color", "birthdate",
-				"skin_color", "instagram", "facebook", "state", "city", "emergency_name",
-				"emergency_phone", "shirt_size", "pix_key", "complement", "dream",
-				"profile_picture", "facial_picture", "education", "course"
-			) VALUES (
-				$1, $2, $3, $4, $5, $6, $7,
-				$8, $9, $10, $11, $12, $13,
-				$14, $15, $16, $17, $18, $19,
-				$20, $21, $22, $23, $24,
-				$25, $26, $27, $28
-			);
-		`,
+				INSERT INTO freelancer (
+					"name", "cpf", "phone", "email", "cep", "street", "residential_number",
+					"neighborhood", "height", "weight", "hair_color", "eye_color", "birthdate",
+					"skin_color", "instagram", "facebook", "state", "city", "emergency_name",
+					"emergency_phone", "shirt_size", "pix_key", "complement", "dream",
+					"profile_picture", "facial_picture", "education", "course"
+				) VALUES (
+					$1, $2, $3, $4, $5, $6, $7,
+					$8, $9, $10, $11, $12, $13,
+					$14, $15, $16, $17, $18, $19,
+					$20, $21, $22, $23, $24,
+					$25, $26, $27, $28
+				);
+			`,
 			Object.values(orderedFreelancer)
 		);
 
@@ -164,24 +186,6 @@ const remove = async (req, res) => {
 	}
 };
 /*
-const getByCity = async (req, res) => {
-	const db = await connectToDatabase();
-	const client = db.client;
-	const { city } = req.params;
-	try {
-		const freelancersCollection = db.collection('freelancers');
-		const freelancersFromCity = await freelancersCollection
-			.find({ city: city })
-			.toArray();
-		res.status(200).json(freelancersFromCity);
-	} catch (err) {
-		console.error('Error when querying by cities:', err);
-		res.status(500).json({ message: 'internal server error', error: err });
-	} finally {
-		client.close();
-	}
-};
-
 const getCSV = async (req, res) => {
 	const db = await connectToDatabase();
 	const client = db.client;
@@ -308,6 +312,7 @@ const getCSV = async (req, res) => {
 */
 module.exports = {
 	getAll,
+	getOne,
 	create,
 	remove,
 };
