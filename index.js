@@ -24,15 +24,14 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //Freelancers
 app.get('/freelancers', freelancerController.getAll);
+app.get('/freelancers/export', freelancerController.exportCSV);
 app.get('/freelancers/:id', freelancerController.getOne);
-// app.get("/freelancers/export", freelancerController.getCSV);
-// app.get("/freelancers/:city", freelancerController.getByCity);
 app.post(
 	'/freelancers',
 	upload.fields([
 		{ name: 'profilePicture', maxCount: 1 },
 		{ name: 'facialPicture', maxCount: 1 },
-	]), // Handle file upload through multer middleware
+	]), // Handle file upload through multer
 	freelancerController.create
 );
 app.delete('/freelancers/:id', freelancerController.remove);

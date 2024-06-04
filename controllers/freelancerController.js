@@ -37,6 +37,39 @@ const getOne = async (req, res) => {
 	}
 };
 
+const orderFreelancer = (freelancer) => {
+	return {
+		name: freelancer.name,
+		cpf: freelancer.cpf,
+		phone: freelancer.phone,
+		email: freelancer.email,
+		cep: freelancer.cep,
+		street: freelancer.street,
+		residential_number: freelancer.residentialNumber,
+		neighborhood: freelancer.neighborhood,
+		height: freelancer.height,
+		weight: freelancer.weight,
+		hair_color: freelancer.hairColor,
+		eye_color: freelancer.eyeColor,
+		birthdate: freelancer.birthdate,
+		skin_color: freelancer.skin_color,
+		instagram: freelancer.instagram,
+		facebook: freelancer.facebook,
+		state: freelancer.state,
+		city: freelancer.city,
+		emergency_name: freelancer.emergencyName,
+		emergency_phone: freelancer.emergencyPhone,
+		shirt_size: freelancer.shirtSize,
+		pix_key: freelancer.pixKey,
+		complement: freelancer.complement,
+		dream: freelancer.dream,
+		profile_picture: freelancer.profilePicture,
+		facial_picture: freelancer.facialPicture,
+		education: freelancer.education,
+		course: freelancer.course,
+	};
+};
+
 const create = async (req, res) => {
 	try {
 		const freelancer = req.body;
@@ -81,36 +114,7 @@ const create = async (req, res) => {
 		freelancer.profilePicture = pfpFileName;
 		freelancer.facialPicture = fcpFileName;
 
-		const orderedFreelancer = {
-			name: freelancer.name,
-			cpf: freelancer.cpf,
-			phone: freelancer.phone,
-			email: freelancer.email,
-			cep: freelancer.cep,
-			street: freelancer.street,
-			residential_number: freelancer.residentialNumber,
-			neighborhood: freelancer.neighborhood,
-			height: freelancer.height,
-			weight: freelancer.weight,
-			hair_color: freelancer.hairColor,
-			eye_color: freelancer.eyeColor,
-			birthdate: freelancer.birthdate,
-			skin_color: freelancer.skin_color,
-			instagram: freelancer.instagram,
-			facebook: freelancer.facebook,
-			state: freelancer.state,
-			city: freelancer.city,
-			emergency_name: freelancer.emergencyName,
-			emergency_phone: freelancer.emergencyPhone,
-			shirt_size: freelancer.shirtSize,
-			pix_key: freelancer.pixKey,
-			complement: freelancer.complement,
-			dream: freelancer.dream,
-			profile_picture: freelancer.profilePicture,
-			facial_picture: freelancer.facialPicture,
-			education: freelancer.education,
-			course: freelancer.course,
-		};
+		const orderedFreelancer = orderFreelancer(freelancer);
 
 		await pool.query(
 			`
@@ -185,15 +189,19 @@ const remove = async (req, res) => {
 		res.status(500).json({ message: 'internal server error', error: err });
 	}
 };
-/*
-const getCSV = async (req, res) => {
-	const db = await connectToDatabase();
-	const client = db.client;
+
+const exportCSV = async (req, res) => {
 	try {
-		const freelancersCollection = db.collection('freelancers');
-		const freelancers = await freelancersCollection
-			.find({}, { _id: 0 })
-			.toArray();
+		let query = `SELECT * FROM freelancer WHERE LOWER(name) LIKE $1`;
+		let params = [`%${req.query.name || ''}%`];
+
+		if (req.query.city) {
+			query += ` AND LOWER(city) LIKE $2`;
+			params = [...params, `%${req.query.city}%`];
+		}
+
+		const data = (await pool.query(query + ` ORDER BY name`, params)) || [];
+		const freelancers = data.rows.map((obj) => orderFreelancer(obj));
 
 		const fields = [
 			{
@@ -305,14 +313,13 @@ const getCSV = async (req, res) => {
 	} catch (err) {
 		console.error('Error exporting to csv:', err);
 		res.status(500).json({ message: 'internal server error', error: err });
-	} finally {
-		await client.close();
 	}
 };
-*/
+
 module.exports = {
 	getAll,
 	getOne,
 	create,
 	remove,
+	exportCSV,
 };
