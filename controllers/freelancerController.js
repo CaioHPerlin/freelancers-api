@@ -14,7 +14,8 @@ const getAll = async (req, res) => {
 			params = [...params, `%${req.query.city}%`];
 		}
 
-		const data = (await pool.query(query + ` ORDER BY name`, params)) || [];
+		const data =
+			(await pool.query(query + ` ORDER BY _id DESC`, params)) || [];
 		res.status(200).json(data.rows);
 	} catch (err) {
 		console.error('Error when listing freelancers:', err);
@@ -52,7 +53,7 @@ const orderFreelancer = (freelancer) => {
 		hair_color: freelancer.hairColor,
 		eye_color: freelancer.eyeColor,
 		birthdate: freelancer.birthdate,
-		skin_color: freelancer.skin_color,
+		skin_color: freelancer.skinColor,
 		instagram: freelancer.instagram,
 		facebook: freelancer.facebook,
 		state: freelancer.state,
@@ -142,8 +143,107 @@ const create = async (req, res) => {
 	}
 };
 
+const update = async (req, res) => {
+	try {
+		// Check if freelancer exists on database
+		const { id } = req.params;
+
+		const data = await pool.query('SELECT * FROM freelancer WHERE _id=$1', [
+			id,
+		]);
+
+		if (data.rowCount < 1) {
+			return res
+				.status(404)
+				.json({ message: `freelancer of id ${id} not found` });
+		}
+
+		//Delete old files
+		const previousFreelancer = data.rows[0];
+		try {
+			await fs.unlink(
+				path.join(
+					__dirname,
+					'..',
+					'uploads',
+					previousFreelancer.profile_picture
+				)
+			);
+			await fs.unlink(
+				path.join(
+					__dirname,
+					'..',
+					'uploads',
+					previousFreelancer.facial_picture
+				)
+			);
+		} catch (err) {
+			console.warn(
+				'Unable to delete image files from previous freelancer:',
+				err
+			);
+		}
+
+		// Handle req data
+		const freelancer = req.body;
+
+		freelancer.cpf = freelancer.cpf.replace(/\D/g, '');
+		freelancer.phone = freelancer.phone.replace(/\D/g, '');
+		freelancer.emergencyPhone = freelancer.emergencyPhone.replace(
+			/\D/g,
+			''
+		);
+		freelancer.dream = freelancer.dream.replace(/[^\x00-\xFF]/g, '');
+		freelancer.city = freelancer.city.toLowerCase();
+
+		const pfpFileName = `pfp_${freelancer.cpf}.jpg`;
+		const fcpFileName = `fcp_${freelancer.cpf}.jpg`;
+
+		const profilePicture = req.files['profilePicture'][0];
+		const facialPicture = req.files['facialPicture'][0];
+
+		await sharp(profilePicture.buffer)
+			.resize(300, 300)
+			.jpeg({ quality: 80 })
+			.toFile('uploads/' + pfpFileName, (err) => {
+				err ? console.error(err) : '';
+			});
+
+		await sharp(facialPicture.buffer)
+			.resize(300, 300)
+			.jpeg({ quality: 80 })
+			.toFile('uploads/' + fcpFileName, (err) => {
+				err ? console.error(err) : '';
+			});
+
+		freelancer.profilePicture = pfpFileName;
+		freelancer.facialPicture = fcpFileName;
+
+		const orderedFreelancer = orderFreelancer(freelancer);
+
+		await pool.query(
+			`
+			UPDATE freelancer
+			SET "name" = $1, "cpf" = $2, "phone" = $3, "email" = $4, "cep" = $5, "street" = $6, "residential_number" = $7,
+			"neighborhood" = $8, "height" = $9, "weight" = $10, "hair_color" = $11, "eye_color" = $12, "birthdate" = $13,
+			"skin_color" = $14, "instagram" = $15, "facebook" = $16, "state" = $17, "city" = $18, "emergency_name" = $19,
+			"emergency_phone" = $20, "shirt_size" = $21, "pix_key" = $22, "complement" = $23, "dream" = $24,
+			"profile_picture" = $25, "facial_picture" = $26, "education" = $27, "course" = $28
+			WHERE _id=$29
+		`,
+			[...Object.values(orderedFreelancer), id]
+		);
+
+		res.status(200).json(orderedFreelancer);
+	} catch (err) {
+		console.error('Error when updating freelancer:', err);
+		res.status(500).json({ message: 'internal server error', error: err });
+	}
+};
+
 const remove = async (req, res) => {
 	try {
+		// Check if freelancer exists on database
 		const { id } = req.params;
 
 		const data = await pool.query('SELECT * FROM freelancer WHERE _id=$1', [
@@ -201,8 +301,6 @@ const exportCSV = async (req, res) => {
 		}
 
 		const data = (await pool.query(query + ` ORDER BY name`, params)) || [];
-		const freelancers = data.rows.map((obj) => orderFreelancer(obj));
-
 		const fields = [
 			{
 				label: 'Nome Completo',
@@ -230,7 +328,7 @@ const exportCSV = async (req, res) => {
 			},
 			{
 				label: 'Número Residencial',
-				value: 'residentialNumber',
+				value: 'residential_number',
 			},
 			{
 				label: 'Bairro',
@@ -245,16 +343,20 @@ const exportCSV = async (req, res) => {
 				value: 'weight',
 			},
 			{
+				label: 'Data de Nascimento',
+				value: 'birthdate',
+			},
+			{
 				label: 'Cor do Cabelo',
-				value: 'hairColor',
+				value: 'hair_color',
 			},
 			{
 				label: 'Cor dos Olhos',
-				value: 'eyeColor',
+				value: 'eye_color',
 			},
 			{
 				label: 'Cor de Pele',
-				value: 'skinColor',
+				value: 'skin_color',
 			},
 			{
 				label: 'Instagram',
@@ -274,19 +376,19 @@ const exportCSV = async (req, res) => {
 			},
 			{
 				label: 'Contato Emergencial',
-				value: 'emergencyName',
+				value: 'emergency_name',
 			},
 			{
 				label: 'Telefone Emergencial',
-				value: 'emergencyPhone',
+				value: 'emergency_phone',
 			},
 			{
 				label: 'Tamanho de Camiseta',
-				value: 'shirtSize',
+				value: 'shirt_size',
 			},
 			{
 				label: 'Chave PIX',
-				value: 'pixKey',
+				value: 'pix_key',
 			},
 			{
 				label: 'Complemento',
@@ -296,6 +398,14 @@ const exportCSV = async (req, res) => {
 				label: 'Sonho',
 				value: 'dream',
 			},
+			{
+				label: 'Grau de Escolaridade',
+				value: 'education',
+			},
+			{
+				label: 'Curso',
+				value: 'course',
+			},
 		];
 
 		const csvParser = new Parser({
@@ -304,7 +414,7 @@ const exportCSV = async (req, res) => {
 			defaultValue: '-',
 			excelStrings: true,
 		});
-		const csvData = csvParser.parse(freelancers);
+		const csvData = csvParser.parse(data.rows);
 
 		res.type('text/csv');
 		res.attachment('dadosFreelancers.csv');
@@ -320,6 +430,7 @@ module.exports = {
 	getAll,
 	getOne,
 	create,
+	update,
 	remove,
 	exportCSV,
 };
