@@ -14,8 +14,7 @@ const getAll = async (req, res) => {
 			params = [...params, `%${req.query.city}%`];
 		}
 
-		const data =
-			(await pool.query(query + ` ORDER BY _id DESC`, params)) || [];
+		const data = (await pool.query(query + ` ORDER BY name`, params)) || [];
 		res.status(200).json(data.rows);
 	} catch (err) {
 		console.error('Error when listing freelancers:', err);
