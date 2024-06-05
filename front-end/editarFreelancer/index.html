@@ -1,67 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Cadastro de freelancers</title>
+    <title>Editar Freelancer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      media="screen"
-      href="edit.css"
-    />
-  </head>
-  <body>
+    <link rel="stylesheet" type="text/css" media="screen" href="edit.css" />
+</head>
+<body>
     <header>
-      <img src="../assets/img/logoTRW.png" alt="" />
-      <nav class="titleCadastro">
-        <h1>EDITAR FREELANCER</h1>
-      </nav>
+        <img src="../assets/img/logoTRW.png" alt="Logo" />
+        <nav class="titleCadastro">
+            <h1>EDITAR FREELANCER</h1>
+        </nav>
     </header>
 
     <main class="container">
-      <form class="form" method="post" id="dadosFreelancers">
-        <div class="inputContainer">
-          <label for="notaServico">Nota do Serviço Prestado</label>
-          <input
-            name="notaServico"
-            class="input"
-            type="number"
-            placeholder="Digite a Nota do Serviço Prestado"
-            id="notaServico"
-            required
-          />
-        </div>
+        <form class="form" method="post" id="editFreelancers">
+            <div class="inputContainer">
+                <label for="grade">Nota do Serviço Prestado</label>
+                <input
+                    name="grade"
+                    class="input"
+                    type="number"
+                    placeholder="Digite a Nota do Serviço Prestado"
+                    id="grade"
+                />
+            </div>
 
+            <div class="inputContainer">
+                <label for="role">Cargo</label>
+                <select id="role" name="role" class="input">
+                    <option value="">Selecione...</option>
 
+                </select>
+            </div>
 
-        <div class="inputContainer">
-          <label for="cargo">Cargo</label>
-          <select id="servicosEvento" name="servicosEvento" class="input">
-            <option value="">Selecione...</option>
-            <option value="manobrista">Manobrista</option>
-            <option value="bombeiro_civil">Bombeiro Civil</option>
-            <option value="seguranca">Segurança</option>
-            <option value="limpeza">Limpeza</option>
-            <option value="brigadista">Brigadista</option>
-            <option value="promotor">Promotor</option>
-            <option value="recepcionista">Recepcionista</option>
-          </select>
-
-        </div>
-
-
-
-        
-
-        <div class="buttons">
-          <button class="buttonVoltar" type="submit" name="action" value="voltar">VOLTAR</button>
-          <button class="button" type="submit" name="action" value="editar">EDITAR</button>
-      </div>
-      </form>
-      <div id="loadercont"></div>
+            <div class="buttons">
+                <a href="../"><button class="buttonVoltar" type="button">VOLTAR</button></a>
+                <button class="button" type="submit">EDITAR</button>
+            </div>
+        </form>
+        <div id="loadercont"></div>
     </main>
-    <script src="freelancersDados.js"></script>
-  </body>
+    <script src="edit.js"></script>
+</body>
 </html>

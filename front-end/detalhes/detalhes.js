@@ -31,17 +31,17 @@ function renderDetails(freelancer) {
 	name.textContent = `Nome: ${freelancer.name}`;
 	detailsContainer.appendChild(name);
 
-	const notaFreelancer = document.createElement('p');
-	notaFreelancer.textContent = `Nota de atuação: ${freelancer.notaFreelancer}`;
-	detailsContainer.appendChild(notaFreelancer);
+	const grade = document.createElement('p');
+	grade.textContent = `Nota de atuação: ${freelancer.grade}`;
+	detailsContainer.appendChild(grade);
 
 	const cpf = document.createElement('p');
 	cpf.textContent = `CPF: ${freelancer.cpf}`;
 	detailsContainer.appendChild(cpf);
 
-	const birthData = document.createElement('p');
-	birthData.textContent = `Data de Nascimento: ${freelancer.birthData}`;
-	detailsContainer.appendChild(birthData);
+	const birthdate = document.createElement('p');
+	birthdate.textContent = `Data de Nascimento: ${freelancer.birthdate}`;
+	detailsContainer.appendChild(birthdate);
 
 	const telefone = document.createElement('p');
 	telefone.textContent = `Telefone: ${freelancer.phone}`;
@@ -52,7 +52,7 @@ function renderDetails(freelancer) {
 	detailsContainer.appendChild(email);
 
 	const cargo = document.createElement('p');
-	cargo.textContent = `Cargo: ${freelancer.cargo}`;
+	cargo.textContent = `Cargo: ${freelancer.role}`;
 	detailsContainer.appendChild(cargo);
 
 	const cep = document.createElement('p');

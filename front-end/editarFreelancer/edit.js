@@ -8,7 +8,9 @@ function parseQueryString() {
 async function fetchFreelancer(freelancerId) {
     try {
         const response = await fetch(`https://sebrae-api.vercel.app/freelancers/${freelancerId}`);
-        if (!response.ok) throw new Error('Não foi possível carregar os dados do freelancer.');
+        if (!response.ok) {
+            throw new Error('Não foi possível carregar os dados do freelancer.');
+        }
         return await response.json();
     } catch (error) {
         console.error('Erro ao buscar dados do freelancer:', error);
@@ -18,22 +20,30 @@ async function fetchFreelancer(freelancerId) {
 
 async function updateFreelancer(freelancerId, updatedData) {
     try {
+        const grade = parseFloat(updatedData.grade);
+        if (isNaN(grade)) {
+            throw new Error('Nota do serviço prestado é inválida');
+        }
+        const role = updatedData.role;
+        if (!role) {
+            throw new Error('Cargo é inválido');
+        }
         const response = await fetch(
-            `https://sebrae-api.vercel.app/freelancers/${freelancerId}`,
+            `http://sandbox.caiohygino.software/freelancers/f${freelancerId}`,
             {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(updatedData),
+                body: JSON.stringify({ grade, role }),
             }
         );
-
         if (response.ok) {
             alert('Freelancer atualizado com sucesso!');
-            window.location.href = '../detalhes/index.html'; // Redireciona de volta para a página inicial após a atualização
+            window.location.href = '../detalhes/index.html';
         } else {
             const errorMessage = await response.text();
+            console.error('Erro ao atualizar o freelancer:', errorMessage);
             alert(`Erro ao atualizar o freelancer: ${errorMessage}`);
         }
     } catch (error) {
@@ -44,43 +54,38 @@ async function updateFreelancer(freelancerId, updatedData) {
 
 document.addEventListener('DOMContentLoaded', async () => {
     const freelancer = parseQueryString();
-
     if (!freelancer) {
         alert('ID do freelancer não encontrado na URL.');
         return;
     }
-
+    console.log('Freelancer data from URL:', freelancer);
     const freelancerDetails = await fetchFreelancer(freelancer._id);
-
     if (freelancerDetails) {
-        document.getElementById('notaServico').value = freelancerDetails.notaServico || '';
-        // Presumindo que você tem uma função para preencher os cargos
-        populateCargoDropdown(freelancerDetails.cargo);
+        document.getElementById('grade').value = freelancerDetails.grade || '';
+        populateRoleDropdown(freelancerDetails.role);
     }
-
-    const form = document.getElementById('dadosFreelancers');
+    const form = document.getElementById('editFreelancers');
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
-
         const updatedData = {
-            notaServico: document.getElementById('notaServico').value,
-            cargo: document.getElementById('cargo').value,
-            // Adicione outros campos conforme necessário
+            grade: document.getElementById('grade').value,
+            role: document.getElementById('role').value,
         };
-
         await updateFreelancer(freelancer._id, updatedData);
     });
 });
 
-function populateCargoDropdown(selectedCargo) {
-    const cargoDropdown = document.getElementById('cargo');
-    const cargos = ['Cargo 1', 'Cargo 2', 'Cargo 3']; // Exemplo de cargos. Substitua pelos cargos reais.
-
-    cargos.forEach((cargo) => {
+function populateRoleDropdown(selectedRole) {
+    const roleDropdown = document.getElementById('role');
+    const roles = ['manobrista', 'bombeiro civil', 'seguranca', 'limpeza', 'brigadista', 'promotor', 'recepcionista'];
+    roleDropdown.innerHTML = '';
+    roles.forEach((role) => {
         const option = document.createElement('option');
-        option.value = cargo;
-        option.textContent = cargo;
-        if (cargo === selectedCargo) option.selected = true;
-        cargoDropdown.appendChild(option);
+        option.value = role;
+        option.textContent = role;
+        if (role === selectedRole) {
+            option.selected = true;
+        }
+        roleDropdown.appendChild(option);
     });
 }
