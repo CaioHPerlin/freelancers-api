@@ -67,6 +67,8 @@ const orderFreelancer = (freelancer) => {
 		facial_picture: freelancer.facialPicture,
 		education: freelancer.education,
 		course: freelancer.course,
+		role: freelancer.role,
+		grade: freelancer.grade,
 	};
 };
 
@@ -129,7 +131,7 @@ const create = async (req, res) => {
 					$8, $9, $10, $11, $12, $13,
 					$14, $15, $16, $17, $18, $19,
 					$20, $21, $22, $23, $24,
-					$25, $26, $27, $28
+					$25, $26, $27, $28, $29, $30
 				);
 			`,
 			Object.values(orderedFreelancer)
@@ -227,8 +229,8 @@ const update = async (req, res) => {
 			"neighborhood" = $8, "height" = $9, "weight" = $10, "hair_color" = $11, "eye_color" = $12, "birthdate" = $13,
 			"skin_color" = $14, "instagram" = $15, "facebook" = $16, "state" = $17, "city" = $18, "emergency_name" = $19,
 			"emergency_phone" = $20, "shirt_size" = $21, "pix_key" = $22, "complement" = $23, "dream" = $24,
-			"profile_picture" = $25, "facial_picture" = $26, "education" = $27, "course" = $28
-			WHERE _id=$29
+			"profile_picture" = $25, "facial_picture" = $26, "education" = $27, "course" = $28, role = $29, grade = $30
+			WHERE _id=$31
 		`,
 			[...Object.values(orderedFreelancer), id]
 		);
@@ -304,6 +306,14 @@ const exportCSV = async (req, res) => {
 			{
 				label: 'Nome Completo',
 				value: 'name',
+			},
+			{
+				label: 'Cargo',
+				value: 'role',
+			},
+			{
+				label: 'Pontuação',
+				value: 'grade',
 			},
 			{
 				label: 'CPF',
