@@ -6,13 +6,12 @@ const Parser = require('json2csv').Parser;
 
 const getAll = async (req, res) => {
 	try {
-		let query = `SELECT * FROM freelancer WHERE LOWER(name) LIKE $1`;
-		let params = [`%${req.query.name || ''}%`];
-
-		if (req.query.city) {
-			query += ` AND LOWER(city) LIKE $2`;
-			params = [...params, `%${req.query.city}%`];
-		}
+		let query = `SELECT * FROM freelancer WHERE LOWER(name) LIKE $1 AND LOWER(city) LIKE $2 AND LOWER(role) LIKE $3`;
+		let params = [
+			`%${req.query.name || ''}%`,
+			`%${req.query.city || ''}%`,
+			`%${req.query.role || ''}%`,
+		];
 
 		const data = (await pool.query(query + ` ORDER BY name`, params)) || [];
 		res.status(200).json(data.rows);
@@ -296,13 +295,12 @@ const remove = async (req, res) => {
 
 const exportCSV = async (req, res) => {
 	try {
-		let query = `SELECT * FROM freelancer WHERE LOWER(name) LIKE $1`;
-		let params = [`%${req.query.name || ''}%`];
-
-		if (req.query.city) {
-			query += ` AND LOWER(city) LIKE $2`;
-			params = [...params, `%${req.query.city}%`];
-		}
+		let query = `SELECT * FROM freelancer WHERE LOWER(name) LIKE $1 AND LOWER(city) LIKE $2 AND LOWER(role) LIKE $3`;
+		let params = [
+			`%${req.query.name || ''}%`,
+			`%${req.query.city || ''}%`,
+			`%${req.query.role || ''}%`,
+		];
 
 		const data = (await pool.query(query + ` ORDER BY name`, params)) || [];
 		const fields = [
@@ -333,6 +331,14 @@ const exportCSV = async (req, res) => {
 			{
 				label: 'CEP',
 				value: 'cep',
+			},
+			{
+				label: 'Cidade',
+				value: 'city',
+			},
+			{
+				label: 'Estado',
+				value: 'state',
 			},
 			{
 				label: 'Rua',
@@ -377,14 +383,6 @@ const exportCSV = async (req, res) => {
 			{
 				label: 'Facebook',
 				value: 'facebook',
-			},
-			{
-				label: 'Estado',
-				value: 'state',
-			},
-			{
-				label: 'Cidade',
-				value: 'city',
 			},
 			{
 				label: 'Contato Emergencial',
