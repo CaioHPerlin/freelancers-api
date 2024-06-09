@@ -5,18 +5,19 @@
 //}
 
 //checkSession();
-let currentName, currentCity;
+let currentName, currentCity, currentRole;
 
 window.onload = renderFreelancers();
 
-async function renderFreelancers(name = '', city = '') {
+async function renderFreelancers(name = '', city = '', role = '') {
 	currentName = name;
 	currentCity = city;
+	currentRole = role;
 
 	const freelancersContainer = document.getElementById('freelancers');
 	freelancersContainer.innerHTML = '<h1 class="loader"></h1>'; // Limpa o conteúdo anterior
 
-	const data = await fetchFreelancers(name, city);
+	const data = await fetchFreelancers(name, city, role);
 	const freelancers = await data.json();
 	console.log(freelancers);
 
@@ -38,8 +39,8 @@ async function renderFreelancers(name = '', city = '') {
 	});
 }
 
-async function fetchFreelancers(name, city) {
-	const url = `https://sandbox.caiohygino.software/freelancers?name=${name}&city=${city}`;
+async function fetchFreelancers(name, city, role) {
+	const url = `https://sandbox.caiohygino.software/freelancers?name=${name}&city=${city}&role=${role}`;
 
 	try {
 		const response = await fetch(url);
@@ -47,7 +48,7 @@ async function fetchFreelancers(name, city) {
 		return data;
 	} catch (error) {
 		console.error('Error fetching data:', error);
-		renderFreelancers(name, city);
+		renderFreelancers(name, city, role);
 	}
 }
 
@@ -90,7 +91,8 @@ document
 		event.preventDefault();
 		const name = document.getElementById('name').value.toLowerCase();
 		const city = document.getElementById('city').value.toLowerCase();
-		await renderFreelancers(name, city);
+		const role = document.getElementById('cargo').value.toLowerCase();
+		await renderFreelancers(name, city, role);
 	});
 
 document.getElementById('logoff').addEventListener('click', () => {
