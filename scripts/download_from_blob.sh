@@ -17,11 +17,11 @@ for USER_ID in $USER_IDS; do
     PFP_URL="${BASE_URL}/pfp_${USER_ID}.jpeg"
     FCP_URL="${BASE_URL}/fcp_${USER_ID}.jpeg"
 
-    echo "Downloading pfp_${USER_ID}.jpg..."
-    curl -s $PFP_URL -o "${OUTPUT}pfp_${USER_ID}.jpg"
+    echo "Downloading pfp_${USER_ID}.jpeg..."
+    curl -s $PFP_URL -o "${OUTPUT}pfp_${USER_ID}.jpeg"
 
-    echo "Downloading fcp_${USER_ID}.jpg..."
-    curl -s $FCP_URL -o "${OUTPUT}fcp_${USER_ID}.jpg"
+    echo "Downloading fcp_${USER_ID}.jpeg..."
+    curl -s $FCP_URL -o "${OUTPUT}fcp_${USER_ID}.jpeg"
 done
 
 echo "Success!"

@@ -195,8 +195,8 @@ const update = async (req, res) => {
 			''
 		);
 
-		freelancer.weight = Number(freelancer.weight)
-		freelancer.height = Number(freelancer.height)
+		freelancer.weight = Number(freelancer.weight);
+		freelancer.height = Number(freelancer.height);
 		freelancer.dream = freelancer.dream.replace(/[^\x00-\xFF]/g, '');
 		freelancer.city = freelancer.city.toLowerCase();
 

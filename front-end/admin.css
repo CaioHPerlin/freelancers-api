@@ -7,9 +7,15 @@
 
 body {
 	font-family: Arial, sans-serif;
-	background-color: #f4f4f4;
-	background-image: url(./assets/img/fundoTRW.jpeg);
+}
 
+.background {
+	background-image: url(./assets/img/fundoTRW.jpeg);
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background-size: cover;
+	z-index: -10;
 }
 
 .container {
@@ -20,23 +26,21 @@ body {
 
 /* Estilos do cabeçalho */
 header {
-  
 	color: #fff;
 	padding: 20px;
 	display: flex;
 	align-items: center;
-  }
-  
-  header img{
+}
+
+header img {
 	max-width: 10%;
 	max-height: 10%;
-  }
-  
-  .titleCadastro{
+}
+
+.titleCadastro {
 	margin-top: 0.5%;
 	margin-left: 10px;
-  }
-  
+}
 
 /* Estilos do formulário de filtro */
 .barraFilter {
@@ -58,7 +62,8 @@ header {
 	margin-bottom: 10px;
 }
 
-.barraFilter input, select {
+.barraFilter input,
+select {
 	width: 100%;
 	padding: 10px;
 	border: 1px solid #ccc;
@@ -67,7 +72,7 @@ header {
 }
 
 .barraFilter .button {
-	background-color: #606B3E;
+	background-color: #606b3e;
 	color: #fff;
 	padding: 10px 20px;
 	border: none;
@@ -81,7 +86,7 @@ header {
 }
 
 .freelancerCard {
-	background-color: #606B3E;
+	background-color: #606b3e44;
 	padding: 20px;
 	border-radius: 5px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -99,19 +104,19 @@ header {
 }
 
 #logoff {
-	background-color: #E2E242;
+	background-color: #e2e242;
 	color: #000;
 }
 
 .loader {
 	position: absolute;
 	left: calc(50% - 25px);
-	top: 40%;
+	top: 50%;
 	height: 50px;
 	width: 50px;
 	border-radius: 50%;
 	border: 10px solid #ccc;
-	border-top-color: #0073ff;
+	border-top-color: #00b3ff;
 	animation: spin 1s linear infinite;
 	z-index: 99;
 }
@@ -125,20 +130,19 @@ header {
 	}
 }
 
-.containerSearch{
+.containerSearch {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-gap: 20px;
-
 }
 
 .card {
 	display: grid;
 	grid-template-columns: 100%;
-	background-color:transparent;
-	border: solid #E2E242 3px;
+	background-color: #363622aa;
+	border: solid #e2e242aa 2px;
 	color: white;
-	border-radius: 10px;
+	border-radius: 8px;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	margin: 20px;
 	padding: 20px;
@@ -152,14 +156,13 @@ header {
 	text-transform: capitalize;
 }
 
-
-button{
+button {
 	text-transform: uppercase;
 	font-weight: 700;
 }
 .card button {
 	width: 100%;
-	background-color: #606B3E;
+	background-color: #606b3e;
 	color: #fff;
 	padding: 10px 20px;
 	border: none;
@@ -169,16 +172,19 @@ button{
 }
 
 .card button:hover {
-	background-color: #E2E242;
-	color: #606B3E;
+	background-color: #e2e242;
+	color: #606b3e;
 	transform: scale(1.01);
 }
 
 .card p {
-	padding: 10px;
+	padding: 16px 0;
 }
 
-.card img{
+.card img {
+	outline: solid #000000aa 2px;
+	border: solid #e2e242aa 2px;
+	border-radius: 6px;
 	margin: auto;
 	width: 100%;
 	height: auto;
@@ -215,12 +221,15 @@ button{
 
 /* Estilos para tablets */
 @media screen and (max-width: 768px) {
-	.containerSearch{
-		grid-template-columns: 1fr ;
+	.containerSearch {
+		grid-template-columns: 1fr;
 	}
-	
+
 	#freelancers {
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajustar as colunas para o tamanho mínimo de 250px */
+		grid-template-columns: repeat(
+			auto-fit,
+			minmax(250px, 1fr)
+		); /* Ajustar as colunas para o tamanho mínimo de 250px */
 	}
 }
 
@@ -231,10 +240,8 @@ button{
 	}
 }
 
-
-
-
 .full-size {
+	color: white;
 	grid-column: 2/5;
 	text-align: center;
 }
