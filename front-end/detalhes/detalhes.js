@@ -30,7 +30,9 @@ function renderDetails(freelancer) {
 	detailsContainer.appendChild(name);
 
 	const grade = document.createElement('p');
-	grade.textContent = `Nota de atuação: ${freelancer.grade}`;
+	grade.textContent = `Nota de atuação: ${
+		freelancer.grade ? freelancer.grade : 'Não especificada'
+	}`;
 	detailsContainer.appendChild(grade);
 
 	const cpf = document.createElement('p');
@@ -38,7 +40,9 @@ function renderDetails(freelancer) {
 	detailsContainer.appendChild(cpf);
 
 	const birthData = document.createElement('p');
-	birthData.textContent = `Data de Nascimento: ${freelancer.birthdate}`;
+	birthData.textContent = `Data de Nascimento: ${getBirthDate(
+		freelancer.birthdate
+	)}`;
 	detailsContainer.appendChild(birthData);
 
 	const telefone = document.createElement('p');
@@ -146,6 +150,20 @@ function renderDetails(freelancer) {
 	);
 	const editButton = document.getElementById('editButton');
 	editButton.addEventListener('click', () => editFreelancer(freelancer));
+}
+
+function getBirthDate(dataString) {
+	// Check for default values
+	if (dataString.includes('1000-01-01')) {
+		return 'Não especificada';
+	}
+
+	const date = new Date(dataString);
+	const day = `0${date.getUTCDate()}`.slice(-2); // Add 0 if day < 10
+	const month = `0${date.getUTCMonth() + 1}`.slice(-2); // Add 0 if month < 10
+	const year = date.getUTCFullYear();
+
+	return `${day}/${month}/${year}`;
 }
 
 async function deleteFreelancer(freelancerId) {
