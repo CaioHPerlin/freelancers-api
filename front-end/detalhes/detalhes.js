@@ -5,13 +5,11 @@ function parseQueryString() {
 	return JSON.parse(decodeURIComponent(serializedFreelancer));
 }
 
-
-
 function renderDetails(freelancer) {
 	const detailsContainer = document.getElementById('details');
 	if (freelancer.facePicture) {
 		const profilePicture = document.createElement('img');
-		profilePicture.src = `https://ub7txpxyf1bghrmk.public.blob.vercel-storage.com/${freelancer.facePicture}`;
+		profilePicture.src = `https://sandbox.caiohygino.software/uploads/fcp_${freelancer.cpf}.jpg`;
 		profilePicture.alt = 'face Picture';
 		profilePicture.style.width = '300px';
 		profilePicture.style.height = 'auto';
@@ -20,7 +18,7 @@ function renderDetails(freelancer) {
 
 	if (freelancer.profilePicture) {
 		const profilePicture = document.createElement('img');
-		profilePicture.src = `https://ub7txpxyf1bghrmk.public.blob.vercel-storage.com/${freelancer.profilePicture}`;
+		profilePicture.src = `https://sandbox.caiohygino.software/uploads/pfp_${freelancer.cpf}.jpg`;
 		profilePicture.alt = 'Profile Picture';
 		profilePicture.style.width = '300px';
 		profilePicture.style.height = 'auto';
@@ -124,14 +122,14 @@ function renderDetails(freelancer) {
 	detailsContainer.appendChild(pixKey);
 
 	const complemento = document.createElement('p');
-	complemento.style.textAlign='justify'
-	complemento.style.padding= '2px 15px'
+	complemento.style.textAlign = 'justify';
+	complemento.style.padding = '2px 15px';
 	complemento.textContent = `Complemento: ${freelancer.complement}`;
 	detailsContainer.appendChild(complemento);
 
 	const dream = document.createElement('p');
-	dream.style.textAlign='justify'
-	dream.style.padding= '2px 15px'
+	dream.style.textAlign = 'justify';
+	dream.style.padding = '2px 15px';
 	dream.textContent = `Sonho de vida: ${freelancer.dream}`;
 	detailsContainer.appendChild(dream);
 
@@ -145,9 +143,8 @@ function renderDetails(freelancer) {
 		deleteFreelancer(freelancer._id)
 	);
 	const editButton = document.getElementById('editButton');
-    editButton.addEventListener('click', () => editFreelancer(freelancer))
+	editButton.addEventListener('click', () => editFreelancer(freelancer));
 }
-
 
 async function deleteFreelancer(freelancerId) {
 	try {
@@ -179,11 +176,11 @@ window.onload = function () {
 };
 
 function editFreelancer(freelancer) {
-    const serializedFreelancer = encodeURIComponent(JSON.stringify(freelancer));
-    window.location.href = `../editarFreelancer/index.html?freelancer=${serializedFreelancer}`;
+	const serializedFreelancer = encodeURIComponent(JSON.stringify(freelancer));
+	window.location.href = `../editarFreelancer/index.html?freelancer=${serializedFreelancer}`;
 }
 
 window.onload = function () {
-    const freelancer = parseQueryString();
-    renderDetails(freelancer);
+	const freelancer = parseQueryString();
+	renderDetails(freelancer);
 };
