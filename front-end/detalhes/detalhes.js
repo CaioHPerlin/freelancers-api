@@ -7,7 +7,7 @@ function parseQueryString() {
 
 function renderDetails(freelancer) {
 	const detailsContainer = document.getElementById('details');
-	if (freelancer.facePicture) {
+	if (freelancer.facial_picture) {
 		const profilePicture = document.createElement('img');
 		profilePicture.src = `https://sandbox.caiohygino.software/uploads/fcp_${freelancer.cpf}.jpg`;
 		profilePicture.alt = 'face Picture';
@@ -16,7 +16,7 @@ function renderDetails(freelancer) {
 		detailsContainer.appendChild(profilePicture);
 	}
 
-	if (freelancer.profilePicture) {
+	if (freelancer.profile_picture) {
 		const profilePicture = document.createElement('img');
 		profilePicture.src = `https://sandbox.caiohygino.software/uploads/pfp_${freelancer.cpf}.jpg`;
 		profilePicture.alt = 'Profile Picture';
