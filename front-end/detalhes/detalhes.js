@@ -38,7 +38,7 @@ function renderDetails(freelancer) {
 	detailsContainer.appendChild(cpf);
 
 	const birthData = document.createElement('p');
-	birthData.textContent = `Data de Nascimento: ${freelancer.birthData}`;
+	birthData.textContent = `Data de Nascimento: ${freelancer.birthdate}`;
 	detailsContainer.appendChild(birthData);
 
 	const telefone = document.createElement('p');
@@ -62,7 +62,7 @@ function renderDetails(freelancer) {
 	detailsContainer.appendChild(rua);
 
 	const residentialNumber = document.createElement('p');
-	residentialNumber.textContent = `Número residencial: ${freelancer.residentialNumber}`;
+	residentialNumber.textContent = `Número residencial: ${freelancer.residential_number}`;
 	detailsContainer.appendChild(residentialNumber);
 
 	const bairro = document.createElement('p');
@@ -78,15 +78,15 @@ function renderDetails(freelancer) {
 	detailsContainer.appendChild(peso);
 
 	const hairColor = document.createElement('p');
-	hairColor.textContent = `Cor do cabelo: ${freelancer.hairColor}`;
+	hairColor.textContent = `Cor do cabelo: ${freelancer.hair_color}`;
 	detailsContainer.appendChild(hairColor);
 
 	const eyeColor = document.createElement('p');
-	eyeColor.textContent = `Cor dos olhos: ${freelancer.eyeColor}`;
+	eyeColor.textContent = `Cor dos olhos: ${freelancer.eye_color}`;
 	detailsContainer.appendChild(eyeColor);
 
 	const skinColor = document.createElement('p');
-	skinColor.textContent = `Cor da pele: ${freelancer.skinColor}`;
+	skinColor.textContent = `Cor da pele: ${freelancer.skin_color}`;
 	detailsContainer.appendChild(skinColor);
 
 	const instagram = document.createElement('p');
@@ -106,25 +106,27 @@ function renderDetails(freelancer) {
 	detailsContainer.appendChild(estado);
 
 	const emergencyName = document.createElement('p');
-	emergencyName.textContent = `Nome de emergência: ${freelancer.emergencyName}`;
+	emergencyName.textContent = `Nome de emergência: ${freelancer.emergency_name}`;
 	detailsContainer.appendChild(emergencyName);
 
 	const emergencyPhone = document.createElement('p');
-	emergencyPhone.textContent = `Telefone de emergência: ${freelancer.emergencyPhone}`;
+	emergencyPhone.textContent = `Telefone de emergência: ${freelancer.emergency_phone}`;
 	detailsContainer.appendChild(emergencyPhone);
 
 	const shirtSize = document.createElement('p');
-	shirtSize.textContent = `Tamanho da camiseta: ${freelancer.shirtSize}`;
+	shirtSize.textContent = `Tamanho da camiseta: ${freelancer.shirt_size}`;
 	detailsContainer.appendChild(shirtSize);
 
 	const pixKey = document.createElement('p');
-	pixKey.textContent = `Chave Pix: ${freelancer.pixKey}`;
+	pixKey.textContent = `Chave Pix: ${freelancer.pix_key}`;
 	detailsContainer.appendChild(pixKey);
 
 	const complemento = document.createElement('p');
 	complemento.style.textAlign = 'justify';
 	complemento.style.padding = '2px 15px';
-	complemento.textContent = `Complemento: ${freelancer.complement}`;
+	complemento.textContent = `Complemento: ${
+		freelancer.complement ? freelancer.complement : 'Nenhum'
+	}`;
 	detailsContainer.appendChild(complemento);
 
 	const dream = document.createElement('p');
