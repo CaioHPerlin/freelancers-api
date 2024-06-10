@@ -1,388 +1,401 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Cadastro de freelancers</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      media="screen"
-      href="freelancer.css"
-    />
-  </head>
-  <body>
-    <header>
-      <img src="../../assets/img/logoTRW.png" alt="" />
-      <nav class="titleCadastro">
-        <h1>CADASTRO</h1>
-      </nav>
-    </header>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Cadastro de freelancers</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			media="screen"
+			href="freelancer.css"
+		/>
+	</head>
+	<body>
+		<header>
+			<img src="../../assets/img/logoTRW.png" alt="" />
+			<nav class="titleCadastro">
+				<h1>CADASTRO</h1>
+			</nav>
+		</header>
 
-    <main class="container">
-      <form class="form" method="post" id="dadosFreelancers">
-        <div class="inputContainer">
-          <label for="name">Nome Completo</label>
-          <input
-            name="name"
-            class="input"
-            type="text"
-            placeholder="Digite seu nome completo"
-            id="name"
-            required
-          />
-        </div>
+		<main class="container">
+			<form class="form" method="post" id="dadosFreelancers">
+				<div class="inputContainer">
+					<label for="name">Nome Completo</label>
+					<input
+						name="name"
+						class="input"
+						type="text"
+						placeholder="Digite seu nome completo"
+						id="name"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="birthData">Data de Nascimento</label>
-          <input
-            name="birthData"
-            class="input"
-            type="date"
-            id="birthData"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="birthData">Data de Nascimento</label>
+					<input
+						name="birthdate"
+						class="input"
+						type="date"
+						id="birthData"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="cpf">CPF</label>
-          <input
-            name="cpf"
-            class="input"
-            type="text"
-            placeholder="Digite seu CPF"
-            id="cpf"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="cpf">CPF</label>
+					<input
+						name="cpf"
+						class="input"
+						type="text"
+						placeholder="Digite seu CPF"
+						id="cpf"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="phone">Telefone Celular</label>
-          <input
-            name="phone"
-            class="input"
-            type="tel"
-            placeholder="Digite seu telefone celular"
-            id="phone"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="phone">Telefone Celular</label>
+					<input
+						name="phone"
+						class="input"
+						type="tel"
+						placeholder="Digite seu telefone celular"
+						id="phone"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="email">E-mail</label>
-          <input
-            name="email"
-            class="input"
-            type="email"
-            placeholder="Digite seu e-mail"
-            id="email"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="email">E-mail</label>
+					<input
+						name="email"
+						class="input"
+						type="email"
+						placeholder="Digite seu e-mail"
+						id="email"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="cargo">Cargo</label>
-          <select id="servicosEvento" name="servicosEvento" class="input">
-            <option value="">Selecione...</option>
-            <option value="manobrista">Manobrista</option>
-            <option value="bombeiro_civil">Bombeiro Civil</option>
-            <option value="seguranca">Segurança</option>
-            <option value="limpeza">Limpeza</option>
-            <option value="brigadista">Brigadista</option>
-            <option value="promotor">Promotor</option>
-            <option value="recepcionista">Recepcionista</option>
-          </select>
+				<div class="inputContainer">
+					<label for="cargo">Cargo</label>
+					<select id="servicosEvento" name="role" class="input">
+						<option value="">Selecione...</option>
+						<option value="manobrista">Manobrista</option>
+						<option value="bombeiro_civil">Bombeiro Civil</option>
+						<option value="seguranca">Segurança</option>
+						<option value="limpeza">Limpeza</option>
+						<option value="brigadista">Brigadista</option>
+						<option value="promotor">Promotor</option>
+						<option value="recepcionista">Recepcionista</option>
+					</select>
+				</div>
 
-        </div>
+				<div class="inputContainer">
+					<label for="grauEscolaridade">Grau de Escolaridade</label>
+					<select
+						id="grauEscolaridade"
+						name="education"
+						class="input"
+						required
+					>
+						<option value="Ensino Fundamental">
+							Ensino Fundamental
+						</option>
+						<option value="Ensino Médio">Ensino Médio</option>
+						<option value="Ensino Superior">Ensino Superior</option>
+						<option value="Pós-graduação">Pós-graduação</option>
+						<option value="Mestrado">Mestrado</option>
+						<option value="Doutorado">Doutorado</option>
+					</select>
+				</div>
 
-        <div class="inputContainer">
-          <label for="grauEscolaridade">Grau de Escolaridade</label>
-          <select
-            id="grauEscolaridade"
-            name="grauEscolaridade"
-            class="input"
-            required
-          >
-          <option value="Ensino Fundamental">Ensino Fundamental</option>
-          <option value="Ensino Médio">Ensino Médio</option>
-          <option value="Ensino Superior">Ensino Superior</option>
-          <option value="Pós-graduação">Pós-graduação</option>
-          <option value="Mestrado">Mestrado</option>
-          <option value="Doutorado">Doutorado</option>
-          </select>
-        </div>
+				<div class="inputContainer">
+					<label for="curso">Curso:</label>
+					<input
+						type="text"
+						id="curso"
+						name="course"
+						placeholder="Nome do curso"
+						class="input"
+					/>
+				</div>
 
-        <div class="inputContainer" >
-          <label for="curso">Curso:</label>
-          <input type="text" id="curso" name="curso" placeholder="Nome do curso" class="input">
-        </div>
+				<div class="inputContainer">
+					<label for="completo">Completo</label>
+					<input type="checkbox" id="completo" name="completo" s />
 
-        <div class="inputContainer" >
-          <label for="completo">Completo:</label>
-          <input type="checkbox" id="completo" name="completo" s >
-       
-          <label for="incompleto">Incompleto:</label>
-          <input type="checkbox" id="incompleto" name="incompleto">
-        </div>
+					<label for="incompleto">Incompleto</label>
+					<input type="checkbox" id="incompleto" name="incompleto" />
+				</div>
 
-        <div class="inputContainer">
-          <label for="cep">CEP</label>
-          <input
-            name="cep"
-            class="input"
-            type="text"
-            placeholder="Digite seu CEP"
-            id="cep"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="cep">CEP</label>
+					<input
+						name="cep"
+						class="input"
+						type="text"
+						placeholder="Digite seu CEP"
+						id="cep"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="street">Rua</label>
-          <input
-            name="street"
-            class="input"
-            type="text"
-            placeholder="Digite sua rua"
-            id="street"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="street">Rua</label>
+					<input
+						name="street"
+						class="input"
+						type="text"
+						placeholder="Digite sua rua"
+						id="street"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="residentialNumber">Número Residencial</label>
-          <input
-            name="residentialNumber"
-            class="input"
-            type="number"
-            placeholder="Digite seu número residencial"
-            id="residentialNumber"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="residentialNumber">Número Residencial</label>
+					<input
+						name="residentialNumber"
+						class="input"
+						type="number"
+						placeholder="Digite seu número residencial"
+						id="residentialNumber"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="neighborhood">Bairro</label>
-          <input
-            name="neighborhood"
-            class="input"
-            type="text"
-            placeholder="Digite seu bairro"
-            id="neighborhood"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="neighborhood">Bairro</label>
+					<input
+						name="neighborhood"
+						class="input"
+						type="text"
+						placeholder="Digite seu bairro"
+						id="neighborhood"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="height">Altura (cm)</label>
-          <input
-            name="height"
-            class="input"
-            type="number"
-            placeholder="Digite sua altura em cm"
-            id="height"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="height">Altura (cm)</label>
+					<input
+						name="height"
+						class="input"
+						type="number"
+						placeholder="Digite sua altura em cm"
+						id="height"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="weight">Peso (kg)</label>
-          <input
-            name="weight"
-            class="input"
-            type="number"
-            placeholder="Digite seu peso em kg"
-            id="weight"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="weight">Peso (kg)</label>
+					<input
+						name="weight"
+						class="input"
+						type="number"
+						placeholder="Digite seu peso em kg"
+						id="weight"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="hairColor">Cor do Cabelo</label>
-          <input
-            name="hairColor"
-            class="input"
-            type="text"
-            placeholder="Digite a cor do seu cabelo"
-            id="hairColor"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="hairColor">Cor do Cabelo</label>
+					<input
+						name="hairColor"
+						class="input"
+						type="text"
+						placeholder="Digite a cor do seu cabelo"
+						id="hairColor"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="eyeColor">Cor dos Olhos</label>
-          <input
-            name="eyeColor"
-            class="input"
-            type="text"
-            placeholder="Digite a cor dos seus olhos"
-            id="eyeColor"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="eyeColor">Cor dos Olhos</label>
+					<input
+						name="eyeColor"
+						class="input"
+						type="text"
+						placeholder="Digite a cor dos seus olhos"
+						id="eyeColor"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="skinColor">Cor da Pele</label>
-          <select
-            name="skinColor"
-            class="input"
-            placeholder="Digite a cor da sua pele"
-            id="skinColor"
-            required
-          >
-            <option value="branca" selected>Branca</option>
-            <option value="parda">Parda</option>
-            <option value="negra">Negra</option>
-            <option value="indigena">Indígena</option>
-            <option value="amarela">Amarela</option>
-          </select>
-        </div>
+				<div class="inputContainer">
+					<label for="skinColor">Cor da Pele</label>
+					<select
+						name="skinColor"
+						class="input"
+						placeholder="Digite a cor da sua pele"
+						id="skinColor"
+						required
+					>
+						<option value="branca" selected>Branca</option>
+						<option value="parda">Parda</option>
+						<option value="negra">Negra</option>
+						<option value="indigena">Indígena</option>
+						<option value="amarela">Amarela</option>
+					</select>
+				</div>
 
-        <div class="inputContainer">
-          <label for="instagram">Instagram</label>
-          <input
-            name="instagram"
-            class="input"
-            type="text"
-            placeholder="Digite seu usuário do Instagram"
-            id="instagram"
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="instagram">Instagram</label>
+					<input
+						name="instagram"
+						class="input"
+						type="text"
+						placeholder="Digite seu usuário do Instagram"
+						id="instagram"
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="facebook">Facebook</label>
-          <input
-            name="facebook"
-            class="input"
-            type="text"
-            placeholder="Digite seu usuário do Facebook"
-            id="facebook"
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="facebook">Facebook</label>
+					<input
+						name="facebook"
+						class="input"
+						type="text"
+						placeholder="Digite seu usuário do Facebook"
+						id="facebook"
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="state">Estado</label>
-          <select
-            name="state"
-            class="input"
-            placeholder="Digite seu estado"
-            id="state"
-            required
-          ></select>
-        </div>
+				<div class="inputContainer">
+					<label for="state">Estado</label>
+					<select
+						name="state"
+						class="input"
+						placeholder="Digite seu estado"
+						id="state"
+						required
+					></select>
+				</div>
 
-        <div class="inputContainer">
-          <label for="city">Cidade</label>
-          <select
-            name="city"
-            class="input"
-            placeholder="Digite sua cidade"
-            id="city"
-            required
-          ></select>
-        </div>
+				<div class="inputContainer">
+					<label for="city">Cidade</label>
+					<select
+						name="city"
+						class="input"
+						placeholder="Digite sua cidade"
+						id="city"
+						required
+					></select>
+				</div>
 
-        <div class="inputContainer">
-          <label for="emergencyName">Contato Emergência - Nome</label>
-          <input
-            name="emergencyName"
-            class="input"
-            type="text"
-            placeholder="Digite o nome do seu contato de emergência"
-            id="emergencyName"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="emergencyName">Contato Emergência - Nome</label>
+					<input
+						name="emergencyName"
+						class="input"
+						type="text"
+						placeholder="Digite o nome do seu contato de emergência"
+						id="emergencyName"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="emergencyPhone">Contato Emergência - Telefone</label>
-          <input
-            name="emergencyPhone"
-            class="input"
-            type="tel"
-            placeholder="Digite o telefone do seu contato de emergência"
-            id="emergencyPhone"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="emergencyPhone"
+						>Contato Emergência - Telefone</label
+					>
+					<input
+						name="emergencyPhone"
+						class="input"
+						type="tel"
+						placeholder="Digite o telefone do seu contato de emergência"
+						id="emergencyPhone"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="shirtSize">Tamanho Camiseta</label>
-          <input
-            name="shirtSize"
-            class="input"
-            type="text"
-            placeholder="Digite o tamanho da sua camiseta (P, M, G, etc.)"
-            id="shirtSize"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="shirtSize">Tamanho Camiseta</label>
+					<input
+						name="shirtSize"
+						class="input"
+						type="text"
+						placeholder="Digite o tamanho da sua camiseta (P, M, G, etc.)"
+						id="shirtSize"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="profilePicture">Foto de Perfil</label>
-          <input
-            name="profilePicture "
-            class="input ficheiro"
-            type="file"
-            id="profilePicture"
-            required
-            accept="image/png, image/gif, image/jpeg"
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="profilePicture">Foto de Perfil</label>
+					<input
+						name="profilePicture"
+						class="input ficheiro"
+						type="file"
+						id="profilePicture"
+						required
+						accept="image/png, image/gif, image/jpeg"
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="facePicture">Foto do Rosto</label>
-          <input
-            name="facePicture"
-            class="input ficheiro"
-            type="file"
-            id="facePicture"
-            required
-            accept="image/png, image/gif, image/jpeg"
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="facePicture">Foto do Rosto</label>
+					<input
+						name="facePicture"
+						class="input ficheiro"
+						type="file"
+						id="facePicture"
+						required
+						accept="image/png, image/gif, image/jpeg"
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="pixKey">Chave Pix e Nome do Banco</label>
-          <input
-            name="pixKey"
-            class="input"
-            type="text"
-            placeholder="Digite sua chave Pix e nome do banco"
-            id="pixKey"
-            required
-          />
-        </div>
+				<div class="inputContainer">
+					<label for="pixKey">Chave Pix e Nome do Banco</label>
+					<input
+						name="pixKey"
+						class="input"
+						type="text"
+						placeholder="Digite sua chave Pix e nome do banco"
+						id="pixKey"
+						required
+					/>
+				</div>
 
-        <div class="inputContainer">
-          <label for="complement">Complemento (até 300 caracteres)</label>
-          <textarea
-            name="complement"
-            class="input"
-            type="text"
-            maxlength="300"
-            placeholder="Digite informações complementares (máximo 300 caracteres)"
-            id="complement"
-          ></textarea>
-        </div>
+				<div class="inputContainer">
+					<label for="complement"
+						>Complemento (até 300 caracteres)</label
+					>
+					<textarea
+						name="complement"
+						class="input"
+						type="text"
+						maxlength="300"
+						placeholder="Digite informações complementares (máximo 300 caracteres)"
+						id="complement"
+					></textarea>
+				</div>
 
-        <div class="inputContainer">
-          <label for="dream">Qual o sonho de vida? (Até 300 caracteres)</label>
-          <textarea
-            name="dream"
-            class="input"
-            maxlength="300"
-            placeholder="Conte-nos sobre o seu sonho de vida (máximo 300 caracteres)"
-            id="dream"
-            required
-          ></textarea>
-        </div>
+				<div class="inputContainer">
+					<label for="dream"
+						>Qual o sonho de vida? (Até 300 caracteres)</label
+					>
+					<textarea
+						name="dream"
+						class="input"
+						maxlength="300"
+						placeholder="Conte-nos sobre o seu sonho de vida (máximo 300 caracteres)"
+						id="dream"
+						required
+					></textarea>
+				</div>
 
-        <input class="button" type="submit" value="ENVIAR" />
-      </form>
-      <div id="loadercont"></div>
-    </main>
-    <script src="freelancersDados.js"></script>
-  </body>
+				<input class="button" type="submit" value="ENVIAR" />
+			</form>
+			<div id="loadercont"></div>
+		</main>
+		<script src="freelancersDados.js"></script>
+	</body>
 </html>

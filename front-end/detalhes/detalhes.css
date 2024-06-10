@@ -18,25 +18,23 @@ body {
 	padding: 20px;
 }
 
-
 /* Estilos do cabeçalho */
 header {
-  
 	color: #fff;
 	padding: 20px;
 	display: flex;
 	align-items: center;
-  }
-  
-  header img{
+}
+
+header img {
 	max-width: 10%;
 	max-height: 10%;
-  }
-  
-  .titleCadastro{
+}
+
+.titleCadastro {
 	margin-top: 0.5%;
 	margin-left: 10px;
-  }
+}
 
 /* Estilos do botão de voltar */
 .btnVoltar {
@@ -56,9 +54,10 @@ header {
 
 /* Estilos do conteúdo principal */
 main {
-	background-color: transparent;
-	border: 3px solid #E2E242;
-	border-radius: 5px;
+	background-color: #363622aa;
+	border: solid #e2e242aa 2px;
+	color: white;
+	border-radius: 8px;
 	padding: 20px;
 }
 
@@ -132,8 +131,6 @@ footer a:hover {
 	background-color: #aeb738;
 }
 
-
-
 /* Estilos para o botão de voltar */
 .btnVoltar {
 	display: inline-block;
@@ -153,10 +150,9 @@ div {
 
 div p {
 	font-size: 18px;
-	color: #FFFFFF;
+	color: #ffffff;
 	font-weight: 600;
 	margin-bottom: 10px;
-	
 }
 
 img {

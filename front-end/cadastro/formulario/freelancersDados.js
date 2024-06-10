@@ -1,11 +1,37 @@
+const completoCheckbox = document.getElementById('completo');
+const incompletoCheckbox = document.getElementById('incompleto');
+
+completoCheckbox.addEventListener('change', function () {
+	if (this.checked) {
+		incompletoCheckbox.checked = false;
+	}
+});
+
+incompletoCheckbox.addEventListener('change', function () {
+	if (this.checked) {
+		completoCheckbox.checked = false;
+	}
+});
+
 const dadosfreelancers = document.getElementById('dadosFreelancers');
 
 dadosfreelancers.addEventListener('submit', (evento) => {
 	evento.preventDefault();
+
+	if (!completoCheckbox.checked && !incompletoCheckbox.checked) {
+		alert('Por favor, selecione se o curso está completo ou incompleto.');
+	}
+
+	dadosfreelancers.course.value += completoCheckbox.checked
+		? ' (Completo)'
+		: ' (Incompleto)';
+
 	const freelancersData = new FormData(dadosfreelancers);
-	const loaderContainer = document.getElementById('loadercont')
+	const loaderContainer = document.getElementById('loadercont');
 	loaderContainer.innerHTML = '<h1 class="loader"></h1>';
-	fetch('https://sebrae-api.vercel.app/freelancers', {
+
+	console.log(freelancersData);
+	fetch('https://sandbox.caiohygino.software/freelancers', {
 		method: 'POST',
 		body: freelancersData,
 	})
@@ -28,31 +54,6 @@ dadosfreelancers.addEventListener('submit', (evento) => {
 			console.error(err);
 			alert(err.message);
 		});
-});
-
-
-
-const form = document.getElementById('dadosFreelancers');
-const completoCheckbox = document.getElementById('completo');
-const incompletoCheckbox = document.getElementById('incompleto');
-
-completoCheckbox.addEventListener('change', function() {
-	if (this.checked) {
-		incompletoCheckbox.checked = false;
-	}
-});
-
-incompletoCheckbox.addEventListener('change', function() {
-	if (this.checked) {
-		completoCheckbox.checked = false;
-	}
-});
-
-form.addEventListener('submit', function(event) {
-	if (!completoCheckbox.checked && !incompletoCheckbox.checked) {
-		alert('Por favor, selecione se o curso está completo ou incompleto.');
-		event.preventDefault();
-	}
 });
 
 //select api de estados e cidades
