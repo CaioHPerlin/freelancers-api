@@ -2,4 +2,6 @@
 deployment:
     tasks:
         - export DEPLOYPATH=/home/nkarbits/api/freelancers
+        - export FRONTPATH=/home/nkarbits/public_html
         - /bin/cp -r * $DEPLOYPATH
+        - /bin/cp -r front-end/* $FRONTPATH

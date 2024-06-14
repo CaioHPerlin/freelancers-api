@@ -20,7 +20,7 @@ app.get('/helloworld', (req, res) => {
 });
 
 // Static file serving
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('freelancers/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //Freelancers
 app.get('/freelancers', freelancerController.getAll);
