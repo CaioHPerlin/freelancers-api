@@ -1,5 +1,4 @@
 ---
 deployment:
     tasks:
-        - export DEPLOYPATH=/home/nkarbits/api/freelancers
-        - /bin/cp -r * $DEPLOYPATH
+        - /bin/cp -r * /home/nkarbits/api/freelancers
