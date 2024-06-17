@@ -3,9 +3,9 @@ const { Pool } = require('pg');
 const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
 
 pool = new Pool({
-	user: 'caiohygi_admin',
-	host: '186.250.240.96',
-	database: 'caiohygi_freelancer_db',
+	user: 'nkarbits_admin',
+	host: '186.250.240.92',
+	database: 'nkarbits_freelancer_db',
 	password: DATABASE_PASSWORD,
 	port: 5432,
 });
