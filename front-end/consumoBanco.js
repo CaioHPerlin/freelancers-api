@@ -1,10 +1,10 @@
-//const checkSession = () => {
-//	const token = window.localStorage.getItem('token');
+const checkSession = () => {
+	const token = window.localStorage.getItem('token');
 
-//	if(!token) window.location.href = '/freelancers/login';
-//}
+	if (!token) window.location.href = '/freelancers/login';
+};
 
-//checkSession();
+checkSession();
 let currentName, currentCity, currentRole;
 
 window.onload = renderFreelancers();
@@ -70,6 +70,11 @@ function createCard(freelancer) {
 	location.textContent = `Cidade: ${freelancer.city}`;
 	location.style = 'text-transform: capitalize;';
 	card.appendChild(location);
+
+	const grade = document.createElement('p');
+	grade.textContent = `Nota: ${freelancer.grade}`;
+	grade.style = 'text-transform: capitalize; padding:0; margin-bottom:8px';
+	card.appendChild(grade);
 
 	const verMaisButton = document.createElement('button');
 	verMaisButton.textContent = 'Ver Mais';

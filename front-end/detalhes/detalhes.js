@@ -146,7 +146,6 @@ function renderDetails(freelancer) {
 
 	const deleteButton = document.getElementById('deleteButton');
 	deleteButton.addEventListener('click', () => {
-		alert(freelancer._id);
 		deleteFreelancer(freelancer._id);
 	});
 	const editButton = document.getElementById('editButton');

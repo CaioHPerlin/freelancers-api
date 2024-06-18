@@ -3,13 +3,16 @@ const loaderContainer = document.getElementById('loadercont');
 
 const fetchToken = async (credentials) => {
 	try {
-		const response = await fetch('https://sebrae-api.vercel.app/auth', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(credentials),
-		});
+		const response = await fetch(
+			'http://api.nkarbits.com.br/freelancers/auth',
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(credentials),
+			}
+		);
 		const data = await response.json();
 		localStorage.setItem('token', data.token);
 		loaderContainer.innerHTML = '';
@@ -28,7 +31,7 @@ formAuth.addEventListener('submit', (e) => {
 		username: formAuth.username.value,
 		password: formAuth.password.value,
 	};
-	
+
 	loaderContainer.innerHTML = '<h1 class="loader"></h1>';
 
 	fetchToken(credentials);

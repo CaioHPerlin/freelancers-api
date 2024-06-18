@@ -8,7 +8,7 @@ function parseQueryString() {
 async function fetchFreelancer(freelancerId) {
 	try {
 		const response = await fetch(
-			`https://sebrae-api.vercel.app/freelancers/${freelancerId}`
+			`http://api.nkarbits.com.br/freelancers/${freelancerId}`
 		);
 		if (!response.ok) {
 			throw new Error(
@@ -35,18 +35,22 @@ async function updateFreelancer(freelancerId, updatedData) {
 			throw new Error('Cargo é inválido');
 		}
 		const response = await fetch(
-			`http://api.nkarbits.com.br/freelancers/f${freelancerId}`,
+			`http://api.nkarbits.com.br/freelancers/${freelancerId}`,
 			{
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ grade, role }),
+				body: JSON.stringify({
+					grade: grade,
+					role: role,
+					id: freelancerId,
+				}),
 			}
 		);
 		if (response.ok) {
 			alert('Freelancer atualizado com sucesso!');
-			window.location.href = '../detalhes/index.html';
+			window.location.href = '../index.html';
 		} else {
 			const errorMessage = await response.text();
 			console.error('Erro ao atualizar o freelancer:', errorMessage);
@@ -83,9 +87,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 	});
 });
 
+function capitalizeFirstLetter(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 function populateRoleDropdown(selectedRole) {
 	const roleDropdown = document.getElementById('role');
 	const roles = [
+		'geral',
 		'manobrista',
 		'bombeiro civil',
 		'seguranca',
@@ -98,7 +107,7 @@ function populateRoleDropdown(selectedRole) {
 	roles.forEach((role) => {
 		const option = document.createElement('option');
 		option.value = role;
-		option.textContent = role;
+		option.textContent = capitalizeFirstLetter(role);
 		if (role === selectedRole) {
 			option.selected = true;
 		}
