@@ -11,7 +11,7 @@ function checkSession() {
 	const token = window.sessionStorage.getItem('token');
 
 	if (!token) {
-		window.location.href = '/login/';
+		window.location.href = '/colaboradores/login/';
 	}
 }
 
