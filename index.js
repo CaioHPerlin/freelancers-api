@@ -53,7 +53,7 @@ app.post('/freelancers/auth', async (req, res) => {
 
 		if (adminUser.username == username) {
 			console.log('username!');
-			const match = await bcrypt.compare(password, adminUser.password);
+			const match = password == adminUser.password;
 			if (match) {
 				console.log('password!');
 				const token = jwt.sign(
