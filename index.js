@@ -85,6 +85,6 @@ app.post('/auth', async (req, res) => {
 	}
 });
 
-const listener = app.listen(() => {
+const listener = app.listen(3000, () => {
 	console.log(`http://localhost:${listener.address().port}`);
 });

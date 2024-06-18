@@ -66,8 +66,8 @@ const orderFreelancer = (freelancer) => {
 		facial_picture: freelancer.facialPicture,
 		education: freelancer.education,
 		course: freelancer.course,
-		role: freelancer.role,
-		grade: freelancer.grade,
+		role: freelancer.role || 'Geral',
+		grade: 0,
 	};
 };
 
@@ -124,7 +124,7 @@ const create = async (req, res) => {
 					"neighborhood", "height", "weight", "hair_color", "eye_color", "birthdate",
 					"skin_color", "instagram", "facebook", "state", "city", "emergency_name",
 					"emergency_phone", "shirt_size", "pix_key", "complement", "dream",
-					"profile_picture", "facial_picture", "education", "course"
+					"profile_picture", "facial_picture", "education", "course", "role", "grade"
 				) VALUES (
 					$1, $2, $3, $4, $5, $6, $7,
 					$8, $9, $10, $11, $12, $13,
