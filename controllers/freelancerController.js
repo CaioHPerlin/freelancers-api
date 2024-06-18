@@ -92,8 +92,8 @@ const create = async (req, res) => {
 			return res.status(409).json({ message: 'CPF already registered' });
 		}
 
-		const pfpFileName = `pfp_${freelancer.cpf}.jpg`;
-		const fcpFileName = `fcp_${freelancer.cpf}.jpg`;
+		const pfpFileName = `pfp_${freelancer.cpf}.jpeg`;
+		const fcpFileName = `fcp_${freelancer.cpf}.jpeg`;
 
 		const profilePicture = req.files['profilePicture'][0];
 		const facialPicture = req.files['facialPicture'][0];
@@ -199,8 +199,8 @@ const update = async (req, res) => {
 		freelancer.dream = freelancer.dream.replace(/[^\x00-\xFF]/g, '');
 		freelancer.city = freelancer.city.toLowerCase();
 
-		const pfpFileName = `pfp_${freelancer.cpf}.jpg`;
-		const fcpFileName = `fcp_${freelancer.cpf}.jpg`;
+		const pfpFileName = `pfp_${freelancer.cpf}.jpeg`;
+		const fcpFileName = `fcp_${freelancer.cpf}.jpeg`;
 
 		const profilePicture = req.files['profilePicture'][0];
 		const facialPicture = req.files['facialPicture'][0];

@@ -40,7 +40,7 @@ async function renderFreelancers(name = '', city = '', role = '') {
 }
 
 async function fetchFreelancers(name, city, role) {
-	const url = `https://sandbox.caiohygino.software/freelancers?name=${name}&city=${city}&role=${role}`;
+	const url = `https://api.nkarbits.com.br/freelancers?name=${name}&city=${city}&role=${role}`;
 
 	try {
 		const response = await fetch(url);
@@ -62,7 +62,7 @@ function createCard(freelancer) {
 	card.appendChild(name);
 
 	const profilePicture = document.createElement('img');
-	profilePicture.src = `https://sandbox.caiohygino.software/uploads/pfp_${freelancer.cpf}.jpg`;
+	profilePicture.src = `https://api.nkarbits.com.br/freelancers/uploads/pfp_${freelancer.cpf}.jpeg`;
 	profilePicture.alt = 'Profile Picture';
 	card.appendChild(profilePicture);
 
@@ -103,7 +103,7 @@ document.getElementById('logoff').addEventListener('click', () => {
 
 document.getElementById('download').addEventListener('click', () => {
 	fetch(
-		`https://sandbox.caiohygino.software/freelancers/export?name=${currentName}&city=${currentCity}`
+		`https://api.nkarbits.com.br/freelancers/export?name=${currentName}&city=${currentCity}`
 	)
 		.then((response) => response.blob()) // Recebe a resposta como um blob
 		.then((blob) => {

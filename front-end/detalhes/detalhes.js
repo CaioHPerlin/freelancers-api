@@ -9,7 +9,7 @@ function renderDetails(freelancer) {
 	const detailsContainer = document.getElementById('details');
 	if (freelancer.facial_picture) {
 		const profilePicture = document.createElement('img');
-		profilePicture.src = `https://sandbox.caiohygino.software/uploads/fcp_${freelancer.cpf}.jpg`;
+		profilePicture.src = `https://api.nkarbits.com.br/freelancers/uploads/fcp_${freelancer.cpf}.jpeg`;
 		profilePicture.alt = 'face Picture';
 		profilePicture.style.width = '300px';
 		profilePicture.style.height = 'auto';
@@ -18,7 +18,7 @@ function renderDetails(freelancer) {
 
 	if (freelancer.profile_picture) {
 		const profilePicture = document.createElement('img');
-		profilePicture.src = `https://sandbox.caiohygino.software/uploads/pfp_${freelancer.cpf}.jpg`;
+		profilePicture.src = `https://api.nkarbits.com.br/freelancers/uploads/pfp_${freelancer.cpf}.jpeg`;
 		profilePicture.alt = 'Profile Picture';
 		profilePicture.style.width = '300px';
 		profilePicture.style.height = 'auto';

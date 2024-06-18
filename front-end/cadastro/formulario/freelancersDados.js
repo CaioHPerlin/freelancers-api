@@ -30,7 +30,7 @@ dadosfreelancers.addEventListener('submit', (evento) => {
 	const loaderContainer = document.getElementById('loadercont');
 	loaderContainer.innerHTML = '<h1 class="loader"></h1>';
 });
-// 	fetch('https://sandbox.caiohygino.software/freelancers', {
+// 	fetch('https://api.nkarbits.com.br/freelancers', {
 // 		method: 'POST',
 // 		body: freelancersData,
 // 	})
