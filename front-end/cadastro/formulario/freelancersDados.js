@@ -29,31 +29,35 @@ dadosfreelancers.addEventListener('submit', (evento) => {
 	const freelancersData = new FormData(dadosfreelancers);
 	const loaderContainer = document.getElementById('loadercont');
 	loaderContainer.innerHTML = '<h1 class="loader"></h1>';
-});
-// 	fetch('https://api.nkarbits.com.br/freelancers', {
-// 		method: 'POST',
-// 		body: freelancersData,
-// 	})
-// 		.then((res) => {
-// 			if (!res.ok) {
-// 				return res.json().then((body) => {
-// 					throw new Error(body.message);
-// 				});
-// 			}
 
-// 			return res.json();
-// 		})
-// 		.then((data) => {
-// 			loaderContainer.innerHTML = '';
-// 			console.log(data);
-// 			window.location.href = '../sucesso/';
-// 		})
-// 		.catch((err) => {
-// 			loaderContainer.innerHTML = '';
-// 			console.error(err);
-// 			alert(err.message);
-// 		});
-// });
+	for (let [key, value] of freelancersData.entries()) {
+		console.log(`${key}: ${value}`);
+	}
+
+	fetch('http://api.nkarbits.com.br/freelancers', {
+		method: 'POST',
+		body: freelancersData,
+	})
+		.then((res) => {
+			if (!res.ok) {
+				return res.json().then((body) => {
+					throw new Error(body.message);
+				});
+			}
+
+			return res.json();
+		})
+		.then((data) => {
+			loaderContainer.innerHTML = '';
+			console.log(data);
+			window.location.href = '../sucesso/';
+		})
+		.catch((err) => {
+			loaderContainer.innerHTML = '';
+			console.error(err);
+			alert(err);
+		});
+});
 
 //select api de estados e cidades
 const uf = document.querySelector('#state');

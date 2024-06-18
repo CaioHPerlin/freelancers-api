@@ -145,9 +145,10 @@ function renderDetails(freelancer) {
 	detailsContainer.appendChild(whatsappLink);
 
 	const deleteButton = document.getElementById('deleteButton');
-	deleteButton.addEventListener('click', () =>
-		deleteFreelancer(freelancer._id)
-	);
+	deleteButton.addEventListener('click', () => {
+		alert(freelancer._id);
+		deleteFreelancer(freelancer._id);
+	});
 	const editButton = document.getElementById('editButton');
 	editButton.addEventListener('click', () => editFreelancer(freelancer));
 }

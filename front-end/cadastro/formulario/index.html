@@ -21,7 +21,12 @@
 		</header>
 
 		<main class="container">
-			<form class="form" method="post" id="dadosFreelancers">
+			<form
+				class="form"
+				method="post"
+				id="dadosFreelancers"
+				enctype="multipart/form-data"
+			>
 				<div class="inputContainer">
 					<label for="name">Nome Completo</label>
 					<input
@@ -341,12 +346,12 @@
 				</div>
 
 				<div class="inputContainer">
-					<label for="facePicture">Foto do Rosto</label>
+					<label for="facialPicture">Foto do Rosto</label>
 					<input
-						name="facePicture"
+						name="facialPicture"
 						class="input ficheiro"
 						type="file"
-						id="facePicture"
+						id="facialPicture"
 						required
 						accept="image/png, image/gif, image/jpeg"
 					/>
