@@ -34,7 +34,7 @@ dadosfreelancers.addEventListener('submit', (evento) => {
 		console.log(`${key}: ${value}`);
 	}
 
-	fetch('http://api.nkarbits.com.br/freelancers', {
+	fetch('https://api.nkarbits.com.br/freelancers', {
 		method: 'POST',
 		body: freelancersData,
 	})

@@ -4,7 +4,7 @@ const loaderContainer = document.getElementById('loadercont');
 const fetchToken = async (credentials) => {
 	try {
 		const response = await fetch(
-			'http://api.nkarbits.com.br/freelancers/auth',
+			'https://api.nkarbits.com.br/freelancers/auth',
 			{
 				method: 'POST',
 				headers: {

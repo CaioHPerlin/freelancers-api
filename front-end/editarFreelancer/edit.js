@@ -8,7 +8,7 @@ function parseQueryString() {
 async function fetchFreelancer(freelancerId) {
 	try {
 		const response = await fetch(
-			`http://api.nkarbits.com.br/freelancers/${freelancerId}`
+			`https://api.nkarbits.com.br/freelancers/${freelancerId}`
 		);
 		if (!response.ok) {
 			throw new Error(
@@ -35,7 +35,7 @@ async function updateFreelancer(freelancerId, updatedData) {
 			throw new Error('Cargo é inválido');
 		}
 		const response = await fetch(
-			`http://api.nkarbits.com.br/freelancers/${freelancerId}`,
+			`https://api.nkarbits.com.br/freelancers/${freelancerId}`,
 			{
 				method: 'PUT',
 				headers: {

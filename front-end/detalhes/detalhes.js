@@ -169,7 +169,7 @@ function getBirthDate(dataString) {
 async function deleteFreelancer(freelancerId) {
 	try {
 		const response = await fetch(
-			`http://api.nkarbits.com.br/freelancers/${freelancerId}`,
+			`https://api.nkarbits.com.br/freelancers/${freelancerId}`,
 			{
 				method: 'DELETE',
 			}
