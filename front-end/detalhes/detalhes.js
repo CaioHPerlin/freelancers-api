@@ -169,7 +169,7 @@ function getBirthDate(dataString) {
 async function deleteFreelancer(freelancerId) {
 	try {
 		const response = await fetch(
-			`https://sebrae-api.vercel.app/freelancers/${freelancerId}`,
+			`http://api.nkarbits.com.br/freelancers/${freelancerId}`,
 			{
 				method: 'DELETE',
 			}
