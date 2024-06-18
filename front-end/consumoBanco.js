@@ -8,11 +8,10 @@ function setup() {
 }
 
 function checkSession() {
-	const token = window.sessionStorage.getItem('token');
-
-	if (!token) {
-		window.location.href = '/colaboradores/login/';
-	}
+	// const token = window.sessionStorage.getItem('token');
+	// if (!token) {
+	// 	window.location.href = '/colaboradores/login/';
+	// }
 }
 
 async function renderFreelancers(name = '', city = '', role = '') {
@@ -72,9 +71,14 @@ function createCard(freelancer) {
 	profilePicture.alt = 'Profile Picture';
 	card.appendChild(profilePicture);
 
+	const role = document.createElement('p');
+	role.textContent = `${freelancer.role}`;
+	role.style = 'text-transform: capitalize;';
+	card.appendChild(role);
+
 	const location = document.createElement('p');
 	location.textContent = `Cidade: ${freelancer.city}`;
-	location.style = 'text-transform: capitalize;';
+	location.style = 'text-transform: capitalize; padding:0; margin-bottom:8px';
 	card.appendChild(location);
 
 	const grade = document.createElement('p');
@@ -114,7 +118,7 @@ document.getElementById('logoff').addEventListener('click', () => {
 
 document.getElementById('download').addEventListener('click', () => {
 	fetch(
-		`https://api.nkarbits.com.br/freelancers/export?name=${currentName}&city=${currentCity}`
+		`https://api.nkarbits.com.br/freelancers/export?name=${currentName}&city=${currentCity}&role=${currentRole}`
 	)
 		.then((response) => response.blob()) // Recebe a resposta como um blob
 		.then((blob) => {
