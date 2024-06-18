@@ -15,12 +15,15 @@ const freelancerController = require('./controllers/freelancerController');
 app.use(cors());
 app.use(express.json());
 
-app.get('/helloworld', (req, res) => {
+app.get('/freelancers/helloworld', (req, res) => {
 	res.status(200).json({ message: 'hello world' });
 });
 
 // Static file serving
-app.use('freelancers/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(
+	'/freelancers/uploads',
+	express.static(path.join(__dirname, 'uploads'))
+);
 
 //Freelancers
 app.get('/freelancers', freelancerController.getAll);
@@ -82,6 +85,6 @@ app.post('/auth', async (req, res) => {
 	}
 });
 
-const listener = app.listen(3000, () => {
+const listener = app.listen(() => {
 	console.log(`http://localhost:${listener.address().port}`);
 });
