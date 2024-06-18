@@ -50,7 +50,7 @@ async function updateFreelancer(freelancerId, updatedData) {
 		);
 		if (response.ok) {
 			alert('Freelancer atualizado com sucesso!');
-			window.location.href = '../index.html';
+			window.location.href = '../';
 		} else {
 			const errorMessage = await response.text();
 			console.error('Erro ao atualizar o freelancer:', errorMessage);

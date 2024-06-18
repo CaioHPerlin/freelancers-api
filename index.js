@@ -69,9 +69,8 @@ app.post('/freelancers/auth', async (req, res) => {
 				});
 			}
 		}
-
 		console.error('Bad credentials', req.body);
-		res.status(401).json({ message: 'Incorrect credentials.' });
+		res.status(401).json({ message: 'Usuário ou Senha incorretos!' });
 	} catch (err) {
 		console.error('Error when authenticating:', err);
 		res.status(500).json({ message: 'Internal server error.' });

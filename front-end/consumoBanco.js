@@ -1,13 +1,19 @@
-const checkSession = () => {
-	const token = window.localStorage.getItem('token');
-
-	if (!token) window.location.href = '/colaboradores/login';
-};
-
-checkSession();
 let currentName, currentCity, currentRole;
 
-window.onload = renderFreelancers();
+window.onload = setup;
+
+function setup() {
+	checkSession();
+	renderFreelancers();
+}
+
+function checkSession() {
+	const token = window.sessionStorage.getItem('token');
+
+	if (!token) {
+		window.location.href = '/login/';
+	}
+}
 
 async function renderFreelancers(name = '', city = '', role = '') {
 	currentName = name;
@@ -101,7 +107,7 @@ document
 	});
 
 document.getElementById('logoff').addEventListener('click', () => {
-	window.localStorage.removeItem('token');
+	window.sessionStorage.removeItem('token');
 
 	checkSession();
 });
