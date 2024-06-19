@@ -86,6 +86,16 @@ select {
 	background-color: #a6ae36;
 }
 
+.freelancer-checkbox {
+	display: inline-block;
+	justify-self: flex-start;
+	position: absolute;
+	top: 0;
+	right: 1px;
+	width: 20px;
+	height: 20px;
+}
+
 .freelancerCard {
 	background-color: #606b3e44;
 	padding: 20px;
@@ -138,6 +148,7 @@ select {
 }
 
 .card {
+	position: relative;
 	display: grid;
 	grid-template-columns: 100%;
 	background-color: #363622aa;
@@ -220,17 +231,14 @@ button {
 	border-radius: 5px;
 }
 
-
-
-
 /* Estilos para tablets */
 @media screen and (max-width: 768px) {
 	.containerSearch {
 		grid-template-columns: 1fr;
 	}
 
-	button{
-		margin-top:5px;
+	button {
+		margin-top: 5px;
 	}
 
 	#freelancers {

@@ -7,9 +7,11 @@ function parseQueryString() {
 
 function renderDetails(freelancer) {
 	const detailsContainer = document.getElementById('details');
+	let profilePictureUrl, facialPictureUrl;
 	if (freelancer.facial_picture) {
 		const profilePicture = document.createElement('img');
-		profilePicture.src = `https://api.nkarbits.com.br/freelancers/uploads/fcp_${freelancer.cpf}.jpeg`;
+		facialPictureUrl = `https://api.nkarbits.com.br/freelancers/uploads/fcp_${freelancer.cpf}.jpeg`;
+		profilePicture.src = facialPictureUrl;
 		profilePicture.alt = 'face Picture';
 		profilePicture.style.width = '300px';
 		profilePicture.style.height = 'auto';
@@ -18,7 +20,8 @@ function renderDetails(freelancer) {
 
 	if (freelancer.profile_picture) {
 		const profilePicture = document.createElement('img');
-		profilePicture.src = `https://api.nkarbits.com.br/freelancers/uploads/pfp_${freelancer.cpf}.jpeg`;
+		profilePictureUrl = `https://api.nkarbits.com.br/freelancers/uploads/pfp_${freelancer.cpf}.jpeg`;
+		profilePicture.src = profilePictureUrl;
 		profilePicture.alt = 'Profile Picture';
 		profilePicture.style.width = '300px';
 		profilePicture.style.height = 'auto';
@@ -150,6 +153,22 @@ function renderDetails(freelancer) {
 	});
 	const editButton = document.getElementById('editButton');
 	editButton.addEventListener('click', () => editFreelancer(freelancer));
+
+	const downloadButton = document.getElementById('download');
+	downloadButton.addEventListener('click', async () => {
+		if (freelancer.profile_picture) {
+			await downloadFile(
+				profilePictureUrl,
+				`${freelancer.name}_perfil.jpeg`
+			);
+		}
+		if (freelancer.facial_picture) {
+			await downloadFile(
+				facialPictureUrl,
+				`${freelancer.name}_rosto.jpeg`
+			);
+		}
+	});
 }
 
 function getBirthDate(dataString) {
@@ -204,3 +223,18 @@ window.onload = function () {
 	const freelancer = parseQueryString();
 	renderDetails(freelancer);
 };
+
+async function downloadFile(url, fileName) {
+	try {
+		const response = await fetch(url);
+		const blob = await response.blob();
+		const link = document.createElement('a');
+		link.href = window.URL.createObjectURL(blob);
+		link.download = fileName;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+	} catch (error) {
+		console.error(`Error downloading file ${fileName}:`, error);
+	}
+}
