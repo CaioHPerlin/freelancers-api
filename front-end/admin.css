@@ -220,10 +220,17 @@ button {
 	border-radius: 5px;
 }
 
+
+
+
 /* Estilos para tablets */
 @media screen and (max-width: 768px) {
 	.containerSearch {
 		grid-template-columns: 1fr;
+	}
+
+	button{
+		margin-top:5px;
 	}
 
 	#freelancers {
