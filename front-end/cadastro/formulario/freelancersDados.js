@@ -118,3 +118,45 @@ window.addEventListener('DOMContentLoaded', () => {
 		'<option id="optVoid" value="" disabled selected>Selecione</option>';
 	selectUF();
 });
+
+const rotateProfileButton = document.getElementById('rotateProfileButton');
+const rotateFacialButton = document.getElementById('rotateFacialButton');
+const profilePreview = document.getElementById('profilePreview');
+const facialPreview = document.getElementById('facialPreview');
+
+let profileRotation = 0;
+let facialRotation = 0;
+
+rotateProfileButton.addEventListener('click', function() {
+    profileRotation += 90;
+    profilePreview.style.transform = `rotate(${profileRotation}deg)`;
+});
+
+rotateFacialButton.addEventListener('click', function() {
+    facialRotation += 90;
+    facialPreview.style.transform = `rotate(${facialRotation}deg)`;
+});
+
+
+profilePicture.addEventListener('change', function() {
+    const file = this.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        profilePreview.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+});
+
+
+facialPicture.addEventListener('change', function() {
+    const file = this.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        facialPreview.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+});

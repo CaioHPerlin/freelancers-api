@@ -108,22 +108,51 @@ label {
 	transform: scale(1.01);
 }
 
-/* Estilos do rodapé */
-footer {
-  margin-top: 60px;
-  padding: 10px;
-  text-align: center;
+
+#rotateProfileButton {
+ 
+  background-color: #606B3E;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 170px;
+	transition: background-color 0.3s ease;
 }
 
-footer p {
-  font-size: 14px;
+#rotateProfileButton:hover {
+	background-color: rgb(0, 168, 50);
+	transform: scale(1.01);
 }
 
-footer a {
-  color: #333;
-  text-decoration: none;
+
+#rotateFacialButton {
+ 
+  background-color: #606B3E;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 170px;
+	transition: background-color 0.3s ease;
 }
 
-footer a:hover {
-  text-decoration: underline;
+#rotateFacialButton:hover {
+	background-color: rgb(0, 168, 50);
+	transform: scale(1.01);
 }
+
+
+
+.fotoRosto, .fotoPerfil{
+  display: grid;
+  
+  align-items: center;
+  grid-template-columns: 60% auto;
+  grid-gap: 5px 20px;
+  margin-top: 1%;
+
+}
+

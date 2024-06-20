@@ -332,31 +332,55 @@
 						required
 					/>
 				</div>
-
-				<div class="inputContainer">
-					<label for="profilePicture">Foto de Perfil</label>
-					<input
-						name="profilePicture"
-						class="input ficheiro"
-						type="file"
-						id="profilePicture"
-						required
-						accept="image/png, image/gif, image/jpeg"
-					/>
-				</div>
-
-				<div class="inputContainer">
-					<label for="facialPicture">Foto do Rosto</label>
-					<input
-						name="facialPicture"
-						class="input ficheiro"
-						type="file"
-						id="facialPicture"
-						required
-						accept="image/png, image/gif, image/jpeg"
-					/>
-				</div>
-
+				<section class="fotoPerfil">
+					<div class="inputContainer">
+						<label for="profilePicture">Foto de Perfil</label>
+						<input
+							name="profilePicture"
+							class="input ficheiro"
+							type="file"
+							id="profilePicture"
+							required
+							accept="image/png, image/gif, image/jpeg"
+						/>
+					</div>
+					<div class="imagePreview">
+						
+						<img
+							id="profilePreview"
+							src=""
+							alt="Foto de Perfil"
+							style="max-width: 170px; margin-right: 20px"
+						/>
+						<button id="rotateProfileButton">
+							Girar Foto de Perfil
+						</button>
+					</div>
+				</section>
+				<section class="fotoRosto">
+					<div class="inputContainer">
+						<label for="facialPicture">Foto do Rosto</label>
+						<input
+							name="facialPicture"
+							class="input ficheiro"
+							type="file"
+							id="facialPicture"
+							required
+							accept="image/png, image/gif, image/jpeg"
+						/>
+					</div>
+					<div class="imagePreview">
+						<img
+							id="facialPreview"
+							src=""
+							alt="Foto do Rosto"
+							style="max-width: 170px; margin-right: 20px"
+						/>
+						<button id="rotateFacialButton">
+							Girar Foto do Rosto
+						</button>
+					</div>
+				</section>
 				<div class="inputContainer">
 					<label for="pixKey">Chave Pix e Nome do Banco</label>
 					<input
