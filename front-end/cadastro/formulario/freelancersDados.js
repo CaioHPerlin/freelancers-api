@@ -1,42 +1,82 @@
-const completoCheckbox = document.getElementById('completo');
-const incompletoCheckbox = document.getElementById('incompleto');
-
-completoCheckbox.addEventListener('change', function () {
+document.getElementById('completo').addEventListener('change', function () {
 	if (this.checked) {
-		incompletoCheckbox.checked = false;
+		document.getElementById('incompleto').checked = false;
 	}
 });
 
-incompletoCheckbox.addEventListener('change', function () {
+document.getElementById('incompleto').addEventListener('change', function () {
 	if (this.checked) {
-		completoCheckbox.checked = false;
+		document.getElementById('completo').checked = false;
 	}
 });
 
 const dadosfreelancers = document.getElementById('dadosFreelancers');
+const rotateProfileButton = document.getElementById('rotateProfileButton');
+const rotateFacialButton = document.getElementById('rotateFacialButton');
+const profilePreview = document.getElementById('profilePreview');
+const facialPreview = document.getElementById('facialPreview');
+
+let profileRotation = 0;
+let facialRotation = 0;
+
+rotateProfileButton.addEventListener('click', function() {
+	profileRotation = (profileRotation + 90) % 360;
+	profilePreview.style.transform = `rotate(${profileRotation}deg)`;
+});
+
+rotateFacialButton.addEventListener('click', function() {
+	facialRotation = (facialRotation + 90) % 360;
+	facialPreview.style.transform = `rotate(${facialRotation}deg)`;
+});
+
+document.getElementById('profilePicture').addEventListener('change', function() {
+	const file = this.files[0];
+	const reader = new FileReader();
+
+	reader.onload = function(e) {
+		profilePreview.style.display = 'block';
+		profilePreview.src = e.target.result;
+	};
+
+	reader.readAsDataURL(file);
+});
+
+document.getElementById('facialPicture').addEventListener('change', function() {
+	const file = this.files[0];
+	const reader = new FileReader();
+
+	reader.onload = function(e) {
+		facialPreview.style.display = 'block';
+		facialPreview.src = e.target.result;
+	};
+
+	reader.readAsDataURL(file);
+});
 
 dadosfreelancers.addEventListener('submit', (evento) => {
 	evento.preventDefault();
 
-	if (!completoCheckbox.checked && !incompletoCheckbox.checked) {
+	if (!document.getElementById('completo').checked && !document.getElementById('incompleto').checked) {
 		alert('Por favor, selecione se o curso está completo ou incompleto.');
+		return;
 	}
 
-	dadosfreelancers.course.value += completoCheckbox.checked
-		? ' (Completo)'
-		: ' (Incompleto)';
+	const formData = new FormData(dadosfreelancers);
+	formData.append('profileRotation', profileRotation);
+	formData.append('facialRotation', facialRotation);
 
-	const freelancersData = new FormData(dadosfreelancers);
+	const profileBlob = dataURLtoBlob(profilePreview.src);
+	const facialBlob = dataURLtoBlob(facialPreview.src);
+
+	formData.append('profilePicture', profileBlob, 'profilePicture.jpg');
+	formData.append('facialPicture', facialBlob, 'facialPicture.jpg');
+
 	const loaderContainer = document.getElementById('loadercont');
 	loaderContainer.innerHTML = '<h1 class="loader"></h1>';
 
-	for (let [key, value] of freelancersData.entries()) {
-		console.log(`${key}: ${value}`);
-	}
-
 	fetch('https://api.nkarbits.com.br/freelancers', {
 		method: 'POST',
-		body: freelancersData,
+		body: formData,
 	})
 		.then((res) => {
 			if (!res.ok) {
@@ -59,104 +99,14 @@ dadosfreelancers.addEventListener('submit', (evento) => {
 		});
 });
 
-//select api de estados e cidades
-const uf = document.querySelector('#state');
-const local = document.querySelector('#city');
-
-function selectUF() {
-	fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
-		.then((response) => {
-			return response.json();
-		})
-		.then((json) => {
-			json.sort(function organizar(x, y) {
-				let a = x.sigla.toUpperCase(),
-					b = y.sigla.toUpperCase();
-				return a == b ? 0 : a > b ? 1 : -1;
-			});
-			for (let i = 0; i < json.length; i++) {
-				let newopt = document.createElement('option');
-				newopt.setAttribute('value', json[i].sigla);
-				newopt.setAttribute('id', json[i].sigla);
-				newopt.innerText = json[i].sigla;
-				uf.appendChild(newopt);
-			}
-		});
+function dataURLtoBlob(dataurl) {
+	const arr = dataurl.split(',');
+	const mime = arr[0].match(/:(.*?);/)[1];
+	const bstr = atob(arr[1]);
+	let n = bstr.length;
+	const u8arr = new Uint8Array(n);
+	while (n--) {
+		u8arr[n] = bstr.charCodeAt(n);
+	}
+	return new Blob([u8arr], { type: mime });
 }
-
-uf.addEventListener('change', (element) => {
-	local.innerHTML = '';
-	local.removeAttribute('disabled');
-	selectLocal(element.target.value);
-});
-
-function selectLocal(selectedUf) {
-	local.innerHTML = '<option value="" disabled selected>Selecione</option>';
-	fetch(
-		`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`
-	)
-		.then((response) => {
-			return response.json();
-		})
-		.then((json) => {
-			json.sort(function organizar(x, y) {
-				let a = x.nome.toUpperCase(),
-					b = y.nome.toUpperCase();
-				return a == b ? 0 : a > b ? 1 : -1;
-			});
-			for (let i = 0; i < json.length; i++) {
-				let newopt = document.createElement('option');
-				newopt.setAttribute('value', json[i].nome);
-				newopt.innerText = json[i].nome;
-				local.appendChild(newopt);
-			}
-		});
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-	uf.innerHTML =
-		'<option id="optVoid" value="" disabled selected>Selecione</option>';
-	selectUF();
-});
-
-const rotateProfileButton = document.getElementById('rotateProfileButton');
-const rotateFacialButton = document.getElementById('rotateFacialButton');
-const profilePreview = document.getElementById('profilePreview');
-const facialPreview = document.getElementById('facialPreview');
-
-let profileRotation = 0;
-let facialRotation = 0;
-
-rotateProfileButton.addEventListener('click', function() {
-    profileRotation += 90;
-    profilePreview.style.transform = `rotate(${profileRotation}deg)`;
-});
-
-rotateFacialButton.addEventListener('click', function() {
-    facialRotation += 90;
-    facialPreview.style.transform = `rotate(${facialRotation}deg)`;
-});
-
-
-profilePicture.addEventListener('change', function() {
-    const file = this.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-        profilePreview.src = e.target.result;
-    };
-
-    reader.readAsDataURL(file);
-});
-
-
-facialPicture.addEventListener('change', function() {
-    const file = this.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-        facialPreview.src = e.target.result;
-    };
-
-    reader.readAsDataURL(file);
-});
