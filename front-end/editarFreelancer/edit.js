@@ -83,7 +83,7 @@ dadosfreelancers.addEventListener('submit', (evento) => {
 			.then((data) => {
 				loaderContainer.innerHTML = '';
 				console.log(data);
-				window.location.href = '../cadastro/sucesso/';
+				window.location.href = '../';
 			})
 			.catch((err) => {
 				loaderContainer.innerHTML = '';
