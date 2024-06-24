@@ -28,6 +28,7 @@
 						name="grade"
 						class="input"
 						type="text"
+						required
 						placeholder="Digite a Observação do Serviço Prestado"
 						id="grade"
 					/>
@@ -39,6 +40,7 @@
 						name="name"
 						class="input"
 						type="text"
+						required
 						placeholder="Digite seu nome completo"
 						id="name"
 					/>
@@ -49,6 +51,7 @@
 					<input
 						name="birthdate"
 						class="input"
+						required
 						type="date"
 						id="birthdate"
 					/>
@@ -60,6 +63,7 @@
 						name="cpf"
 						class="input"
 						type="text"
+						required
 						placeholder="Digite seu CPF"
 						id="cpf"
 					/>
@@ -69,6 +73,7 @@
 					<label for="phone">Telefone Celular</label>
 					<input
 						name="phone"
+						required
 						class="input"
 						type="tel"
 						placeholder="Digite seu telefone celular"
@@ -81,6 +86,7 @@
 					<input
 						name="email"
 						class="input"
+						required
 						type="email"
 						placeholder="Digite seu e-mail"
 						id="email"
@@ -89,7 +95,7 @@
 
 				<div class="inputContainer">
 					<label for="cargo">Cargo</label>
-					<select name="role" id="role" class="input">
+					<select name="role" id="role" required class="input">
 						<option value="">Selecione...</option>
 						<option value="manobrista">Manobrista</option>
 						<option value="bombeiro_civil">Bombeiro Civil</option>
@@ -107,6 +113,7 @@
 						id="grauEscolaridade"
 						name="education"
 						class="input"
+						required
 					>
 						<option value="Ensino Fundamental">
 							Ensino Fundamental
@@ -124,6 +131,7 @@
 					<input
 						type="text"
 						id="curso"
+						required
 						name="course"
 						placeholder="Nome do curso"
 						class="input"
@@ -135,6 +143,7 @@
 					<input
 						name="cep"
 						class="input"
+						required
 						type="text"
 						placeholder="Digite seu CEP"
 						id="cep"
@@ -147,6 +156,7 @@
 						name="street"
 						class="input"
 						type="text"
+						required
 						placeholder="Digite sua rua"
 						id="street"
 					/>
@@ -158,6 +168,7 @@
 						name="residentialNumber"
 						class="input"
 						type="number"
+						required
 						placeholder="Digite seu número residencial"
 						id="residentialNumber"
 					/>
@@ -169,6 +180,7 @@
 						name="neighborhood"
 						class="input"
 						type="text"
+						required
 						placeholder="Digite seu bairro"
 						id="neighborhood"
 					/>
@@ -180,6 +192,7 @@
 						name="height"
 						class="input"
 						type="number"
+						required
 						placeholder="Digite sua altura em cm"
 						id="height"
 					/>
@@ -191,6 +204,7 @@
 						name="weight"
 						class="input"
 						type="number"
+						required
 						placeholder="Digite seu peso em kg"
 						id="weight"
 					/>
@@ -201,6 +215,7 @@
 					<input
 						name="hairColor"
 						class="input"
+						required
 						type="text"
 						placeholder="Digite a cor do seu cabelo"
 						id="hairColor"
@@ -212,6 +227,7 @@
 					<input
 						name="eyeColor"
 						class="input"
+						required
 						type="text"
 						placeholder="Digite a cor dos seus olhos"
 						id="eyeColor"
@@ -220,7 +236,12 @@
 
 				<div class="inputContainer">
 					<label for="skinColor">Cor da Pele</label>
-					<select name="skinColor" class="input" id="skinColor">
+					<select
+						name="skinColor"
+						required
+						class="input"
+						id="skinColor"
+					>
 						<option value="branca" selected>Branca</option>
 						<option value="parda">Parda</option>
 						<option value="negra">Negra</option>
@@ -253,12 +274,22 @@
 
 				<div class="inputContainer">
 					<label for="state">Estado</label>
-					<select name="state" class="input" id="state"></select>
+					<select
+						name="state"
+						class="input"
+						required
+						id="state"
+					></select>
 				</div>
 
 				<div class="inputContainer">
 					<label for="city">Cidade</label>
-					<select name="city" class="input" id="city"></select>
+					<select
+						name="city"
+						class="input"
+						required
+						id="city"
+					></select>
 				</div>
 
 				<div class="inputContainer">
@@ -267,6 +298,7 @@
 						name="emergencyName"
 						class="input"
 						type="text"
+						required
 						placeholder="Digite o nome do seu contato de emergência"
 						id="emergencyName"
 					/>
@@ -280,6 +312,7 @@
 						name="emergencyPhone"
 						class="input"
 						type="tel"
+						required
 						placeholder="Digite o telefone do seu contato de emergência"
 						id="emergencyPhone"
 					/>
@@ -291,6 +324,7 @@
 						name="shirtSize"
 						class="input"
 						type="text"
+						required
 						placeholder="Digite o tamanho da sua camiseta (P, M, G, etc.)"
 						id="shirtSize"
 					/>
@@ -303,6 +337,8 @@
 							name="profilePicture"
 							class="input ficheiro"
 							type="file"
+							capture
+							required
 							id="profilePicture"
 							accept="image/png, image/gif, image/jpeg"
 						/>
@@ -327,6 +363,8 @@
 							name="facialPicture"
 							class="input ficheiro"
 							type="file"
+							capture
+							required
 							id="facialPicture"
 							accept="image/png, image/gif, image/jpeg"
 						/>
@@ -352,6 +390,7 @@
 						type="text"
 						placeholder="Digite sua chave Pix e nome do banco"
 						id="pixKey"
+						required
 					/>
 				</div>
 
@@ -365,6 +404,7 @@
 						maxlength="300"
 						placeholder="Digite informações complementares (máximo 300 caracteres)"
 						id="complement"
+						required
 					></textarea>
 				</div>
 
@@ -378,6 +418,7 @@
 						maxlength="300"
 						placeholder="Conte-nos sobre o seu sonho de vida (máximo 300 caracteres)"
 						id="dream"
+						required
 					></textarea>
 				</div>
 
