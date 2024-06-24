@@ -99,14 +99,20 @@ const create = async (req, res) => {
 		const facialPicture = req.files['facialPicture'][0];
 
 		await sharp(profilePicture.buffer)
-			.resize(300, 300)
+			.resize(300, 300, {
+				fit: sharp.fit.inside,
+				withoutEnlargement: true,
+			})
 			.jpeg({ quality: 80 })
 			.toFile('uploads/' + pfpFileName, (err) => {
 				err ? console.error(err) : '';
 			});
 
 		await sharp(facialPicture.buffer)
-			.resize(300, 300)
+			.resize(300, 300, {
+				fit: sharp.fit.inside,
+				withoutEnlargement: true,
+			})
 			.jpeg({ quality: 80 })
 			.toFile('uploads/' + fcpFileName, (err) => {
 				err ? console.error(err) : '';
@@ -146,7 +152,7 @@ const create = async (req, res) => {
 const update = async (req, res) => {
 	try {
 		// Check if freelancer exists on database
-		const { id, role, grade } = req.body;
+		const { id } = req.params;
 
 		const data = await pool.query('SELECT * FROM freelancer WHERE _id=$1', [
 			id,
@@ -158,16 +164,92 @@ const update = async (req, res) => {
 				.json({ message: `freelancer of id ${id} not found` });
 		}
 
+		//Delete old files
+		const previousFreelancer = data.rows[0];
+		try {
+			await fs.unlink(
+				path.join(
+					__dirname,
+					'..',
+					'uploads',
+					previousFreelancer.profile_picture
+				)
+			);
+			await fs.unlink(
+				path.join(
+					__dirname,
+					'..',
+					'uploads',
+					previousFreelancer.facial_picture
+				)
+			);
+		} catch (err) {
+			console.warn(
+				'Unable to delete image files from previous freelancer:',
+				err
+			);
+		}
+
+		// Handle req data
+		const freelancer = req.body;
+
+		freelancer.cpf = freelancer.cpf.replace(/\D/g, '');
+		freelancer.phone = freelancer.phone.replace(/\D/g, '');
+		freelancer.emergencyPhone = freelancer.emergencyPhone.replace(
+			/\D/g,
+			''
+		);
+
+		freelancer.weight = Number(freelancer.weight);
+		freelancer.height = Number(freelancer.height);
+		freelancer.dream = freelancer.dream.replace(/[^\x00-\xFF]/g, '');
+		freelancer.city = freelancer.city.toLowerCase();
+
+		const pfpFileName = `pfp_${freelancer.cpf}.jpeg`;
+		const fcpFileName = `fcp_${freelancer.cpf}.jpeg`;
+
+		const profilePicture = req.files['profilePicture'][0];
+		const facialPicture = req.files['facialPicture'][0];
+
+		await sharp(profilePicture.buffer)
+			.resize(300, 300, {
+				fit: sharp.fit.inside,
+				withoutEnlargement: true,
+			})
+			.jpeg({ quality: 80 })
+			.toFile('uploads/' + pfpFileName, (err) => {
+				err ? console.error(err) : '';
+			});
+
+		await sharp(facialPicture.buffer)
+			.resize(300, 300, {
+				fit: sharp.fit.inside,
+				withoutEnlargement: true,
+			})
+			.jpeg({ quality: 80 })
+			.toFile('uploads/' + fcpFileName, (err) => {
+				err ? console.error(err) : '';
+			});
+
+		freelancer.profilePicture = pfpFileName;
+		freelancer.facialPicture = fcpFileName;
+
+		const orderedFreelancer = orderFreelancer(freelancer);
+
 		await pool.query(
 			`
 			UPDATE freelancer
-			SET role = $1, grade = $2
-			WHERE _id=$3
+			SET "name" = $1, "cpf" = $2, "phone" = $3, "email" = $4, "cep" = $5, "street" = $6, "residential_number" = $7,
+			"neighborhood" = $8, "height" = $9, "weight" = $10, "hair_color" = $11, "eye_color" = $12, "birthdate" = $13,
+			"skin_color" = $14, "instagram" = $15, "facebook" = $16, "state" = $17, "city" = $18, "emergency_name" = $19,
+			"emergency_phone" = $20, "shirt_size" = $21, "pix_key" = $22, "complement" = $23, "dream" = $24,
+			"profile_picture" = $25, "facial_picture" = $26, "education" = $27, "course" = $28, role = $29, grade = $30
+			WHERE _id=$31
 		`,
-			[role, grade, id]
+			[...Object.values(orderedFreelancer), id]
 		);
 
-		res.status(200).json(req.body);
+		res.status(200).json(orderedFreelancer);
 	} catch (err) {
 		console.error('Error when updating freelancer:', err);
 		res.status(500).json({ message: 'internal server error', error: err });

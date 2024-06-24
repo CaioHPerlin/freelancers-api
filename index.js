@@ -37,7 +37,15 @@ app.post(
 	]), // Handle file upload through multer
 	freelancerController.create
 );
-app.put('/freelancers/:id', freelancerController.update);
+
+app.put('/freelancers/:id',
+	upload.fields([
+		{ name: 'profilePicture', maxCount: 1 },
+		{ name: 'facialPicture', maxCount: 1 },
+	]), // Handle file upload through multer
+	freelancerController.update
+);
+
 app.delete('/freelancers/:id', freelancerController.remove);
 
 // Auth
