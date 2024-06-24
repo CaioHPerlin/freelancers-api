@@ -216,7 +216,7 @@ window.onload = function () {
 
 function editFreelancer(freelancer) {
 	const serializedFreelancer = encodeURIComponent(JSON.stringify(freelancer));
-	window.location.href = `../editarFreelancer/index.html?freelancer=${serializedFreelancer}`;
+	window.location.href = `../editarFreelancer/?freelancer=${serializedFreelancer}`;
 }
 
 window.onload = function () {

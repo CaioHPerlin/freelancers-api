@@ -9,7 +9,7 @@
 			rel="stylesheet"
 			type="text/css"
 			media="screen"
-			href="freelancer.css"
+			href="./freelancer.css"
 		/>
 	</head>
 	<body>
@@ -55,7 +55,8 @@
 					<input
 						name="cpf"
 						class="input"
-						type="text"
+						pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})"
+						type="number"
 						placeholder="Digite seu CPF"
 						id="cpf"
 						required
@@ -345,14 +346,13 @@
 						/>
 					</div>
 					<div class="imagePreview">
-						
 						<img
 							id="profilePreview"
 							src=""
 							alt="Foto de Perfil"
 							style="max-width: 170px; margin-right: 20px"
 						/>
-						<button id="rotateProfileButton">
+						<button type="button" id="rotateProfileButton">
 							Girar Foto de Perfil
 						</button>
 					</div>
@@ -376,7 +376,7 @@
 							alt="Foto do Rosto"
 							style="max-width: 170px; margin-right: 20px"
 						/>
-						<button id="rotateFacialButton">
+						<button type="button" id="rotateFacialButton">
 							Girar Foto do Rosto
 						</button>
 					</div>

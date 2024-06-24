@@ -1,4 +1,4 @@
-const ENV = 'PROD';
+const ENV = 'DEV';
 let currentName, currentCity, currentRole;
 
 window.onload = setup;

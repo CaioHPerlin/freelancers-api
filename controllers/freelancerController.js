@@ -100,7 +100,7 @@ const create = async (req, res) => {
 
 		await sharp(profilePicture.buffer)
 			.resize(300, 300, {
-				fit: sharp.fit.inside,
+				fit: 'inside',
 				withoutEnlargement: true,
 			})
 			.jpeg({ quality: 80 })
@@ -110,7 +110,7 @@ const create = async (req, res) => {
 
 		await sharp(facialPicture.buffer)
 			.resize(300, 300, {
-				fit: sharp.fit.inside,
+				fit: 'inside',
 				withoutEnlargement: true,
 			})
 			.jpeg({ quality: 80 })
@@ -213,7 +213,7 @@ const update = async (req, res) => {
 
 		await sharp(profilePicture.buffer)
 			.resize(300, 300, {
-				fit: sharp.fit.inside,
+				fit: 'inside',
 				withoutEnlargement: true,
 			})
 			.jpeg({ quality: 80 })
@@ -223,7 +223,7 @@ const update = async (req, res) => {
 
 		await sharp(facialPicture.buffer)
 			.resize(300, 300, {
-				fit: sharp.fit.inside,
+				fit: 'inside',
 				withoutEnlargement: true,
 			})
 			.jpeg({ quality: 80 })
