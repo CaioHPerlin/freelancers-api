@@ -56,6 +56,15 @@ function renderDetails(freelancer) {
 	email.textContent = `E-mail: ${freelancer.email}`;
 	detailsContainer.appendChild(email);
 
+	const course = document.createElement('p');
+	course.textContent = `Curso: ${freelancer.course}`;
+	detailsContainer.appendChild(course);
+
+	
+	const education = document.createElement('p');
+	education.textContent = `Nivel de Escolaridade: ${freelancer.education}`;
+	detailsContainer.appendChild(education);
+
 	const cargo = document.createElement('p');
 	cargo.textContent = `Cargo: ${freelancer.role}`;
 	detailsContainer.appendChild(cargo);
