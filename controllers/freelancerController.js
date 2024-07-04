@@ -67,7 +67,7 @@ const orderFreelancer = (freelancer) => {
 		education: freelancer.education,
 		course: freelancer.course,
 		role: freelancer.role || 'Geral',
-		grade: 0,
+		grade: freelancer.grade || 0,
 	};
 };
 
