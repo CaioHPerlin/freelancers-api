@@ -1,24 +1,13 @@
-<<<<<<< Updated upstream
-=======
 // freelancerController.js
 
 const fs = require('fs/promises');
 const path = require('path');
->>>>>>> Stashed changes
 const sharp = require('sharp');
-const { connectToDatabase, toObjectId } = require('../db');
-const { put, del } = require('@vercel/blob');
+const pool = require('../db');
 const Parser = require('json2csv').Parser;
 
 const getAll = async (req, res) => {
-	const db = await connectToDatabase();
-	const client = db.client;
 	try {
-<<<<<<< Updated upstream
-		const freelancersCollection = db.collection('freelancers');
-		const freelancers = await freelancersCollection.find().toArray();
-		res.status(200).json(freelancers);
-=======
 		let query = `SELECT * FROM freelancer WHERE LOWER(name) LIKE $1 AND LOWER(city) LIKE $2 AND $3 = ANY(role)`;
 		let params = [
 			`%${req.query.name || ''}%`,
@@ -28,17 +17,12 @@ const getAll = async (req, res) => {
 
 		const data = (await pool.query(query + ` ORDER BY name`, params)) || [];
 		res.status(200).json(data.rows);
->>>>>>> Stashed changes
 	} catch (err) {
 		console.error('Error when listing freelancers:', err);
-		res.status(500).json({ message: 'internal server error' });
-	} finally {
-		await client.close();
+		res.status(500).json({ message: 'internal server error', error: err });
 	}
 };
 
-<<<<<<< Updated upstream
-=======
 const getOne = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -87,62 +71,28 @@ const orderFreelancer = (freelancer) => {
 	};
 };
 
->>>>>>> Stashed changes
 const create = async (req, res) => {
-	const db = await connectToDatabase();
-	const client = db.client;
-	const freelancer = req.body;
 	try {
+		const freelancer = req.body;
+
 		freelancer.cpf = freelancer.cpf.replace(/\D/g, '');
 		freelancer.phone = freelancer.phone.replace(/\D/g, '');
-<<<<<<< Updated upstream
-		freelancer.emergencyPhone = freelancer.emergencyPhone.replace(
-			/\D/g,
-			''
-		);
-		freelancer.city = freelancer.city.toLowerCase();
-
-		const freelancersCollection = db.collection('freelancers');
-=======
 		freelancer.emergencyPhone = freelancer.emergencyPhone.replace(/\D/g, '');
 		freelancer.dream = freelancer.dream.replace(/[^\x00-\xFF]/g, '');
 		freelancer.city = freelancer.city.toLowerCase();
 
 		const data = await pool.query('SELECT * FROM freelancer WHERE cpf=$1', [freelancer.cpf]);
->>>>>>> Stashed changes
 
-		const existingFreelancer = await freelancersCollection.findOne({
-			cpf: freelancer.cpf,
-		});
-		if (existingFreelancer) {
-			return res
-				.status(409)
-				.json({ message: 'CPF already registered! ' });
+		if (data.rowCount > 0) {
+			return res.status(409).json({ message: 'CPF already registered' });
 		}
-
-		const profilePicture = req.files['profilePicture'][0];
-		const facePicture = req.files['facePicture'][0];
 
 		const pfpFileName = `pfp_${freelancer.cpf}.jpeg`;
 		const fcpFileName = `fcp_${freelancer.cpf}.jpeg`;
 
-		const pfpFile = await sharp(profilePicture.buffer)
-			.resize(300, 300)
-			.jpeg({ quality: 80 });
-		const fcpFile = await sharp(facePicture.buffer)
-			.resize(300, 300)
-			.jpeg({ quality: 80 });
+		const profilePicture = req.files['profilePicture'][0];
+		const facialPicture = req.files['facialPicture'][0];
 
-<<<<<<< Updated upstream
-		await put(pfpFileName, pfpFile, {
-			access: 'public',
-			addRandomSuffix: false,
-		});
-		await put(fcpFileName, fcpFile, {
-			access: 'public',
-			addRandomSuffix: false,
-		});
-=======
 		await sharp(profilePicture.buffer)
 			.resize(300, 300, { fit: 'inside', withoutEnlargement: true })
 			.jpeg({ quality: 80 })
@@ -156,20 +106,34 @@ const create = async (req, res) => {
 			.toFile('uploads/' + fcpFileName, (err) => {
 				if (err) console.error(err);
 			});
->>>>>>> Stashed changes
 
 		freelancer.profilePicture = pfpFileName;
-		freelancer.facePicture = fcpFileName;
+		freelancer.facialPicture = fcpFileName;
 
-		await freelancersCollection.insertOne(req.body);
-		res.status(201).json(req.body);
+		const orderedFreelancer = orderFreelancer(freelancer);
+
+		await pool.query(
+			`
+				INSERT INTO freelancer (
+					"name", "cpf", "phone", "email", "cep", "street", "residential_number",
+					"neighborhood", "height", "weight", "hair_color", "eye_color", "birthdate",
+					"skin_color", "instagram", "facebook", "state", "city", "emergency_name",
+					"emergency_phone", "shirt_size", "pix_key", "complement", "dream",
+					"profile_picture", "facial_picture", "education", "course", "role", "grade"
+				) VALUES (
+					$1, $2, $3, $4, $5, $6, $7,
+					$8, $9, $10, $11, $12, $13,
+					$14, $15, $16, $17, $18, $19,
+					$20, $21, $22, $23, $24,
+					$25, $26, $27, $28, $29, $30
+				);
+			`,
+			Object.values(orderedFreelancer)
+		);
+
+		res.status(201).json(orderedFreelancer);
 	} catch (err) {
 		console.error('Error when creating a freelancer:', err);
-<<<<<<< Updated upstream
-		res.status(500).json({ message: 'internal server error' });
-	} finally {
-		await client.close();
-=======
 		res.status(500).json({ message: 'internal server error', error: err });
 	}
 };
@@ -245,31 +209,11 @@ const update = async (req, res) => {
 	} catch (err) {
 		console.error('Error when updating freelancer:', err);
 		res.status(500).json({ message: 'internal server error', error: err });
->>>>>>> Stashed changes
 	}
 };
 
 const remove = async (req, res) => {
-	const { id } = req.params;
-	const db = await connectToDatabase();
-	const client = db.client;
 	try {
-<<<<<<< Updated upstream
-		const freelancersCollection = db.collection('freelancers');
-		const freelancer = await freelancersCollection.findOne({
-			_id: toObjectId(id),
-		});
-
-		const pfpURL = `https://ub7txpxyf1bghrmk.public.blob.vercel-storage.com/${freelancer.profilePicture}`;
-		const fcpURL = `https://ub7txpxyf1bghrmk.public.blob.vercel-storage.com/${freelancer.facePicture}`;
-
-		await del([pfpURL, fcpURL]);
-
-		await freelancersCollection.deleteOne({ _id: toObjectId(id) });
-		res.status(200).json({
-			message: 'user successfully deleted from database',
-		});
-=======
 		const { id } = req.params;
 
 		const data = await pool.query('SELECT * FROM freelancer WHERE _id=$1', [id]);
@@ -291,55 +235,34 @@ const remove = async (req, res) => {
 		} catch (err) {
 			console.warn('Unable to delete image files from the above freelancer:', err);
 		}
->>>>>>> Stashed changes
 	} catch (err) {
 		console.error('Error when deleting user from database:', err);
-		res.status(500).json({ message: 'internal server error' });
-	} finally {
-		await client.close();
+		res.status(500).json({ message: 'internal server error', error: err });
 	}
 };
 
-const getByCity = async (req, res) => {
-	const db = await connectToDatabase();
-	const client = db.client;
-	const { city } = req.params;
+const exportCSV = async (req, res) => {
 	try {
-<<<<<<< Updated upstream
-		const freelancersCollection = db.collection('freelancers');
-		const freelancersFromCity = await freelancersCollection
-			.find({ city: city })
-			.toArray();
-		res.status(200).json(freelancersFromCity);
-	} catch (err) {
-		console.error('Error when querying by cities:', err);
-		res.status(500).json({ message: 'internal server error' });
-	} finally {
-		client.close();
-	}
-};
-
-const getCSV = async (req, res) => {
-	const db = await connectToDatabase();
-	const client = db.client;
-	try {
-		const freelancersCollection = db.collection('freelancers');
-		const freelancers = await freelancersCollection
-			.find({}, { _id: 0 })
-			.toArray();
-=======
 		let query = `SELECT * FROM freelancer WHERE LOWER(name) LIKE $1 AND LOWER(city) LIKE $2 AND $3 = ANY(role)`;
 		let params = [
 			`%${req.query.name || ''}%`,
 			`%${req.query.city || ''}%`,
 			req.query.role ? `%${req.query.role.toLowerCase()}%` : '%%',
 		];
->>>>>>> Stashed changes
 
+		const data = (await pool.query(query + ` ORDER BY name`, params)) || [];
 		const fields = [
 			{
 				label: 'Nome Completo',
 				value: 'name',
+			},
+			{
+				label: 'Cargo',
+				value: 'role',
+			},
+			{
+				label: 'Pontuação',
+				value: 'grade',
 			},
 			{
 				label: 'CPF',
@@ -358,12 +281,20 @@ const getCSV = async (req, res) => {
 				value: 'cep',
 			},
 			{
+				label: 'Cidade',
+				value: 'city',
+			},
+			{
+				label: 'Estado',
+				value: 'state',
+			},
+			{
 				label: 'Rua',
 				value: 'street',
 			},
 			{
 				label: 'Número Residencial',
-				value: 'residentialNumber',
+				value: 'residential_number',
 			},
 			{
 				label: 'Bairro',
@@ -378,16 +309,20 @@ const getCSV = async (req, res) => {
 				value: 'weight',
 			},
 			{
+				label: 'Data de Nascimento',
+				value: 'birthdate',
+			},
+			{
 				label: 'Cor do Cabelo',
-				value: 'hairColor',
+				value: 'hair_color',
 			},
 			{
 				label: 'Cor dos Olhos',
-				value: 'eyeColor',
+				value: 'eye_color',
 			},
 			{
 				label: 'Cor de Pele',
-				value: 'skinColor',
+				value: 'skin_color',
 			},
 			{
 				label: 'Instagram',
@@ -398,28 +333,20 @@ const getCSV = async (req, res) => {
 				value: 'facebook',
 			},
 			{
-				label: 'Estado',
-				value: 'state',
-			},
-			{
-				label: 'Cidade',
-				value: 'city',
-			},
-			{
 				label: 'Contato Emergencial',
-				value: 'emergencyName',
+				value: 'emergency_name',
 			},
 			{
 				label: 'Telefone Emergencial',
-				value: 'emergencyPhone',
+				value: 'emergency_phone',
 			},
 			{
 				label: 'Tamanho de Camiseta',
-				value: 'shirtSize',
+				value: 'shirt_size',
 			},
 			{
 				label: 'Chave PIX',
-				value: 'pixKey',
+				value: 'pix_key',
 			},
 			{
 				label: 'Complemento',
@@ -429,10 +356,23 @@ const getCSV = async (req, res) => {
 				label: 'Sonho',
 				value: 'dream',
 			},
+			{
+				label: 'Grau de Escolaridade',
+				value: 'education',
+			},
+			{
+				label: 'Curso',
+				value: 'course',
+			},
 		];
 
-		const csvParser = new Parser({ fields: fields, delimiter: ';', defaultValue: '-', excelStrings: true });
-		const csvData = csvParser.parse(freelancers);
+		const csvParser = new Parser({
+			fields: fields,
+			delimiter: ';',
+			defaultValue: '-',
+			excelStrings: true,
+		});
+		const csvData = csvParser.parse(data.rows);
 
 		res.type('text/csv');
 		res.attachment('dadosFreelancers.csv');
@@ -440,16 +380,15 @@ const getCSV = async (req, res) => {
 		res.status(200).send(csvData);
 	} catch (err) {
 		console.error('Error exporting to csv:', err);
-		res.status(500).json({ message: 'internal server error' });
-	} finally {
-		await client.close();
+		res.status(500).json({ message: 'internal server error', error: err });
 	}
 };
 
 module.exports = {
 	getAll,
-	getByCity,
-	getCSV,
+	getOne,
 	create,
+	update,
 	remove,
+	exportCSV,
 };
