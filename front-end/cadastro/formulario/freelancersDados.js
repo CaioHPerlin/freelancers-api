@@ -1,3 +1,46 @@
+document.addEventListener('DOMContentLoaded', function () {
+	const addRoleButton = document.getElementById('addRole');
+	const additionalRolesContainer = document.getElementById('additionalRoles');
+	let roleCounter = 1;
+
+	addRoleButton.addEventListener('click', function () {
+		roleCounter++;
+
+		const newRoleField = document.createElement('div');
+		newRoleField.classList.add('inputContainer');
+
+		newRoleField.innerHTML = `
+            <label for="role${roleCounter}">Cargo</label>
+            <select id="role${roleCounter}" name="roles[]" class="input role-select" required>
+				<option value="">Selecione...</option>
+				<option value="manobrista">Manobrista</option>
+				<option value="bombeiro_civil">Bombeiro Civil</option>
+				<option value="seguranca">Segurança</option>
+				<option value="limpeza">Limpeza</option>
+				<option value="brigadista">Brigadista</option>
+				<option value="promotor">Promotor</option>
+				<option value="recepcionista">Recepcionista</option>
+            </select>
+            <button type="button" class="delete-role button">Excluir</button>
+        `;
+
+		additionalRolesContainer.appendChild(newRoleField);
+
+		// Add event listener to delete button
+		const deleteButton = newRoleField.querySelector('.delete-role');
+		deleteButton.addEventListener('click', function () {
+			newRoleField.remove();
+		});
+	});
+
+	// Event delegation for delete buttons within additional roles container
+	additionalRolesContainer.addEventListener('click', function (event) {
+		if (event.target.classList.contains('delete-role')) {
+			event.target.parentElement.remove();
+		}
+	});
+});
+
 const completoCheckbox = document.getElementById('completo');
 const incompletoCheckbox = document.getElementById('incompleto');
 
@@ -25,7 +68,18 @@ dadosfreelancers.addEventListener('submit', (evento) => {
 		return;
 	}
 
+	// Collect all selected roles
+	const roleSelects = document.querySelectorAll('.role-select');
+	const selectedRoles = [];
+
+	roleSelects.forEach((select) => {
+		if (select.value !== '') {
+			selectedRoles.push(select.value);
+		}
+	});
+
 	const freelancersData = new FormData(dadosfreelancers);
+	freelancersData.append('role', JSON.stringify(selectedRoles));
 	const loaderContainer = document.getElementById('loadercont');
 	loaderContainer.innerHTML = '<h1 class="loader"></h1>';
 

@@ -38,7 +38,8 @@ app.post(
 	freelancerController.create
 );
 
-app.put('/freelancers/:id',
+app.put(
+	'/freelancers/:id',
 	upload.fields([
 		{ name: 'profilePicture', maxCount: 1 },
 		{ name: 'facialPicture', maxCount: 1 },

@@ -87,9 +87,15 @@
 					/>
 				</div>
 
+				<!-- Initial select field -->
 				<div class="inputContainer">
-					<label for="cargo">Cargo</label>
-					<select id="servicosEvento" name="role" class="input">
+					<label for="role1">Cargo</label>
+					<select
+						id="role1"
+						name="roles[]"
+						class="input role-select"
+						required
+					>
 						<option value="">Selecione...</option>
 						<option value="manobrista">Manobrista</option>
 						<option value="bombeiro_civil">Bombeiro Civil</option>
@@ -100,6 +106,12 @@
 						<option value="recepcionista">Recepcionista</option>
 					</select>
 				</div>
+
+				<div id="additionalRoles"></div>
+
+				<button type="button" id="addRole" class="button">
+					Adicionar Cargo
+				</button>
 
 				<div class="inputContainer">
 					<label for="grauEscolaridade">Grau de Escolaridade</label>

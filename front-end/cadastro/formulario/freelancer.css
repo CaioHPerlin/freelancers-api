@@ -1,42 +1,41 @@
 /* Estilos globais */
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-image: url(../../assets/img/fundoTRW.jpeg);
+	font-family: Arial, sans-serif;
+	background-image: url(../../assets/img/fundoTRW.jpeg);
 	background-size: cover;
 }
 
 .container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 20px;
 }
 
 /* Estilos do cabeçalho */
 header {
-  
-  color: #fff;
-  padding: 20px;
-  display: flex;
-  align-items: center;
+	color: #fff;
+	padding: 20px;
+	display: flex;
+	align-items: center;
 }
 
-header img{
-  max-width: 10%;
-  max-height: 10%;
+header img {
+	max-width: 10%;
+	max-height: 10%;
 }
 
-.titleCadastro{
-  margin-top: 0.5%;
-  margin-left: 10px;
+.titleCadastro {
+	margin-top: 0.5%;
+	margin-left: 10px;
 }
 .loader {
-  margin: auto;
+	margin: auto;
 	height: 50px;
 	width: 50px;
 	border-radius: 50%;
@@ -56,50 +55,49 @@ header img{
 }
 
 h1 {
-  font-size: 24px;
+	font-size: 24px;
 }
 
 /* Estilos do formulário de cadastro */
 .form-section {
-  background-color: #fff;
-  color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 20px;
+	background-color: #fff;
+	color: white;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 20px;
 }
 
 .inputContainer {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 label {
-  font-weight: bold;
-  color: white;
+	font-weight: bold;
+	color: white;
 }
 
 .input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  
+	width: 100%;
+	padding: 10px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
 }
 
-.ficheiro{
-  color: white;
+.ficheiro {
+	color: white;
 }
 
 .button {
-  float: right;
-  background-color: #606B3E;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 200px;
+	float: right;
+	background-color: #606b3e;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 200px;
 	transition: background-color 0.3s ease;
 }
 
@@ -108,16 +106,29 @@ label {
 	transform: scale(1.01);
 }
 
+.delete-role {
+	float: none;
+	background-color: #7a2727;
+}
+
+.delete-role:hover {
+	background-color: #a41717;
+}
+
+#addRole {
+	float: none;
+	width: 100%;
+	margin-bottom: 20px;
+}
 
 #rotateProfileButton {
- 
-  background-color: #606B3E;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 170px;
+	background-color: #606b3e;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 170px;
 	transition: background-color 0.3s ease;
 }
 
@@ -126,16 +137,14 @@ label {
 	transform: scale(1.01);
 }
 
-
 #rotateFacialButton {
- 
-  background-color: #606B3E;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 170px;
+	background-color: #606b3e;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 170px;
 	transition: background-color 0.3s ease;
 }
 
@@ -144,15 +153,12 @@ label {
 	transform: scale(1.01);
 }
 
+.fotoRosto,
+.fotoPerfil {
+	display: grid;
 
-
-.fotoRosto, .fotoPerfil{
-  display: grid;
-  
-  align-items: center;
-  grid-template-columns: 60% auto;
-  grid-gap: 5px 20px;
-  margin-top: 1%;
-
+	align-items: center;
+	grid-template-columns: 60% auto;
+	grid-gap: 5px 20px;
+	margin-top: 1%;
 }
-

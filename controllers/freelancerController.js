@@ -6,14 +6,20 @@ const Parser = require('json2csv').Parser;
 
 const getAll = async (req, res) => {
 	try {
-		let query = `SELECT * FROM freelancer WHERE LOWER(name) LIKE $1 AND LOWER(city) LIKE $2 AND LOWER(role) LIKE $3`;
+		let query = `SELECT * FROM freelancer WHERE LOWER(name) LIKE $1 AND LOWER(city) LIKE $2`;
 		let params = [
-			`%${req.query.name || ''}%`,
-			`%${req.query.city || ''}%`,
-			`%${req.query.role || ''}%`,
+			`%${(req.query.name || '').toLowerCase()}%`,
+			`%${(req.query.city || '').toLowerCase()}%`,
 		];
 
-		const data = (await pool.query(query + ` ORDER BY name`, params)) || [];
+		if (req.query.role) {
+			query += ` AND LOWER($3) = ANY(ARRAY(SELECT LOWER(unnest(role))))`;
+			params.push(req.query.role.toLowerCase());
+		}
+
+		query += ` ORDER BY name`;
+
+		const data = await pool.query(query, params);
 		res.status(200).json(data.rows);
 	} catch (err) {
 		console.error('Error when listing freelancers:', err);
@@ -37,6 +43,9 @@ const getOne = async (req, res) => {
 };
 
 const orderFreelancer = (freelancer) => {
+	let role = JSON.parse(freelancer.role) || ['Geral'];
+	uniqueRoles = [...new Set(role)];
+
 	return {
 		name: freelancer.name,
 		cpf: freelancer.cpf,
@@ -66,7 +75,7 @@ const orderFreelancer = (freelancer) => {
 		facial_picture: freelancer.facialPicture,
 		education: freelancer.education,
 		course: freelancer.course,
-		role: freelancer.role || 'Geral',
+		role: uniqueRoles,
 		grade: freelancer.grade || 0,
 	};
 };
@@ -151,7 +160,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
 	try {
-		// Check if freelancer exists on database
+		console.log('Attempt');
 		const { id } = req.params;
 
 		const data = await pool.query('SELECT * FROM freelancer WHERE _id=$1', [
@@ -164,7 +173,6 @@ const update = async (req, res) => {
 				.json({ message: `freelancer of id ${id} not found` });
 		}
 
-		//Delete old files
 		const previousFreelancer = data.rows[0];
 		try {
 			await fs.unlink(
@@ -190,7 +198,6 @@ const update = async (req, res) => {
 			);
 		}
 
-		// Handle req data
 		const freelancer = req.body;
 
 		freelancer.cpf = freelancer.cpf.replace(/\D/g, '');
@@ -199,7 +206,6 @@ const update = async (req, res) => {
 			/\D/g,
 			''
 		);
-
 		freelancer.weight = Number(freelancer.weight);
 		freelancer.height = Number(freelancer.height);
 		freelancer.dream = freelancer.dream.replace(/[^\x00-\xFF]/g, '');
@@ -243,9 +249,9 @@ const update = async (req, res) => {
 			"neighborhood" = $8, "height" = $9, "weight" = $10, "hair_color" = $11, "eye_color" = $12, "birthdate" = $13,
 			"skin_color" = $14, "instagram" = $15, "facebook" = $16, "state" = $17, "city" = $18, "emergency_name" = $19,
 			"emergency_phone" = $20, "shirt_size" = $21, "pix_key" = $22, "complement" = $23, "dream" = $24,
-			"profile_picture" = $25, "facial_picture" = $26, "education" = $27, "course" = $28, role = $29, grade = $30
-			WHERE _id=$31
-		`,
+			"profile_picture" = $25, "facial_picture" = $26, "education" = $27, "course" = $28, "role" = $29, "grade" = $30
+			WHERE _id = $31;
+			`,
 			[...Object.values(orderedFreelancer), id]
 		);
 

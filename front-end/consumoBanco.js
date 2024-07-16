@@ -85,7 +85,11 @@ function createCard(freelancer) {
 	card.appendChild(profilePicture);
 
 	const role = document.createElement('p');
-	role.textContent = `${freelancer.role}`;
+	role.textContent = `${freelancer.role}`
+		.split('_')
+		.join(' ')
+		.split(',')
+		.join(',\n');
 	role.style = 'text-transform: capitalize;';
 	card.appendChild(role);
 

@@ -15,7 +15,21 @@ const dadosfreelancers = document.getElementById('editFreelancers');
 dadosfreelancers.addEventListener('submit', (evento) => {
 	evento.preventDefault();
 
+	// Collect all selected roles
+	const roleSelects = document.querySelectorAll('.role-select');
+	const selectedRoles = [];
+
+	roleSelects.forEach((select) => {
+		if (select.value !== '') {
+			selectedRoles.push(select.value);
+		}
+	});
+
 	const freelancersData = new FormData(dadosfreelancers);
+	freelancersData.append('role', JSON.stringify(selectedRoles));
+
+	console.log(freelancersData);
+
 	const loaderContainer = document.getElementById('loadercont');
 	loaderContainer.innerHTML = '<h1 class="loader"></h1>';
 
@@ -224,8 +238,42 @@ document.addEventListener('DOMContentLoaded', async () => {
 			);
 		}
 
-		populateRoleDropdown(freelancerDetails.role);
+		populateRoleFields(freelancerDetails.role);
 	}
+
+	// Add event listener for adding new role
+	const addRoleButton = document.getElementById('addRole');
+	addRoleButton.addEventListener('click', function () {
+		const additionalRolesContainer =
+			document.getElementById('additionalRoles');
+
+		const newRoleField = document.createElement('div');
+		newRoleField.classList.add('inputContainer');
+
+		newRoleField.innerHTML = `
+            <label>Cargo</label>
+            <select name="roles[]" class="input role-select" required>
+                <option value="">Selecione...</option>
+                <option value="manobrista">Manobrista</option>
+                <option value="bombeiro_civil">Bombeiro Civil</option>
+                <option value="seguranca">Segurança</option>
+                <option value="limpeza">Limpeza</option>
+                <option value="brigadista">Brigadista</option>
+                <option value="promotor">Promotor</option>
+                <option value="recepcionista">Recepcionista</option>
+                <!-- Add more options as needed -->
+            </select>
+            <button type="button" class="delete-role button">Excluir</button>
+        `;
+
+		additionalRolesContainer.appendChild(newRoleField);
+
+		// Add event listener to delete button
+		const deleteButton = newRoleField.querySelector('.delete-role');
+		deleteButton.addEventListener('click', function () {
+			newRoleField.remove();
+		});
+	});
 });
 
 function capitalizeFirstLetter(string) {
@@ -236,27 +284,47 @@ function capitalizeFirstLetter(string) {
 	return capitalizedWords.join(' ');
 }
 
-function populateRoleDropdown(selectedRole) {
-	const roleDropdown = document.getElementById('role');
-	const roles = [
-		'geral',
-		'manobrista',
-		'bombeiro civil',
-		'seguranca',
-		'limpeza',
-		'brigadista',
-		'promotor',
-		'recepcionista',
-	];
-	roleDropdown.innerHTML = '';
-	roles.forEach((role) => {
-		const option = document.createElement('option');
-		option.value = role;
-		option.textContent = capitalizeFirstLetter(role);
-		if (role === selectedRole) {
-			option.selected = true;
+function populateRoleFields(selectedRoles) {
+	const additionalRolesContainer = document.getElementById('additionalRoles');
+
+	selectedRoles.forEach((role, index) => {
+		const newRoleField = document.createElement('div');
+		newRoleField.classList.add('inputContainer');
+
+		newRoleField.innerHTML = `
+            <label for="role${index + 1}">Cargo</label>
+            <select id="role${
+				index + 1
+			}" name="roles[]" class="input role-select" required>
+                <option value="">Selecione...</option>
+				<option value="geral">Geral</option>
+                <option value="manobrista">Manobrista</option>
+                <option value="bombeiro_civil">Bombeiro Civil</option>
+                <option value="seguranca">Segurança</option>
+                <option value="limpeza">Limpeza</option>
+                <option value="brigadista">Brigadista</option>
+                <option value="promotor">Promotor</option>
+                <option value="recepcionista">Recepcionista</option>
+                <!-- Add more options as needed -->
+            </select>
+            ${
+				index != 0
+					? `<button type="button" class="delete-role button">Excluir</button>`
+					: ''
+			}
+        `;
+
+		newRoleField.querySelector('select').value = role; // Set selected value
+
+		additionalRolesContainer.appendChild(newRoleField);
+
+		// Add event listener to delete button
+		if (index != 0) {
+			const deleteButton = newRoleField.querySelector('.delete-role');
+			deleteButton.addEventListener('click', function () {
+				newRoleField.remove();
+			});
 		}
-		roleDropdown.appendChild(option);
 	});
 }
 

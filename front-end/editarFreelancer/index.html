@@ -93,19 +93,12 @@
 					/>
 				</div>
 
-				<div class="inputContainer">
-					<label for="cargo">Cargo</label>
-					<select name="role" id="role" required class="input">
-						<option value="">Selecione...</option>
-						<option value="manobrista">Manobrista</option>
-						<option value="bombeiro_civil">Bombeiro Civil</option>
-						<option value="seguranca">Segurança</option>
-						<option value="limpeza">Limpeza</option>
-						<option value="brigadista">Brigadista</option>
-						<option value="promotor">Promotor</option>
-						<option value="recepcionista">Recepcionista</option>
-					</select>
-				</div>
+				<!-- Initial select field -->
+				<div id="additionalRoles"></div>
+
+				<button type="button" id="addRole" class="button">
+					Adicionar Cargo
+				</button>
 
 				<div class="inputContainer">
 					<label for="grauEscolaridade">Grau de Escolaridade</label>
