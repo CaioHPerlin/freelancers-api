@@ -34,8 +34,8 @@ header {
 }
 
 header img {
-	max-width: 10%;
-	max-height: 10%;
+	max-width: 15vh;
+	max-height: 15vh;
 }
 
 .titleCadastro {
@@ -194,6 +194,8 @@ button {
 }
 
 .card img {
+	opacity: 0;
+	transition: all 0.1s ease-in;
 	outline: solid #000000aa 2px;
 	border: solid #e2e242aa 2px;
 	border-radius: 6px;
@@ -202,6 +204,18 @@ button {
 	object-fit: cover;
 	margin-left: auto;
 	margin-right: auto;
+	color: transparent;
+	animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+	0% {
+		background-color: hsl(125, 20%, 50%);
+	}
+
+	100% {
+		background-color: hsl(125, 20%, 75%);
+	}
 }
 
 #freelancers {
@@ -255,6 +269,10 @@ button {
 @media screen and (max-width: 480px) {
 	#freelancers {
 		grid-template-columns: 1fr; /* Apenas uma coluna em dispositivos móveis */
+	}
+
+	.card {
+		width: 80%;
 	}
 }
 

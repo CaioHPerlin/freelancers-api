@@ -79,6 +79,11 @@ function createCard(freelancer) {
 	const facePictureUrl = `https://api.nkarbits.com.br/freelancers/uploads/fcp_${freelancer.cpf}.jpeg`;
 
 	const profilePicture = document.createElement('img');
+	profilePicture.loading = 'lazy';
+	profilePicture.addEventListener(
+		'load',
+		() => (profilePicture.style.opacity = '1')
+	);
 	profilePicture.src = profilePictureUrl;
 	profilePicture.alt = 'Profile Picture';
 	profilePicture.classList.add('freelancer-profile-picture');
