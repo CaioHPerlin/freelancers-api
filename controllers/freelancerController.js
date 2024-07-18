@@ -77,6 +77,7 @@ const orderFreelancer = (freelancer) => {
 		course: freelancer.course,
 		role: uniqueRoles,
 		grade: freelancer.grade || 0,
+		role_obs: freelancer.roleObs,
 	};
 };
 
@@ -139,13 +140,13 @@ const create = async (req, res) => {
 					"neighborhood", "height", "weight", "hair_color", "eye_color", "birthdate",
 					"skin_color", "instagram", "facebook", "state", "city", "emergency_name",
 					"emergency_phone", "shirt_size", "pix_key", "complement", "dream",
-					"profile_picture", "facial_picture", "education", "course", "role", "grade"
+					"profile_picture", "facial_picture", "education", "course", "role", "grade", "role_obs"
 				) VALUES (
 					$1, $2, $3, $4, $5, $6, $7,
 					$8, $9, $10, $11, $12, $13,
 					$14, $15, $16, $17, $18, $19,
 					$20, $21, $22, $23, $24,
-					$25, $26, $27, $28, $29, $30
+					$25, $26, $27, $28, $29, $30, $31
 				);
 			`,
 			Object.values(orderedFreelancer)
@@ -249,8 +250,8 @@ const update = async (req, res) => {
 			"neighborhood" = $8, "height" = $9, "weight" = $10, "hair_color" = $11, "eye_color" = $12, "birthdate" = $13,
 			"skin_color" = $14, "instagram" = $15, "facebook" = $16, "state" = $17, "city" = $18, "emergency_name" = $19,
 			"emergency_phone" = $20, "shirt_size" = $21, "pix_key" = $22, "complement" = $23, "dream" = $24,
-			"profile_picture" = $25, "facial_picture" = $26, "education" = $27, "course" = $28, "role" = $29, "grade" = $30
-			WHERE _id = $31;
+			"profile_picture" = $25, "facial_picture" = $26, "education" = $27, "course" = $28, "role" = $29, "grade" = $30, role_obs = $31
+			WHERE _id = $32;
 			`,
 			[...Object.values(orderedFreelancer), id]
 		);
@@ -313,12 +314,16 @@ const remove = async (req, res) => {
 
 const exportCSV = async (req, res) => {
 	try {
-		let query = `SELECT * FROM freelancer WHERE LOWER(name) LIKE $1 AND LOWER(city) LIKE $2 AND LOWER(role) LIKE $3`;
+		let query = `SELECT * FROM freelancer WHERE LOWER(name) LIKE $1 AND LOWER(city) LIKE $2`;
 		let params = [
-			`%${req.query.name || ''}%`,
-			`%${req.query.city || ''}%`,
-			`%${req.query.role || ''}%`,
+			`%${(req.query.name || '').toLowerCase()}%`,
+			`%${(req.query.city || '').toLowerCase()}%`,
 		];
+
+		if (req.query.role) {
+			query += ` AND LOWER($3) = ANY(ARRAY(SELECT LOWER(unnest(role))))`;
+			params.push(req.query.role.toLowerCase());
+		}
 
 		const data = (await pool.query(query + ` ORDER BY name`, params)) || [];
 		const fields = [
@@ -327,8 +332,12 @@ const exportCSV = async (req, res) => {
 				value: 'name',
 			},
 			{
-				label: 'Cargo',
+				label: 'Cargos',
 				value: 'role',
+			},
+			{
+				label: 'Observação do Cargo',
+				value: 'role_obs',
 			},
 			{
 				label: 'Pontuação',

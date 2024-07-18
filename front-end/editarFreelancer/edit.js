@@ -16,17 +16,18 @@ dadosfreelancers.addEventListener('submit', (evento) => {
 	evento.preventDefault();
 
 	// Collect all selected roles
-	const roleSelects = document.querySelectorAll('.role-select');
-	const selectedRoles = [];
+	const roleInputs = document.querySelectorAll('.role-input');
+	const userRoles = [];
 
-	roleSelects.forEach((select) => {
-		if (select.value !== '') {
-			selectedRoles.push(select.value);
+	console.log(roleInputs);
+	roleInputs.forEach((input) => {
+		if (input.value !== '') {
+			userRoles.push(input.value);
 		}
 	});
 
 	const freelancersData = new FormData(dadosfreelancers);
-	freelancersData.append('role', JSON.stringify(selectedRoles));
+	freelancersData.append('role', JSON.stringify(userRoles));
 
 	console.log(freelancersData);
 
@@ -97,7 +98,7 @@ dadosfreelancers.addEventListener('submit', (evento) => {
 			.then((data) => {
 				loaderContainer.innerHTML = '';
 				console.log(data);
-				window.location.href = '../';
+				// window.location.href = '../';
 			})
 			.catch((err) => {
 				loaderContainer.innerHTML = '';
@@ -238,6 +239,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 			);
 		}
 
+		if (freelancerDetails.role_obs) {
+			document.getElementById('role_obs').value =
+				freelancerDetails.role_obs;
+		}
+
 		populateRoleFields(freelancerDetails.role);
 	}
 
@@ -252,17 +258,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 		newRoleField.innerHTML = `
             <label>Cargo</label>
-            <select name="roles[]" class="input role-select" required>
-                <option value="">Selecione...</option>
-                <option value="manobrista">Manobrista</option>
-                <option value="bombeiro_civil">Bombeiro Civil</option>
-                <option value="seguranca">Segurança</option>
-                <option value="limpeza">Limpeza</option>
-                <option value="brigadista">Brigadista</option>
-                <option value="promotor">Promotor</option>
-                <option value="recepcionista">Recepcionista</option>
-                <!-- Add more options as needed -->
-            </select>
+            <input  name="roles[]" class="input role-input" required/>
             <button type="button" class="delete-role button">Excluir</button>
         `;
 
@@ -292,29 +288,19 @@ function populateRoleFields(selectedRoles) {
 		newRoleField.classList.add('inputContainer');
 
 		newRoleField.innerHTML = `
-            <label for="role${index + 1}">Cargo</label>
-            <select id="role${
-				index + 1
-			}" name="roles[]" class="input role-select" required>
-                <option value="">Selecione...</option>
-				<option value="geral">Geral</option>
-                <option value="manobrista">Manobrista</option>
-                <option value="bombeiro_civil">Bombeiro Civil</option>
-                <option value="seguranca">Segurança</option>
-                <option value="limpeza">Limpeza</option>
-                <option value="brigadista">Brigadista</option>
-                <option value="promotor">Promotor</option>
-                <option value="recepcionista">Recepcionista</option>
-                <!-- Add more options as needed -->
-            </select>
+		${
+			index != 0
+				? ''
+				: '<h2 style="margin-bottom: 18px">Funções / Possíveis Cargos</h2>'
+		}
+		<label for="role-${index}">Cargo ${index + 1}</label>
+		<input type="text" id="role-${index}" name="roles[]" class="input role-input" value="${role}">
             ${
 				index != 0
-					? `<button type="button" class="delete-role button">Excluir</button>`
+					? `<button type="button" style="float: right; margin-bottom: 8px" class="delete-role button">Excluir</button>`
 					: ''
 			}
         `;
-
-		newRoleField.querySelector('select').value = role; // Set selected value
 
 		additionalRolesContainer.appendChild(newRoleField);
 

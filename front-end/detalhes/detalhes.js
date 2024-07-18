@@ -60,18 +60,32 @@ function renderDetails(freelancer) {
 	course.textContent = `Curso: ${freelancer.course}`;
 	detailsContainer.appendChild(course);
 
-	
 	const education = document.createElement('p');
 	education.textContent = `Nivel de Escolaridade: ${freelancer.education}`;
 	detailsContainer.appendChild(education);
 
 	const cargo = document.createElement('p');
-	cargo.textContent = `Cargo: ${freelancer.role}`;
+	cargo.textContent = `Cargos: ${`${freelancer.role}`
+		.split('_')
+		.join(' ')
+		.split(',')
+		.join(',\n')}`;
 	detailsContainer.appendChild(cargo);
 
 	const cep = document.createElement('p');
 	cep.textContent = `CEP: ${freelancer.cep}`;
 	detailsContainer.appendChild(cep);
+
+	const cargoObs = document.createElement('p');
+	cargoObs.textContent = `Observação dos Cargos: ${
+		freelancer.role_obs ? freelancer.role_obs : 'Nenhuma'
+	}`;
+	detailsContainer.appendChild(cargoObs);
+
+	// grade.textContent = `Nota de atuação: ${
+	// 	freelancer.grade ? freelancer.grade : 'Não especificada'
+	// }`;
+	// detailsContainer.appendChild(grade);
 
 	const rua = document.createElement('p');
 	rua.textContent = `Rua: ${freelancer.street}`;
