@@ -101,6 +101,10 @@ footer a:hover {
 #details p {
 	margin-bottom: 5px;
 }
+button {
+	margin-top: 5px;
+	margin-right: 5px;
+}
 
 /* Estilos para o botão de deletar */
 #deleteButton {
