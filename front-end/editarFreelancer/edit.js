@@ -1,3 +1,9 @@
+if (location.protocol !== 'https:') {
+	location.replace(
+		`https:${location.href.substring(location.protocol.length)}`
+	);
+}
+
 function parseQueryString() {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
@@ -98,7 +104,7 @@ dadosfreelancers.addEventListener('submit', (evento) => {
 			.then((data) => {
 				loaderContainer.innerHTML = '';
 				console.log(data);
-				// window.location.href = '../';
+				window.location.href = '../';
 			})
 			.catch((err) => {
 				loaderContainer.innerHTML = '';

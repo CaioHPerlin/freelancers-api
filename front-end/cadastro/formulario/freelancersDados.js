@@ -1,3 +1,9 @@
+if (location.protocol !== 'https:') {
+	location.replace(
+		`https:${location.href.substring(location.protocol.length)}`
+	);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 	const addRoleButton = document.getElementById('addRole');
 	const additionalRolesContainer = document.getElementById('additionalRoles');

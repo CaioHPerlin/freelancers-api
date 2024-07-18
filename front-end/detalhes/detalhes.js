@@ -1,3 +1,9 @@
+if (location.protocol !== 'https:') {
+	location.replace(
+		`https:${location.href.substring(location.protocol.length)}`
+	);
+}
+
 function parseQueryString() {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
