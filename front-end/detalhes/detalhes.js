@@ -1,9 +1,3 @@
-if (location.protocol !== 'https:') {
-	location.replace(
-		`https:${location.href.substring(location.protocol.length)}`
-	);
-}
-
 function parseQueryString() {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
@@ -106,11 +100,11 @@ function renderDetails(freelancer) {
 	detailsContainer.appendChild(bairro);
 
 	const altura = document.createElement('p');
-	altura.textContent = `Altura: ${freelancer.height}`;
+	altura.textContent = `Altura: ${freelancer.height}cm`;
 	detailsContainer.appendChild(altura);
 
 	const peso = document.createElement('p');
-	peso.textContent = `Peso: ${freelancer.weight}`;
+	peso.textContent = `Peso: ${freelancer.weight}kg`;
 	detailsContainer.appendChild(peso);
 
 	const hairColor = document.createElement('p');
@@ -156,6 +150,10 @@ function renderDetails(freelancer) {
 	const pixKey = document.createElement('p');
 	pixKey.textContent = `Chave Pix: ${freelancer.pix_key}`;
 	detailsContainer.appendChild(pixKey);
+
+	const spacer = document.createElement('p');
+	spacer.textContent = ``;
+	detailsContainer.appendChild(spacer);
 
 	const complemento = document.createElement('p');
 	complemento.style.textAlign = 'justify';

@@ -1,9 +1,3 @@
-if (location.protocol !== 'https:') {
-	location.replace(
-		`https:${location.href.substring(location.protocol.length)}`
-	);
-}
-
 function parseQueryString() {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
@@ -281,6 +275,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 function capitalizeFirstLetter(string) {
 	const words = string.split(' ');
 	const capitalizedWords = words.map((word) => {
+		if (word == 'de' || word == 'do' || word == 'da') {
+			return word;
+		}
 		return word.charAt(0).toUpperCase() + word.slice(1);
 	});
 	return capitalizedWords.join(' ');

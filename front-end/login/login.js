@@ -1,9 +1,3 @@
-if (location.protocol !== 'https:') {
-	location.replace(
-		`https:${location.href.substring(location.protocol.length)}`
-	);
-}
-
 const formAuth = document.getElementById('auth');
 const loaderContainer = document.getElementById('loadercont');
 
